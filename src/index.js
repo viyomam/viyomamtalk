@@ -11,7 +11,7 @@ import Index from './components/Index'
 import Board from './components/Board'
 import Thread from './components/Thread'
 
-const url = "https://refire-discussion.firebaseio.com/"
+import url from './url'
 
 const bindings = {
   "categories": {
@@ -59,6 +59,16 @@ const bindings = {
     path: (state) => {
       if (state.routing.params.threadId) {
         return `threads/${state.routing.params.threadId}/posts`
+      } else {
+        return null
+      }
+    }
+  },
+  "user": {
+    type: "Object",
+    path: (state) => {
+      if (state.firebase.authenticatedUser) {
+        return `users/${state.firebase.authenticatedUser.uid}`
       } else {
         return null
       }
