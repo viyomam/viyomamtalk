@@ -1,0 +1,105 @@
+{
+  "categories": {
+    "0": {
+      "title": "General",
+      "active": true,
+      "boards": {"0": true, "1": true, "3": true}
+    },
+    "1": {
+      "title": "Support",
+      "active": true,
+      "boards": {"2": true}
+    }
+  },
+  "boards": {
+    "0": {
+      "title": "Announcements",
+      "active": true,
+      "threads": {
+        "0": true,
+        "1": true
+      }
+    },
+    "1": {
+      "title": "General discussion",
+      "active": true,
+      "threads": {
+        "2": true,
+        "3": true
+      }
+    },
+    "2": {
+      "title": "Technical support",
+      "active": true,
+      "threads": {
+        "4": true
+      }
+    },
+    "3": {
+      "title": "Testing",
+      "active": false,
+      "threads": {}
+    }
+  },
+  "threads": {
+    "0": {
+      "title": "Refire released",
+      "posts": {
+        "0": true,
+        "1": true
+      }
+    },
+    "1": {
+      "title": "Discussion is now open",
+      "posts": {
+        "2": true,
+        "3": true
+      }
+    },
+    "2": {
+      "title": "Is Angular 2 any good?",
+      "posts": {
+        "4": true,
+        "5": true
+      }
+    },
+    "3": {
+      "title": "React 0.15 beta",
+      "posts": {
+        "6": true
+      }
+    },
+    "4": {
+      "title": "How do I use this?",
+      "posts": {
+        "7": true
+      }
+    }
+  },
+  "posts": {
+    "0": {
+      "body": "Refire 0.10 has been released, enjoy!"
+    },
+    "1": {
+      "body": "Looking good!"
+    },
+    "2": {
+      "body": "This discussion is now open, feel free to try it out!"
+    },
+    "3": {
+      "body": "But this doesn't have any features?"
+    },
+    "4": {
+      "body": "I saw some Angular 2 videos and it's looking good, what do you think?"
+    },
+    "5": {
+      "body": "No, it's still overly complicated and uses weird DSL for template generation."
+    },
+    "6": {
+      "body": "When do you think we'll see the first React 0.15 beta?"
+    },
+    "7": {
+      "body": "I have no idea how to use this, plz halp!"
+    }
+  }
+}
