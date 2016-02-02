@@ -1,37 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { bindings, routeActions, Link } from 'refire-app'
-import find from 'lodash/collection/find'
+import { bindings, Link } from 'refire-app'
 import { Card } from 'elemental'
 
-const Categories = ({ categories, boards }) => {
-  return (
-    <div>
-      {
-        categories.map(({ key, value: category }) => {
-          return (
-            <Card key={key}>
-              <h2>{category.title}</h2>
-              <div>
-                {
-                  Object.keys(category.boards).map((boardId) => {
-                    const board = find(boards, (board) => {
-                      return board.key === boardId
-                    }) || { value: {} }
-                    return (
-                      <h3 key={boardId}>
-                        <Link to={`board/${board.key}`}>{board.value.title}</Link>
-                      </h3>
-                    )
-                  })
-                }
-              </div>
-            </Card>
-          )
-        })
-      }
-    </div>
-  )
-}
+import Categories from './Categories'
 
 class Index extends Component {
 
