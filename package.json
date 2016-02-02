@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "elemental": "^0.5.11",
+    "emojilib": "^2.0.2",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
     "react": "^0.14.7",

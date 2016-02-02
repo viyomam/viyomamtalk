@@ -1,7 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
 import { Firebase, FirebaseWrite } from 'refire-app'
+import emojilib from 'emojilib'
 import url from '../url'
+
+const emojis = Object.keys(emojilib.lib).reduce((result, key) => {
+  result[key] = result[key] || emojilib.lib[key].char
+  emojilib.lib[key].keywords.forEach(keyword => {
+    result[keyword] = result[keyword] || emojilib.lib[key].char
+  })
+  return result
+}, {})
 
 const userProfileStyle = {
   margin: "0 0 10px 0"
@@ -12,6 +21,18 @@ const profileImageStyle = {
   height: "40px",
   width: "40px",
   margin: "0 10px 0 0"
+}
+
+function replaceEmojis(str) {
+  const re = /\:(\w+)\:/g
+  return (str.match(re) || []).reduce((str, match) => {
+    const keyword = match.replace(/\:/g,"")
+    if (emojis[keyword]) {
+      return str.replace(match, emojis[keyword])
+    } else {
+      return str
+    }
+  }, str)
 }
 
 class ReplyToTopic extends Component {
@@ -55,7 +76,7 @@ class ReplyToTopic extends Component {
   updateField(field) {
     return (event) => {
       event.preventDefault()
-      this.setState({ [field]: event.target.value })
+      this.setState({ [field]: replaceEmojis(event.target.value) })
     }
   }
 
