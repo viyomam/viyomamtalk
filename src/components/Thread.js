@@ -2,12 +2,15 @@ import React, { Component, PropTypes } from 'react'
 import { bindings } from 'refire-app'
 import { Button, Row, Col, Card, Spinner } from 'elemental'
 import moment from 'moment'
+import ReactMarkdown from 'react-markdown'
 
 import ReplyToTopic from './ReplyToTopic'
 
 const imageStyle = {
   width: "40px",
-  height: "40px"
+  height: "40px",
+  borderRadius: "20px",
+  marginTop: "10px",
 }
 
 const spinnerContainerStyle = {
@@ -15,7 +18,39 @@ const spinnerContainerStyle = {
 }
 
 const headerStyle = {
-  minHeight: "28px"
+  minHeight: "28px",
+  margin: "0.2em 0 1em 0"
+}
+
+const profileContainerStyle = {
+  position: "relative",
+  textAlign: "center"
+}
+
+const bodyContainerStyle = {
+  margin: "0 0 10px 0"
+}
+
+const Post = ({ post }) => {
+  return (
+    <Row>
+      <Col xs="2/12" sm="1/8" lg="1/12">
+        <div style={profileContainerStyle}>
+
+
+          <img src={post.user.image} style={imageStyle} />
+        </div>
+      </Col>
+      <Col xs="10/12" sm="7/8" lg="11/12">
+        <Card>
+          <div style={bodyContainerStyle}>
+            <ReactMarkdown source={post.body} />
+          </div>
+          <strong>{post.user.displayName}</strong> {moment(post.createdAt, "x").format("DD.MM.YYYY HH:mm")}
+        </Card>
+      </Col>
+    </Row>
+  )
 }
 
 const Posts = ({ posts }) => {
@@ -25,20 +60,7 @@ const Posts = ({ posts }) => {
     return (
       <div>
         {
-          posts.map(({ key, value: post}) => {
-            return (
-              <Row key={key}>
-                <Col xs="1/6">
-                  {moment(post.createdAt, "x").format("DD.MM.YYYY HH:mm")}
-                  <strong>{post.user.displayName}</strong>
-                  <img src={post.user.image} style={imageStyle} />
-                </Col>
-                <Col xs="5/6" key={key}>
-                  <Card key={key}>{post.body}</Card>
-                </Col>
-              </Row>
-            )
-          })
+          posts.map(({ key, value: post}) => <Post key={key} post={post} />)
         }
       </div>
     )

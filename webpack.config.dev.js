@@ -28,6 +28,10 @@ module.exports = {
         loader: "style-loader!css-loader!postcss-loader"
       },
       {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
         test: /\.less$/,
         loader: "style!css!less"
       },
