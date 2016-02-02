@@ -51,6 +51,18 @@ const profileImageStyle = {
   width: "40px"
 }
 
+const spinnerContainerStyle = {
+  width: "100%",
+  height: "100%",
+  display: "table"
+}
+
+const verticalAlignStyle = {
+  display: "table-cell",
+  verticalAlign: "middle",
+  textAlign: "center",
+}
+
 const Authentication = ({ user }) => {
   if (user) {
     return (
@@ -77,7 +89,13 @@ class App extends Component {
     const loading = !connected && !initialFetchDone
 
     if (loading) {
-      return <Spinner size="lg" />
+      return (
+        <div style={spinnerContainerStyle}>
+          <div style={verticalAlignStyle}>
+            <Spinner size="lg" />
+          </div>
+        </div>
+      )
     }
 
     return (

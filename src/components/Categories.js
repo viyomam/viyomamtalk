@@ -9,10 +9,14 @@ function findBoard(boards, boardId) {
   }) || { value: {} }
 }
 
+const spinnerContainerStyle = {
+  padding: "30px 0",
+}
+
 const LoadingSpinner = ({ categories, boards }) => {
   return (
     <Card>
-      <Spinner />
+      <div style={spinnerContainerStyle}><Spinner /></div>
     </Card>
   )
 }

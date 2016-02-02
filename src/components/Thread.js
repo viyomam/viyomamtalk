@@ -10,9 +10,17 @@ const imageStyle = {
   height: "40px"
 }
 
+const spinnerContainerStyle = {
+  padding: "30px 0",
+}
+
+const headerStyle = {
+  minHeight: "28px"
+}
+
 const Posts = ({ posts }) => {
   if (!posts.length) {
-    return <div><Spinner /></div>
+    return <div style={spinnerContainerStyle}><Spinner /></div>
   } else {
     return (
       <div>
@@ -39,14 +47,14 @@ const Posts = ({ posts }) => {
 
 class Thread extends Component {
   render() {
-    const {key: threadKey, value: thread = []} = this.props.thread || {}
+    const {key: threadKey, value: thread = {}} = this.props.thread || {}
     const {value: posts = []} = this.props.threadPosts || {}
     const { authenticatedUser: user } = this.props._status
 
     return (
       <div>
         <Card>
-          <h2>{thread.title}</h2>
+          <h2 style={headerStyle}>{thread.title}</h2>
           <Posts posts={posts} />
         </Card>
         <ReplyToTopic user={user} threadKey={threadKey} />

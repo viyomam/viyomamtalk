@@ -5,6 +5,7 @@ injectTapEventPlugin()
 
 // import elemental css
 import '../node_modules/elemental/less/elemental.less'
+import './global.css'
 
 import App from './components/App'
 import Index from './components/Index'

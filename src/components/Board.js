@@ -5,9 +5,17 @@ import sortBy from 'lodash/collection/sortBy'
 
 import PostNewTopic from './PostNewTopic'
 
+const spinnerContainerStyle = {
+  padding: "30px 0",
+}
+
+const headerStyle = {
+  minHeight: "28px"
+}
+
 const Threads = ({ boardId, threads }) => {
   if (!threads.length) {
-    return <div><Spinner /></div>
+    return <div style={spinnerContainerStyle}><Spinner /></div>
   } else {
     return (
       <div>
@@ -37,7 +45,7 @@ class Board extends Component {
     return (
       <div>
         <Card>
-          <h2>{board.title}</h2>
+          <h2 style={headerStyle}>{board.title}</h2>
           <Threads boardId={boardId} threads={boardThreads} />
         </Card>
         <PostNewTopic user={user} boardId={boardId} />
