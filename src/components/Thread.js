@@ -71,7 +71,7 @@ class Thread extends Component {
   render() {
     const {key: threadKey, value: thread = {}} = this.props.thread || {}
     const {value: posts = []} = this.props.threadPosts || {}
-    const { authenticatedUser: user } = this.props._status
+    const { authenticatedUser: user } = this.props
 
     return (
       <div>
@@ -85,4 +85,4 @@ class Thread extends Component {
   }
 }
 
-export default bindings("thread", "threadPosts", "_status")(Thread)
+export default bindings(["thread", "threadPosts"], ["authenticatedUser"])(Thread)

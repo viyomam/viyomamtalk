@@ -23,4 +23,4 @@ class Index extends Component {
   }
 }
 
-export default bindings("categories", "boards")(Index)
+export default bindings(["categories", "boards"])(Index)

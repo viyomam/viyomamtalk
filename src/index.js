@@ -13,6 +13,7 @@ import Board from './components/Board'
 import Thread from './components/Thread'
 
 import url from './url'
+import { userReducer } from './reducers'
 
 const bindings = {
   "categories": {
@@ -85,4 +86,4 @@ const routes = (
   </Route>
 )
 
-refireApp({ url, bindings, routes })
+refireApp({ url, bindings, routes, reducers: { authenticatedUser: userReducer } })

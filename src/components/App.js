@@ -12,7 +12,8 @@ const topBarContainerStyle = {
   position: "fixed",
   left: 0,
   right: 0,
-  height: "50px"
+  height: "50px",
+  zIndex: 1
 }
 
 const topbarStyle = {
@@ -66,7 +67,7 @@ const verticalAlignStyle = {
 const Authentication = ({ user }) => {
   if (user) {
     return (
-      <img style={profileImageStyle} src={user.google.profileImageURL} />
+      <img style={profileImageStyle} src={user.profileImageURL} />
     )
   } else {
     return (
@@ -85,7 +86,7 @@ class App extends Component {
   }
 
   render() {
-    const { _status: { connected, initialFetchDone, authenticatedUser } } = this.props
+    const { _status: { connected, initialFetchDone }, authenticatedUser } = this.props
     const loading = !connected && !initialFetchDone
 
     if (loading) {
@@ -116,4 +117,4 @@ class App extends Component {
   }
 }
 
-export default bindings("_status", "user")(App)
+export default bindings(["_status"], ["authenticatedUser"])(App)

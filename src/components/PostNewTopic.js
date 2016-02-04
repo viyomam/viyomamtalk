@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
 import { Firebase, FirebaseWrite } from 'refire-app'
 import url from '../url'
+import { replaceEmojis } from '../utils'
 
 const userProfileStyle = {
   margin: "0 0 10px 0"
@@ -40,8 +41,8 @@ class PostNewTopic extends Component {
         createdAt: Firebase.ServerValue.TIMESTAMP,
         lastPostAt: Firebase.ServerValue.TIMESTAMP,
         user: {
-          displayName: user.google.displayName,
-          image: user.google.profileImageURL,
+          displayName: user.displayName,
+          image: user.profileImageURL,
           id: user.uid
         },
         posts: {
@@ -53,8 +54,8 @@ class PostNewTopic extends Component {
         createdAt: Firebase.ServerValue.TIMESTAMP,
         threadId: threadKey,
         user: {
-          displayName: user.google.displayName,
-          image: user.google.profileImageURL,
+          displayName: user.displayName,
+          image: user.profileImageURL,
           id: user.uid
         }
       },
@@ -70,18 +71,19 @@ class PostNewTopic extends Component {
   updateField(field) {
     return (event) => {
       event.preventDefault()
-      this.setState({ [field]: event.target.value })
+      this.setState({ [field]: replaceEmojis(event.target.value) })
     }
   }
 
   render() {
     const { user } = this.props
     const submitEnabled = this.state.topic && this.state.text
+    if (!user) return <div />
     return (
       <Card>
         <div style={userProfileStyle}>
-          <img style={profileImageStyle} src={user.google.profileImageURL} />
-          <strong>{user.google.displayName}</strong>
+          <img style={profileImageStyle} src={user.profileImageURL} />
+          <strong>{user.displayName}</strong>
         </div>
         <Form>
           <FormField>

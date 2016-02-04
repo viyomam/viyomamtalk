@@ -40,7 +40,7 @@ class Board extends Component {
   render() {
     const {key: boardId, value: board = []} = this.props.board || {}
     const {value: boardThreads = []} = this.props.boardThreads || {}
-    const { authenticatedUser: user } = this.props._status
+    const { authenticatedUser: user } = this.props
 
     return (
       <div>
@@ -54,4 +54,4 @@ class Board extends Component {
   }
 }
 
-export default bindings("board", "boardThreads", "_status")(Board)
+export default bindings(["board", "boardThreads"], ["authenticatedUser"])(Board)
