@@ -6,7 +6,7 @@ body {
   height: 100%;
 }
 
-#app {
+#app, .app-container {
   height: 100%;
 }
 
@@ -18,4 +18,8 @@ blockquote {
 
 p {
   margin: 0;
+}
+
+.Pagination__count {
+  display: none;
 }

@@ -1,57 +1,65 @@
 import React, { Component, PropTypes } from 'react'
-import { bindings, Link, FirebaseWrite } from 'refire-app'
-import { Card, Spinner } from 'elemental'
+import { bindings, Link, FirebaseWrite, styles } from 'refire-app'
+import { Card, Spinner, Pagination } from 'elemental'
 import sortBy from 'lodash/collection/sortBy'
+import drop from 'lodash/array/drop'
+import take from 'lodash/array/take'
 
-import PostNewTopic from './PostNewTopic'
+import PostNewTopic from './Board/PostNewTopic'
+import Threads from './Board/Threads'
+import ShowPagination from './Board/ShowPagination'
 
-const spinnerContainerStyle = {
-  padding: "30px 0",
-}
-
-const headerStyle = {
-  minHeight: "28px"
-}
-
-const Threads = ({ boardId, threads }) => {
-  if (!threads.length) {
-    return <div style={spinnerContainerStyle}><Spinner /></div>
-  } else {
-    return (
-      <div>
-        {
-          sortBy(threads, (thread) => thread.value.lastPostAt).reverse().map(({ key, value: thread }) => {
-            console.log( "replies", Object.keys(thread.posts).length - 1 )
-            return (
-              <h3 key={key}>
-                <Link to={`/board/${boardId}/${key}`}>
-                  {thread.title}
-                </Link>
-              </h3>
-            )
-          })
-        }
-      </div>
-    )
-  }
-}
+// TODO: load from firebase settings collection
+const PAGE_SIZE = 5
 
 class Board extends Component {
+
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      currentPage: 1
+    }
+    this.handlePageSelect = this.handlePageSelect.bind(this)
+  }
+
+  handlePageSelect(page) {
+    this.setState({ currentPage: page })
+  }
+
   render() {
     const {key: boardId, value: board = []} = this.props.board || {}
     const {value: boardThreads = []} = this.props.boardThreads || {}
-    const { authenticatedUser: user } = this.props
+    const { authenticatedUser: user, styles } = this.props
+
+    const pagedThreads = take(
+      drop(
+        sortBy(
+          boardThreads,
+          (thread) => thread.value.lastPostAt
+        ).reverse(),
+        (this.state.currentPage - 1) * PAGE_SIZE
+      ),
+      PAGE_SIZE
+    )
 
     return (
       <div>
         <Card>
-          <h2 style={headerStyle}>{board.title}</h2>
-          <Threads boardId={boardId} threads={boardThreads} />
+          <h2 className={styles.header}>{board.title}</h2>
+          <Threads boardId={boardId} threads={pagedThreads} />
         </Card>
+        <ShowPagination
+          currentPage={this.state.currentPage}
+          handlePageSelect={this.handlePageSelect}
+          threads={boardThreads} />
         <PostNewTopic user={user} boardId={boardId} />
       </div>
     )
   }
 }
 
-export default bindings(["board", "boardThreads"], ["authenticatedUser"])(Board)
+export default styles({
+  header: {
+    minHeight: "28px"
+  }
+}, bindings(["board", "boardThreads"], ["authenticatedUser"])(Board))

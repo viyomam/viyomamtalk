@@ -1,19 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
-import { Firebase, FirebaseWrite } from 'refire-app'
-import url from '../url'
-import { replaceEmojis } from '../utils'
-
-const userProfileStyle = {
-  margin: "0 0 10px 0"
-}
-
-const profileImageStyle = {
-  borderRadius: "20px",
-  height: "40px",
-  width: "40px",
-  margin: "0 10px 0 0"
-}
+import { Firebase, FirebaseWrite, styles } from 'refire-app'
+import url from '../../url'
+import { replaceEmojis, quote } from '../../utils'
 
 class ReplyToTopic extends Component {
 
@@ -24,6 +13,19 @@ class ReplyToTopic extends Component {
     }
     this.submit = this.submit.bind(this)
     this.updateField = this.updateField.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.quote !== this.props.quote) {
+      this.setState({
+        text: quote(replaceEmojis(`${nextProps.quote}`))
+      }, () => {
+        if (this.refs.input) {
+          this.refs.input.scrollTop = this.refs.input.scrollHeight
+          this.refs.input.focus()
+        }
+      })
+    }
   }
 
   submit(event) {
@@ -61,27 +63,44 @@ class ReplyToTopic extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user, styles } = this.props
     const submitEnabled = !!this.state.text
     if (!user) return <div />
     return (
       <Card>
-        <div style={userProfileStyle}>
-          <img style={profileImageStyle} src={user.profileImageURL} />
+        <div className={styles.userProfile}>
+          <img className={styles.profileImage} src={user.profileImageURL} />
           <strong>{user.displayName}</strong>
         </div>
         <Form>
           <FormField>
-            <FormInput placeholder="Text (markdown enabled)" value={this.state.text} multiline onChange={this.updateField("text")} />
+            <FormInput
+              placeholder="Text (markdown enabled)"
+              value={this.state.text}
+              multiline
+              onChange={this.updateField("text")}
+              ref="input" />
           </FormField>
-          <Button disabled={!submitEnabled} type="success" onClick={this.submit}><Glyph icon="plus" /> Reply to topic</Button>
-          <Button type="link"><Glyph icon="eye-watch" />Preview</Button>
+          <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
+            <Glyph icon="plus" /> Reply to topic
+          </Button>
+          <Button type="link">
+            <Glyph icon="eye-watch" />Preview
+          </Button>
         </Form>
       </Card>
     )
   }
 }
 
-export default FirebaseWrite({
-  method: "update"
-})(ReplyToTopic)
+export default styles({
+  userProfile: {
+    margin: "0 0 10px 0"
+  },
+  profileImage: {
+    borderRadius: "20px",
+    height: "40px",
+    width: "40px",
+    margin: "0 10px 0 0"
+  }
+}, FirebaseWrite({ method: "update" })(ReplyToTopic))

@@ -1,19 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
-import { Firebase, FirebaseWrite } from 'refire-app'
-import url from '../url'
-import { replaceEmojis } from '../utils'
-
-const userProfileStyle = {
-  margin: "0 0 10px 0"
-}
-
-const profileImageStyle = {
-  borderRadius: "20px",
-  height: "40px",
-  width: "40px",
-  margin: "0 10px 0 0"
-}
+import { Firebase, FirebaseWrite, styles } from 'refire-app'
+import url from '../../url'
+import { replaceEmojis } from '../../utils'
 
 class PostNewTopic extends Component {
 
@@ -38,6 +27,7 @@ class PostNewTopic extends Component {
       [`boards/${boardId}/threads/${threadKey}`]: true,
       [`threads/${threadKey}`]: {
         title: this.state.topic,
+        boardId: boardId,
         createdAt: Firebase.ServerValue.TIMESTAMP,
         lastPostAt: Firebase.ServerValue.TIMESTAMP,
         user: {
@@ -76,13 +66,13 @@ class PostNewTopic extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user, styles } = this.props
     const submitEnabled = this.state.topic && this.state.text
     if (!user) return <div />
     return (
       <Card>
-        <div style={userProfileStyle}>
-          <img style={profileImageStyle} src={user.profileImageURL} />
+        <div className={styles.userProfile}>
+          <img className={styles.profileImage} src={user.profileImageURL} />
           <strong>{user.displayName}</strong>
         </div>
         <Form>
@@ -100,6 +90,14 @@ class PostNewTopic extends Component {
   }
 }
 
-export default FirebaseWrite({
-  method: "update"
-})(PostNewTopic)
+export default styles({
+  userProfile: {
+    margin: "0 0 10px 0"
+  },
+  profileImage: {
+    borderRadius: "20px",
+    height: "40px",
+    width: "40px",
+    margin: "0 10px 0 0"
+  }
+}, FirebaseWrite({ method: "update" })(PostNewTopic))

@@ -12,7 +12,7 @@ export const userReducer = (state = null, action) => {
       displayName,
       profileImageURL
     }
-  } else if (action.type === USER_AUTHENTICATED) {
+  } else if (action.type === USER_UNAUTHENTICATED) {
     return null
   } else {
     return state

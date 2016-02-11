@@ -19,3 +19,8 @@ export function replaceEmojis(str) {
     }
   }, str)
 }
+
+export function quote(str) {
+  if (str === "") return str
+  return "> ".concat(str).split("\n").join("\n> ").concat("\n\n")
+}

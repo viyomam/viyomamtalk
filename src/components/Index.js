@@ -5,12 +5,6 @@ import { Card } from 'elemental'
 import Categories from './Categories'
 
 class Index extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {  }
-  }
-
   render() {
     const {value: categories = []} = this.props.categories || {}
     const {value: boards = []} = this.props.boards || {}

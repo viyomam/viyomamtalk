@@ -1,5 +1,5 @@
 import React from 'react'
-import refireApp, { IndexRoute, Route } from 'refire-app'
+import refireApp, { IndexRoute, Route, Firebase } from 'refire-app'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
@@ -11,6 +11,7 @@ import App from './components/App'
 import Index from './components/Index'
 import Board from './components/Board'
 import Thread from './components/Thread'
+import Profile from './components/Profile'
 
 import url from './url'
 import { userReducer } from './reducers'
@@ -75,6 +76,36 @@ const bindings = {
         return null
       }
     }
+  },
+  "profile": {
+    type: "Object",
+    path: (state) => {
+      if (state.routing.params.uid) {
+        return `users/${state.routing.params.uid}`
+      } else {
+        return null
+      }
+    }
+  },
+  "profilePosts": {
+    populate: (key) => `posts/${key}`,
+    path: (state) => {
+      if (state.routing.params.uid) {
+        return `users/${state.routing.params.uid}/posts`
+      } else {
+        return null
+      }
+    }
+  },
+  "profileThreads": {
+    populate: (key) => `threads/${key}`,
+    path: (state) => {
+      if (state.routing.params.uid) {
+        return `users/${state.routing.params.uid}/threads`
+      } else {
+        return null
+      }
+    }
   }
 }
 
@@ -83,7 +114,28 @@ const routes = (
     <IndexRoute component={Index} />
     <Route path="board/:boardId" component={Board} />
     <Route path="board/:boardId/:threadId" component={Thread} />
+    <Route path="profile/:uid" component={Profile} />
   </Route>
 )
 
 refireApp({ url, bindings, routes, reducers: { authenticatedUser: userReducer } })
+
+// update users/:uid with latest user data after successful authentication
+const ref = new Firebase(url)
+ref.onAuth((authData) => {
+  if (authData && authData.uid) {
+    const { uid, provider, [provider]: { displayName, profileImageURL } } = authData
+    ref.child(`users/${authData.uid}`).update({
+      provider,
+      displayName,
+      profileImageURL,
+      lastLoginAt: Firebase.ServerValue.TIMESTAMP
+    })
+    // set registeredAt to current timestamp if this is the first login
+    ref.child(`users/${authData.uid}/registeredAt`).transaction((registeredAt) => {
+      if (!registeredAt) {
+        return Firebase.ServerValue.TIMESTAMP
+      }
+    })
+  }
+})

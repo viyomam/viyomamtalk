@@ -1,98 +1,26 @@
 import React, { Component, PropTypes } from 'react'
-import { bindings, routeActions, FirebaseOAuth, Link } from 'refire-app'
+import { bindings, routeActions, FirebaseOAuth, Link, styles } from 'refire-app'
 import { Button, Spinner } from 'elemental'
-
-const style = {
-  maxWidth: "980px",
-  margin: "0 auto",
-  padding: "0 20px"
-}
-
-const topBarContainerStyle = {
-  position: "fixed",
-  left: 0,
-  right: 0,
-  height: "50px",
-  zIndex: 1
-}
-
-const topbarStyle = {
-  position: "relative",
-  //background: "rgba(255, 255, 255, 0.95)",
-  maxWidth: "940px",
-  margin: "0 auto",
-  height: "50px",
-  padding: "7px 20px",
-  background: "#fdfdfd",
-  //borderLeft: "1px solid rgba(0, 0, 0, 0.17)",
-  //boxShadow: "0 1px 0 rgba(0, 0, 0, 0.17)"
-}
-
-const headerStyle = {
-  fontSize: "24px",
-  display: "inline-block",
-  margin: 0,
-  paddingTop: "5px"
-}
-
-const bodyStyle = {
-  paddingTop: "60px"
-}
-
-const buttonStyle = {
-  position: "absolute",
-  right: "20px"
-}
-
-const profileImageStyle = {
-  position: "absolute",
-  right: "20px",
-  borderRadius: "20px",
-  height: "40px",
-  width: "40px"
-}
-
-const spinnerContainerStyle = {
-  width: "100%",
-  height: "100%",
-  display: "table"
-}
-
-const verticalAlignStyle = {
-  display: "table-cell",
-  verticalAlign: "middle",
-  textAlign: "center",
-}
-
-const Authentication = ({ user }) => {
-  if (user) {
-    return (
-      <img style={profileImageStyle} src={user.profileImageURL} />
-    )
-  } else {
-    return (
-      <FirebaseOAuth provider="google" flow="authWithOAuthPopup">
-        <Button style={buttonStyle}>Login with Google</Button>
-      </FirebaseOAuth>
-    )
-  }
-}
+import url from '../url'
+import TopBar from './App/TopBar'
 
 class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {  }
+    this.state = {}
   }
 
   render() {
-    const { _status: { connected, initialFetchDone }, authenticatedUser } = this.props
+    const { _status: { connected, initialFetchDone }, authenticatedUser, styles } = this.props
+    const { key: boardKey, value: board = {} } = this.props.board || {}
+    const { key: threadKey } = this.props.thread || {}
     const loading = !connected && !initialFetchDone
 
     if (loading) {
       return (
-        <div style={spinnerContainerStyle}>
-          <div style={verticalAlignStyle}>
+        <div className={styles.spinnerContainer}>
+          <div className={styles.verticalAlign}>
             <Spinner size="lg" />
           </div>
         </div>
@@ -101,14 +29,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div style={style}>
-          <div style={topBarContainerStyle}>
-            <div style={topbarStyle}>
-              <h1 style={headerStyle}><Link to="/">refire</Link></h1>
-              <Authentication user={authenticatedUser} />
-            </div>
-          </div>
-          <div style={bodyStyle}>
+        <div className={styles.app}>
+          <TopBar
+            authenticatedUser={authenticatedUser}
+            board={board}
+            boardKey={boardKey}
+            threadKey={threadKey} />
+          <div className={styles.body}>
             {this.props.children}
           </div>
         </div>
@@ -117,4 +44,23 @@ class App extends Component {
   }
 }
 
-export default bindings(["_status"], ["authenticatedUser"])(App)
+export default styles({
+  app: {
+    maxWidth: "980px",
+    margin: "0 auto",
+    padding: "0 20px"
+  },
+  body: {
+    paddingTop: "60px"
+  },
+  spinnerContainer: {
+    width: "100%",
+    height: "100%",
+    display: "table"
+  },
+  verticalAlign: {
+    display: "table-cell",
+    verticalAlign: "middle",
+    textAlign: "center",
+  }
+} , bindings(["_status", "board", "thread"], ["authenticatedUser"])(App))

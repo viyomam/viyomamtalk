@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'refire-app'
+import { Link, styles } from 'refire-app'
 import { Card, Spinner } from 'elemental'
 import find from 'lodash/collection/find'
 
@@ -9,14 +9,12 @@ function findBoard(boards, boardId) {
   }) || { value: {} }
 }
 
-const spinnerContainerStyle = {
-  padding: "30px 0",
-}
-
-const LoadingSpinner = ({ categories, boards }) => {
+const LoadingSpinner = ({ styles }) => {
   return (
     <Card>
-      <div style={spinnerContainerStyle}><Spinner /></div>
+      <div className={styles.spinnerContainer}>
+        <Spinner />
+      </div>
     </Card>
   )
 }
@@ -40,10 +38,10 @@ const Boards = ({ boards, category }) => {
   )
 }
 
-const Categories = ({ categories, boards }) => {
+const Categories = ({ categories, boards, styles }) => {
 
   if (!boards.length || !categories.length) {
-    return <LoadingSpinner />
+    return <LoadingSpinner styles={styles} />
   }
 
   return (
@@ -62,4 +60,8 @@ const Categories = ({ categories, boards }) => {
   )
 }
 
-export default Categories
+export default styles({
+  spinnerContainer: {
+    padding: "30px 0",
+  }
+}, Categories)
