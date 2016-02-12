@@ -47,11 +47,11 @@ class Board extends Component {
         <Card>
           <h2 className={styles.header}>{board.title}</h2>
           <Threads boardId={boardId} threads={pagedThreads} />
+          <ShowPagination
+            currentPage={this.state.currentPage}
+            handlePageSelect={this.handlePageSelect}
+            threads={boardThreads} />
         </Card>
-        <ShowPagination
-          currentPage={this.state.currentPage}
-          handlePageSelect={this.handlePageSelect}
-          threads={boardThreads} />
         <PostNewTopic user={user} boardId={boardId} />
       </div>
     )

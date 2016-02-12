@@ -30,7 +30,7 @@ class ReplyToTopic extends Component {
 
   submit(event) {
     event.preventDefault()
-    const { user, threadKey } = this.props
+    const { user, threadKey, selectLastPage, submit } = this.props
     const ref = new Firebase(url)
     const postKey = ref.child("posts").push().key()
 
@@ -51,7 +51,8 @@ class ReplyToTopic extends Component {
     }
 
     console.log( "SUBMITTING", update )
-    this.props.submit(update)
+    submit(update)
+    selectLastPage()
     this.setState({ text: "" })
   }
 

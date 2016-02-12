@@ -12,7 +12,6 @@ import ShowPagination from './Thread/ShowPagination'
 
 // TODO: load from firebase settings collection
 const PAGE_SIZE = 5
-const PAGE_LIMIT = 5
 
 class Thread extends Component {
 
@@ -24,11 +23,20 @@ class Thread extends Component {
     }
     this.handlePageSelect = this.handlePageSelect.bind(this)
     this.updateQuote = this.updateQuote.bind(this)
+    this.selectLastPage = this.selectLastPage.bind(this)
   }
 
   handlePageSelect(page) {
     window.scrollTo(0, 0)
     this.setState({ currentPage: page })
+  }
+
+  selectLastPage() {
+    const { value: posts = [] } = this.props.threadPosts || {}
+    const remainder = (posts.length + 1) % PAGE_SIZE
+    const pages = Math.floor((posts.length + 1) / PAGE_SIZE)
+    const lastPage = remainder === 0 ? pages : pages + 1
+    this.handlePageSelect(lastPage)
   }
 
   updateQuote(text) {
@@ -67,7 +75,8 @@ class Thread extends Component {
           user={user}
           threadKey={threadKey}
           quote={this.state.quote}
-          updateQuote={this.updateQuote} />
+          updateQuote={this.updateQuote}
+          selectLastPage={this.selectLastPage} />
       </div>
     )
   }
