@@ -34,20 +34,19 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       {
-        test: /\.css$/,
+        test: /\.(css|less)$/,
         loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!postcss-loader'
+          'style',
+          'css',
+          'less'
         )
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       },
       { test: /\.png$/, loader: "url-loader?limit=10000" },
       { test: /\.(jpg|svg)$/, loader: "file-loader" }
     ]
-  },
-  postcss: function() {
-    return [
-      require('autoprefixer'),
-      require('postcss-nested')
-    ];
   }
 };

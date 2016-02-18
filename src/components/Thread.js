@@ -19,11 +19,16 @@ class Thread extends Component {
     super(props, context)
     this.state = {
       currentPage: 1,
-      quote: null
+      quote: null,
+      postKey: null
     }
     this.handlePageSelect = this.handlePageSelect.bind(this)
     this.updateQuote = this.updateQuote.bind(this)
     this.selectLastPage = this.selectLastPage.bind(this)
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   handlePageSelect(page) {
@@ -39,8 +44,8 @@ class Thread extends Component {
     this.handlePageSelect(lastPage)
   }
 
-  updateQuote(text) {
-    this.setState({ quote: text })
+  updateQuote(quote, postKey) {
+    this.setState({ quote, postKey })
   }
 
   render() {
@@ -62,7 +67,10 @@ class Thread extends Component {
               handlePageSelect={this.handlePageSelect}
               posts={posts} />
           </div>
-          <Posts posts={pagedPosts} updateQuote={this.updateQuote} user={user} />
+          <Posts
+            posts={pagedPosts}
+            updateQuote={this.updateQuote}
+            user={user} />
           <div className={styles.paginationContainer}>
             <ShowPagination
               currentPage={this.state.currentPage}
@@ -74,8 +82,8 @@ class Thread extends Component {
         <ReplyToTopic
           user={user}
           threadKey={threadKey}
+          postKey={this.state.postKey}
           quote={this.state.quote}
-          updateQuote={this.updateQuote}
           selectLastPage={this.selectLastPage} />
       </div>
     )

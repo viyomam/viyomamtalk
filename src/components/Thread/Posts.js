@@ -18,6 +18,7 @@ const Posts = ({ posts, user, updateQuote, styles }) => {
             return (
               <Post
                 key={key}
+                postKey={key}
                 post={post}
                 user={user}
                 updateQuote={updateQuote} />

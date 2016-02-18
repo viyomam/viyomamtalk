@@ -3,6 +3,26 @@ import refireApp, { IndexRoute, Route, Firebase } from 'refire-app'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
+import moment from 'moment'
+moment.locale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s',
+    s:  '<1m',
+    ss: '%ss',
+    m:  '1m',
+    mm: '%dm',
+    h:  '1h',
+    hh: '%dh',
+    d:  '1d',
+    dd: '%dd',
+    M:  '1m',
+    MM: '%dM',
+    y:  '1y',
+    yy: '%dY'
+  }
+})
+
 // import elemental css
 import '../node_modules/elemental/less/elemental.less'
 import './global.css'
@@ -87,21 +107,12 @@ const bindings = {
       }
     }
   },
-  "profilePosts": {
-    populate: (key) => `posts/${key}`,
-    path: (state) => {
-      if (state.routing.params.uid) {
-        return `users/${state.routing.params.uid}/posts`
-      } else {
-        return null
-      }
-    }
-  },
-  "profileThreads": {
+  "profileThreadsStarted": {
     populate: (key) => `threads/${key}`,
+    query: (ref) => ref.orderByKey().limitToLast(10),
     path: (state) => {
       if (state.routing.params.uid) {
-        return `users/${state.routing.params.uid}/threads`
+        return `users/${state.routing.params.uid}/threadsStarted`
       } else {
         return null
       }

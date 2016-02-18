@@ -25,6 +25,7 @@ const ShowPagination = ({ currentPage, handlePageSelect, posts, styles }) => {
 export default styles({
   pagination: {
     display: "block",
+    marginBottom: "10px",
     "@media (min-width: 600px)": {
       display: "inline-block",
       position: "absolute",

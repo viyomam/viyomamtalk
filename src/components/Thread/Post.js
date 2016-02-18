@@ -10,7 +10,7 @@ const DATE_FORMAT = "DD.MM.YYYY HH:mm"
 const QuoteButton = ({ user, onClick, styles }) => {
   if (user) {
     return (
-      <span onClick={onClick}>
+      <span onClick={onClick} title="Quote">
         <Glyph icon="quote" className={styles.quoteButton} />
       </span>
     )
@@ -22,7 +22,7 @@ const QuoteButton = ({ user, onClick, styles }) => {
 const ReplyButton = ({ user, onClick, styles }) => {
   if (user) {
     return (
-      <span onClick={onClick}>
+      <span onClick={onClick} title="Reply">
         <Glyph icon="mail-reply" className={styles.replyButton} />
       </span>
     )
@@ -31,7 +31,7 @@ const ReplyButton = ({ user, onClick, styles }) => {
   }
 }
 
-const Post = ({ post, user, updateQuote, styles }) => {
+const Post = ({ postKey, post, user, updateQuote, styles }) => {
   return (
     <Row>
       <Col xs="0%" sm="1/8" lg="1/12">
@@ -58,10 +58,10 @@ const Post = ({ post, user, updateQuote, styles }) => {
 
             <div className={styles.actionsContainer}>
               <div className={styles.postDate}>
-                {moment(post.createdAt, "x").fromNow()}
+                {moment(post.createdAt, "x").fromNow()} ago
               </div>
-              <QuoteButton user={user} onClick={() => updateQuote(post.body)} styles={styles} />
-              <ReplyButton user={user} onClick={() => updateQuote("")} styles={styles} />
+              <QuoteButton user={user} onClick={() => updateQuote(post.body, postKey)} styles={styles} />
+              <ReplyButton user={user} onClick={() => updateQuote("", postKey)} styles={styles} />
             </div>
           </div>
         </Card>
@@ -105,7 +105,10 @@ export default styles({
     }
   },
   bodyContainer: {
-    margin: "0 0 10px 0"
+    margin: "0 0 10px 0",
+    "& p": {
+      margin: "10px 0 0 0"
+    }
   },
   bottomToolbar: {
     position: "relative"

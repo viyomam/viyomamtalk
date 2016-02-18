@@ -35,9 +35,13 @@ export default styles({
     padding: "7px 20px"
   },
   header: {
-    fontSize: "20px",
     display: "inline-block",
     margin: 0,
-    paddingTop: "5px"
+    paddingTop: "12px",
+    fontSize: "14px",
+    "@media (min-width: 480px)": {
+      paddingTop: "5px",
+      fontSize: "20px",
+    }
   }
 }, TopBar)

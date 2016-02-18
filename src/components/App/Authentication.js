@@ -1,16 +1,14 @@
 import React from 'react'
-import { Firebase, FirebaseOAuth, styles } from 'refire-app'
+import { Firebase, FirebaseOAuth, FirebaseLogout, styles } from 'refire-app'
 import { Button } from 'elemental'
 import url from '../../url'
-
-function logout() {
-  new Firebase(url).unauth()
-}
 
 const Authentication = ({ user, styles }) => {
   if (user) {
     return (
-      <Button className={styles.button} onClick={() => logout()}>Logout</Button>
+      <FirebaseLogout>
+        <Button className={styles.button}>Logout</Button>
+      </FirebaseLogout>
     )
   } else {
     return (

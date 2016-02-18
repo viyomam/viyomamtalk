@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
 import { Firebase, FirebaseWrite, styles } from 'refire-app'
+
 import url from '../../url'
 import { replaceEmojis } from '../../utils'
+
+import PreviewButton from '../PreviewButton'
+import PreviewFields from './PreviewFields'
+import TextFields from './TextFields'
 
 class PostNewTopic extends Component {
 
@@ -10,15 +15,17 @@ class PostNewTopic extends Component {
     super(props, context)
     this.state = {
       topic: "",
-      text: ""
+      text: "",
+      previewEnabled: false
     }
     this.submit = this.submit.bind(this)
     this.updateField = this.updateField.bind(this)
+    this.togglePreview = this.togglePreview.bind(this)
   }
 
   submit(event) {
     event.preventDefault()
-    const { user, boardId } = this.props
+    const { user, boardId, submit, showNewThreads } = this.props
     const ref = new Firebase(url)
     const threadKey = ref.child("threads").push().key()
     const postKey = ref.child("posts").push().key()
@@ -49,12 +56,14 @@ class PostNewTopic extends Component {
           id: user.uid
         }
       },
-      [`users/${user.uid}/threads/${threadKey}`]: true,
+      [`users/${user.uid}/threadsStarted/${threadKey}`]: true,
       [`users/${user.uid}/posts/${postKey}`]: true
     }
 
     console.log( "SUBMITTING", update )
-    this.props.submit(update)
+    submit(update).then(() => {
+      showNewThreads()
+    })
     this.setState({ topic: "", text: "" })
   }
 
@@ -65,8 +74,12 @@ class PostNewTopic extends Component {
     }
   }
 
+  togglePreview() {
+    this.setState({ previewEnabled: !this.state.previewEnabled })
+  }
+
   render() {
-    const { user, styles } = this.props
+    const { user, styles, inputRef } = this.props
     const submitEnabled = this.state.topic && this.state.text
     if (!user) return <div />
     return (
@@ -76,14 +89,21 @@ class PostNewTopic extends Component {
           <strong>{user.displayName}</strong>
         </div>
         <Form>
-          <FormField>
-            <FormInput placeholder="New topic" value={this.state.topic} onChange={this.updateField("topic")} />
-          </FormField>
-          <FormField>
-            <FormInput placeholder="Text (markdown enabled)" value={this.state.text} multiline onChange={this.updateField("text")} />
-          </FormField>
-          <Button disabled={!submitEnabled} type="success" onClick={this.submit}><Glyph icon="plus" /> Post new topic</Button>
-          <Button type="link"><Glyph icon="eye-watch" />Preview</Button>
+          <TextFields
+            preview={this.state.previewEnabled}
+            inputRef={inputRef}
+            topic={this.state.topic}
+            text={this.state.text}
+            updateTopic={this.updateField("topic")}
+            updateText={this.updateField("text")} />
+          <PreviewFields
+            preview={this.state.previewEnabled}
+            topic={this.state.topic}
+            text={this.state.text} />
+          <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
+            <Glyph icon="plus" /> Post new topic
+          </Button>
+          <PreviewButton enabled={this.state.previewEnabled} togglePreview={this.togglePreview} />
         </Form>
       </Card>
     )

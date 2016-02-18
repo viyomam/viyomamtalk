@@ -4,15 +4,22 @@ import { Firebase, FirebaseWrite, styles } from 'refire-app'
 import url from '../../url'
 import { replaceEmojis, quote } from '../../utils'
 
+import PreviewButton from '../PreviewButton'
+import PreviewFields from './PreviewFields'
+import TextFields from './TextFields'
+
 class ReplyToTopic extends Component {
 
   constructor(props, context) {
     super(props, context)
     this.state = {
-      text: ""
+      text: "",
+      previewEnabled: false
     }
     this.submit = this.submit.bind(this)
     this.updateField = this.updateField.bind(this)
+    this.togglePreview = this.togglePreview.bind(this)
+    this.textInputRef = this.textInputRef.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,9 +27,9 @@ class ReplyToTopic extends Component {
       this.setState({
         text: quote(replaceEmojis(`${nextProps.quote}`))
       }, () => {
-        if (this.refs.input) {
-          this.refs.input.scrollTop = this.refs.input.scrollHeight
-          this.refs.input.focus()
+        if (this.textInput) {
+          this.textInput.scrollTop = this.textInput.scrollHeight
+          this.textInput.focus()
         }
       })
     }
@@ -30,7 +37,7 @@ class ReplyToTopic extends Component {
 
   submit(event) {
     event.preventDefault()
-    const { user, threadKey, selectLastPage, submit } = this.props
+    const { user, threadKey, selectLastPage, submit, postKey: replyToId } = this.props
     const ref = new Firebase(url)
     const postKey = ref.child("posts").push().key()
 
@@ -41,6 +48,7 @@ class ReplyToTopic extends Component {
         body: this.state.text,
         createdAt: Firebase.ServerValue.TIMESTAMP,
         threadId: threadKey,
+        replyTo: replyToId,
         user: {
           displayName: user.displayName,
           image: user.profileImageURL,
@@ -63,6 +71,14 @@ class ReplyToTopic extends Component {
     }
   }
 
+  togglePreview() {
+    this.setState({ previewEnabled: !this.state.previewEnabled })
+  }
+
+  textInputRef(input) {
+    this.textInput = input
+  }
+
   render() {
     const { user, styles } = this.props
     const submitEnabled = !!this.state.text
@@ -74,20 +90,20 @@ class ReplyToTopic extends Component {
           <strong>{user.displayName}</strong>
         </div>
         <Form>
-          <FormField>
-            <FormInput
-              placeholder="Text (markdown enabled)"
-              value={this.state.text}
-              multiline
-              onChange={this.updateField("text")}
-              ref="input" />
-          </FormField>
+          <TextFields
+            preview={this.state.previewEnabled}
+            text={this.state.text}
+            updateText={this.updateField("text")}
+            inputRef={this.textInputRef} />
+          <PreviewFields
+            preview={this.state.previewEnabled}
+            text={this.state.text} />
           <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
             <Glyph icon="plus" /> Reply to topic
           </Button>
-          <Button type="link">
-            <Glyph icon="eye-watch" />Preview
-          </Button>
+          <PreviewButton
+            enabled={this.state.previewEnabled}
+            togglePreview={this.togglePreview} />
         </Form>
       </Card>
     )

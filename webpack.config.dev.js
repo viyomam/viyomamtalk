@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader!postcss-loader"
+        loader: "style-loader!css-loader"
       },
       {
         test: /\.json$/,
@@ -38,11 +38,5 @@ module.exports = {
       { test: /\.png$/, loader: "url-loader?limit=10000" },
       { test: /\.(jpg|svg)$/, loader: "file-loader" }
     ]
-  },
-  postcss: function() {
-    return [
-      require('autoprefixer'),
-      require('postcss-nested')
-    ];
   }
 };
