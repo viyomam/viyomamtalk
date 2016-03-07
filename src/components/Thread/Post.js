@@ -1,17 +1,33 @@
 import React from 'react'
 import { Link, styles } from 'refire-app'
-import { Row, Col, Card, Glyph } from 'elemental'
+import { Row, Col, Card } from 'elemental'
 import moment from 'moment'
 import ReactMarkdown from 'react-markdown'
+import QuoteIcon from 'react-icons/lib/fa/quote-left'
+import TrashIcon from 'react-icons/lib/fa/trash'
+import ReplyIcon from 'react-icons/lib/fa/reply'
 
-// TODO: load from firebase settings collection
-const DATE_FORMAT = "DD.MM.YYYY HH:mm"
+const DeleteButton = ({ user, isAdmin, onClick, styles }) => {
+  if (user && isAdmin) {
+    return (
+      <span onClick={onClick} title="Delete">
+        <span className={styles.trashButton}>
+          <TrashIcon size="16px" />
+        </span>
+      </span>
+    )
+  } else {
+    return <span />
+  }
+}
 
-const QuoteButton = ({ user, onClick, styles }) => {
-  if (user) {
+const QuoteButton = ({ user, locked, onClick, styles }) => {
+  if (user && !locked) {
     return (
       <span onClick={onClick} title="Quote">
-        <Glyph icon="quote" className={styles.quoteButton} />
+        <span className={styles.quoteButton}>
+          <QuoteIcon size="16px" />
+        </span>
       </span>
     )
   } else {
@@ -19,11 +35,13 @@ const QuoteButton = ({ user, onClick, styles }) => {
   }
 }
 
-const ReplyButton = ({ user, onClick, styles }) => {
-  if (user) {
+const ReplyButton = ({ user, locked, onClick, styles }) => {
+  if (user && !locked) {
     return (
       <span onClick={onClick} title="Reply">
-        <Glyph icon="mail-reply" className={styles.replyButton} />
+        <span className={styles.replyButton}>
+          <ReplyIcon size="20px" />
+        </span>
       </span>
     )
   } else {
@@ -31,7 +49,16 @@ const ReplyButton = ({ user, onClick, styles }) => {
   }
 }
 
-const Post = ({ postKey, post, user, updateQuote, styles }) => {
+const Post = ({
+  postKey,
+  post,
+  user,
+  locked,
+  isAdmin,
+  deletePost,
+  updateQuote,
+  styles
+}) => {
   return (
     <Row>
       <Col xs="0%" sm="1/8" lg="1/12">
@@ -60,8 +87,9 @@ const Post = ({ postKey, post, user, updateQuote, styles }) => {
               <div className={styles.postDate}>
                 {moment(post.createdAt, "x").fromNow()} ago
               </div>
-              <QuoteButton user={user} onClick={() => updateQuote(post.body, postKey)} styles={styles} />
-              <ReplyButton user={user} onClick={() => updateQuote("", postKey)} styles={styles} />
+              <DeleteButton user={user} isAdmin={isAdmin} onClick={() => deletePost(postKey, post)} styles={styles} />
+              <QuoteButton user={user} locked={locked} onClick={() => updateQuote(post.body, postKey)} styles={styles} />
+              <ReplyButton user={user} locked={locked} onClick={() => updateQuote("", postKey)} styles={styles} />
             </div>
           </div>
         </Card>
@@ -130,25 +158,30 @@ export default styles({
       top: 0
     }
   },
+  trashButton: {
+    cursor: "pointer",
+    verticalAlign: "top",
+    display: "inline-block",
+    paddingRight: "20px",
+    verticalAlign: "top",
+    color: "#555",
+  },
   quoteButton: {
     cursor: "pointer",
-    fontSize: "24px",
-    paddingLeft: "20px",
+    display: "inline-block",
+    verticalAlign: "top",
     paddingRight: "20px",
     color: "#555",
-    "@media (min-width: 480px)": {
-      fontSize: "20px"
-    }
   },
   replyButton: {
     cursor: "pointer",
-    fontSize: "24px",
     color: "#555",
-    "@media (min-width: 480px)": {
-      fontSize: "20px"
-    }
+    display: "inline-block",
+    verticalAlign: "top"
   },
   postDate: {
-    display: "inline-block"
+    display: "inline-block",
+    verticalAlign: "top",
+    paddingRight: "20px"
   }
 }, Post)

@@ -1,4 +1,6 @@
 import emojilib from 'emojilib'
+import includes from 'lodash/collection/includes'
+import moment from 'moment'
 
 const emojis = Object.keys(emojilib.lib).reduce((result, key) => {
   result[key] = result[key] || emojilib.lib[key].char
@@ -23,4 +25,32 @@ export function replaceEmojis(str) {
 export function quote(str) {
   if (str === "") return str
   return "> ".concat(str).split("\n").join("\n> ").concat("\n\n")
+}
+
+export function isUserAdmin(adminUsers, user) {
+  return includes(
+    (adminUsers || {value: []}).value.map((user) => user.key),
+    (user || {}).uid
+  )
+}
+
+export function momentLocaleSetup() {
+  moment.locale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s',
+      s:  '<1m',
+      ss: '%ss',
+      m:  '1m',
+      mm: '%dm',
+      h:  '1h',
+      hh: '%dh',
+      d:  '1d',
+      dd: '%dd',
+      M:  '1m',
+      MM: '%dM',
+      y:  '1y',
+      yy: '%dY'
+    }
+  })
 }

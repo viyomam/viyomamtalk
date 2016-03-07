@@ -3,16 +3,16 @@ import { styles, bindings, Link } from 'refire-app'
 import { Card } from 'elemental'
 import moment from 'moment'
 
-// TODO: load from firebase settings collection
-const DATE_FORMAT = "DD.MM.YYYY"
+import ThreadsStarted from './Profile/ThreadsStarted'
 
 class Profile extends Component {
 
   render() {
     const {value: profile = {}} = this.props.profile || {}
     const {value: startedThreads = []} = this.props.profileThreadsStarted || {}
+    const { value: settings = {} } = this.props.settings || {}
+    const { DATE_FORMAT } = settings
     const styles = this.props.styles
-
     return (
       <div className="Profile">
         <Card>
@@ -32,17 +32,7 @@ class Profile extends Component {
         </Card>
         <Card>
           <h3>Latest threads started</h3>
-          <div>
-            {
-              startedThreads.concat([]).reverse().map(({ key, value: thread}) => {
-                return (
-                  <Link to={`/board/${thread.boardId}/${key}`} key={key} className={styles.threadLink}>
-                    {thread.title}
-                  </Link>
-                )
-              })
-            }
-          </div>
+          <ThreadsStarted threads={startedThreads} />
         </Card>
       </div>
     )
@@ -60,8 +50,5 @@ export default styles({
   },
   profileContainer: {
     display: "inline-block"
-  },
-  threadLink: {
-    display: "block"
   }
-}, bindings(["profile", "profileThreadsStarted"])(Profile))
+}, bindings(["profile", "profileThreadsStarted", "settings"])(Profile))

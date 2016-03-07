@@ -15,7 +15,8 @@ class App extends Component {
     const { _status: { connected, initialFetchDone }, authenticatedUser, styles } = this.props
     const { key: boardKey, value: board = {} } = this.props.board || {}
     const { key: threadKey } = this.props.thread || {}
-    const loading = !connected && !initialFetchDone
+    const { value: settings } = this.props.settings || {}
+    const loading = !connected || !initialFetchDone || !settings
 
     if (loading) {
       return (
@@ -63,4 +64,4 @@ export default styles({
     verticalAlign: "middle",
     textAlign: "center",
   }
-} , bindings(["_status", "board", "thread"], ["authenticatedUser"])(App))
+} , bindings(["_status", "board", "thread", "settings"], ["authenticatedUser"])(App))

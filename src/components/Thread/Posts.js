@@ -3,7 +3,15 @@ import Post from './Post'
 import { styles } from 'refire-app'
 import { Spinner } from 'elemental'
 
-const Posts = ({ posts, user, updateQuote, styles }) => {
+const Posts = ({
+  posts,
+  user,
+  locked,
+  isAdmin,
+  deletePost,
+  updateQuote,
+  styles
+}) => {
   if (!posts.length) {
     return (
       <div className={styles.spinnerContainer}>
@@ -21,6 +29,9 @@ const Posts = ({ posts, user, updateQuote, styles }) => {
                 postKey={key}
                 post={post}
                 user={user}
+                locked={locked}
+                isAdmin={isAdmin}
+                deletePost={deletePost}
                 updateQuote={updateQuote} />
             )
           })

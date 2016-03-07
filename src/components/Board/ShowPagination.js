@@ -2,16 +2,13 @@ import React from 'react'
 import { Pagination } from 'elemental'
 import { styles } from 'refire-app'
 
-// TODO: load from firebase settings collection
-const PAGE_SIZE = 5
-
-const ShowPagination = ({ currentPage, handlePageSelect, threads, styles }) => {
-  if (threads.length > PAGE_SIZE) {
+const ShowPagination = ({ pageSize, currentPage, handlePageSelect, threads, styles }) => {
+  if (threads.length > pageSize) {
     return (
       <Pagination
         currentPage={currentPage}
         onPageSelect={handlePageSelect}
-        pageSize={PAGE_SIZE}
+        pageSize={pageSize}
         total={threads.length}
         className={styles.pagination} />
     )

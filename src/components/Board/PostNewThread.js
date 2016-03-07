@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
-import { Firebase, FirebaseWrite, styles } from 'refire-app'
+import { Button, Card, Form, FormField, FormInput } from 'elemental'
+import { FirebaseWrite, styles } from 'refire-app'
+import PlusIcon from 'react-icons/lib/fa/plus'
 
-import url from '../../url'
 import { replaceEmojis } from '../../utils'
+import { newThread } from '../../updates'
 
 import PreviewButton from '../PreviewButton'
 import PreviewFields from './PreviewFields'
 import TextFields from './TextFields'
 
-class PostNewTopic extends Component {
+class PostNewThread extends Component {
 
   constructor(props, context) {
     super(props, context)
@@ -26,41 +27,14 @@ class PostNewTopic extends Component {
   submit(event) {
     event.preventDefault()
     const { user, boardId, submit, showNewThreads } = this.props
-    const ref = new Firebase(url)
-    const threadKey = ref.child("threads").push().key()
-    const postKey = ref.child("posts").push().key()
 
-    const update = {
-      [`boards/${boardId}/threads/${threadKey}`]: true,
-      [`threads/${threadKey}`]: {
-        title: this.state.topic,
-        boardId: boardId,
-        createdAt: Firebase.ServerValue.TIMESTAMP,
-        lastPostAt: Firebase.ServerValue.TIMESTAMP,
-        user: {
-          displayName: user.displayName,
-          image: user.profileImageURL,
-          id: user.uid
-        },
-        posts: {
-          [postKey]: true
-        }
-      },
-      [`posts/${postKey}`]: {
-        body: this.state.text,
-        createdAt: Firebase.ServerValue.TIMESTAMP,
-        threadId: threadKey,
-        user: {
-          displayName: user.displayName,
-          image: user.profileImageURL,
-          id: user.uid
-        }
-      },
-      [`users/${user.uid}/threadsStarted/${threadKey}`]: true,
-      [`users/${user.uid}/posts/${postKey}`]: true
-    }
+    const update = newThread({
+      boardId,
+      user,
+      topic: this.state.topic,
+      text: this.state.text
+    })
 
-    console.log( "SUBMITTING", update )
     submit(update).then(() => {
       showNewThreads()
     })
@@ -101,7 +75,7 @@ class PostNewTopic extends Component {
             topic={this.state.topic}
             text={this.state.text} />
           <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
-            <Glyph icon="plus" /> Post new topic
+            <PlusIcon className={styles.plusIcon} /> Post new thread
           </Button>
           <PreviewButton enabled={this.state.previewEnabled} togglePreview={this.togglePreview} />
         </Form>
@@ -119,5 +93,8 @@ export default styles({
     height: "40px",
     width: "40px",
     margin: "0 10px 0 0"
+  },
+  plusIcon: {
+    marginRight: "10px"
   }
-}, FirebaseWrite({ method: "update" })(PostNewTopic))
+}, FirebaseWrite({ method: "update" })(PostNewThread))

@@ -1,20 +1,33 @@
 import React from 'react'
-import { Button, Glyph } from 'elemental'
+import { styles } from 'refire-app'
+import { Button } from 'elemental'
+import PencilIcon from 'react-icons/lib/fa/pencil'
+import EyeIcon from 'react-icons/lib/fa/eye'
 
-const PreviewButton = ({ enabled, togglePreview }) => {
+const PreviewButton = ({ enabled, togglePreview, styles }) => {
   if (enabled) {
     return (
       <Button type="link" onClick={togglePreview}>
-        <Glyph icon="sign-out" /> Back to edit
+        <span className={styles.iconContainer}>
+          <PencilIcon size="16px" />
+        </span> Back to edit
       </Button>
     )
   } else {
     return (
       <Button type="link" onClick={togglePreview}>
-        <Glyph icon="eye-watch" />Preview
+        <span className={styles.iconContainer}>
+          <EyeIcon size="16px" />
+        </span> Preview
       </Button>
     )
   }
 }
 
-export default PreviewButton
+export default styles({
+  iconContainer: {
+    verticalAlign: "top",
+    display: "inline-block",
+    margin: "-1px 1px 0 0"
+  }
+}, PreviewButton)

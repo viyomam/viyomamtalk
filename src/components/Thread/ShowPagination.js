@@ -2,19 +2,22 @@ import React from 'react'
 import { styles } from 'refire-app'
 import { Pagination } from 'elemental'
 
-// TODO: load from firebase settings collection
-const PAGE_SIZE = 5
-const PAGE_LIMIT = 5
-
-const ShowPagination = ({ currentPage, handlePageSelect, posts, styles }) => {
-  if (posts.length > PAGE_SIZE) {
+const ShowPagination = ({
+  pageSize,
+  pageLimit,
+  currentPage,
+  handlePageSelect,
+  posts,
+  styles
+}) => {
+  if (posts.length > pageSize) {
     return (
       <Pagination
         currentPage={currentPage}
         onPageSelect={handlePageSelect}
-        pageSize={PAGE_SIZE}
+        pageSize={pageSize}
         total={posts.length}
-        limit={PAGE_LIMIT}
+        limit={pageLimit}
         className={styles.pagination} />
     )
   } else {
@@ -24,13 +27,6 @@ const ShowPagination = ({ currentPage, handlePageSelect, posts, styles }) => {
 
 export default styles({
   pagination: {
-    display: "block",
-    marginBottom: "10px",
-    "@media (min-width: 600px)": {
-      display: "inline-block",
-      position: "absolute",
-      right: 0,
-      top: 0
-    }
+    display: "inline-block"
   }
 }, ShowPagination)

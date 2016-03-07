@@ -1,133 +1,18 @@
-import React from 'react'
-import refireApp, { IndexRoute, Route, Firebase } from 'refire-app'
+import refireApp, { Firebase } from 'refire-app'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import { momentLocaleSetup } from './utils'
 injectTapEventPlugin()
-
-import moment from 'moment'
-moment.locale('en', {
-  relativeTime: {
-    future: 'in %s',
-    past: '%s',
-    s:  '<1m',
-    ss: '%ss',
-    m:  '1m',
-    mm: '%dm',
-    h:  '1h',
-    hh: '%dh',
-    d:  '1d',
-    dd: '%dd',
-    M:  '1m',
-    MM: '%dM',
-    y:  '1y',
-    yy: '%dY'
-  }
-})
+momentLocaleSetup()
 
 // import elemental css
 import '../node_modules/elemental/less/elemental.less'
 import './global.css'
 
-import App from './components/App'
-import Index from './components/Index'
-import Board from './components/Board'
-import Thread from './components/Thread'
-import Profile from './components/Profile'
-
-import url from './url'
 import { userReducer } from './reducers'
 
-const bindings = {
-  "categories": {
-    type: "Array",
-    query: (ref) => ref.orderByChild("active").equalTo(true),
-    path: "categories"
-  },
-  "boards": {
-    type: "Array",
-    query: (ref) => ref.orderByChild("active").equalTo(true),
-    path: "boards"
-  },
-  "board": {
-    type: "Object",
-    path: (state) => {
-      if (state.routing.params.boardId) {
-        return `boards/${state.routing.params.boardId}`
-      } else {
-        return null
-      }
-    }
-  },
-  "boardThreads": {
-    populate: (key) => `threads/${key}`,
-    path: (state) => {
-      if (state.routing.params.boardId) {
-        return `boards/${state.routing.params.boardId}/threads`
-      } else {
-        return null
-      }
-    }
-  },
-  "thread": {
-    type: "Object",
-    path: (state) => {
-      if (state.routing.params.threadId) {
-        return `threads/${state.routing.params.threadId}`
-      } else {
-        return null
-      }
-    }
-  },
-  "threadPosts": {
-    populate: (key) => `posts/${key}`,
-    path: (state) => {
-      if (state.routing.params.threadId) {
-        return `threads/${state.routing.params.threadId}/posts`
-      } else {
-        return null
-      }
-    }
-  },
-  "user": {
-    type: "Object",
-    path: (state) => {
-      if (state.firebase.authenticatedUser) {
-        return `users/${state.firebase.authenticatedUser.uid}`
-      } else {
-        return null
-      }
-    }
-  },
-  "profile": {
-    type: "Object",
-    path: (state) => {
-      if (state.routing.params.uid) {
-        return `users/${state.routing.params.uid}`
-      } else {
-        return null
-      }
-    }
-  },
-  "profileThreadsStarted": {
-    populate: (key) => `threads/${key}`,
-    query: (ref) => ref.orderByKey().limitToLast(10),
-    path: (state) => {
-      if (state.routing.params.uid) {
-        return `users/${state.routing.params.uid}/threadsStarted`
-      } else {
-        return null
-      }
-    }
-  }
-}
-
-const routes = (
-  <Route path="/" component={App}>
-    <IndexRoute component={Index} />
-    <Route path="board/:boardId" component={Board} />
-    <Route path="board/:boardId/:threadId" component={Thread} />
-    <Route path="profile/:uid" component={Profile} />
-  </Route>
-)
+import url from './url'
+import bindings from './bindings'
+import routes from './routes'
 
 refireApp({ url, bindings, routes, reducers: { authenticatedUser: userReducer } })
 

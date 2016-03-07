@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, Card, Glyph, Form, FormField, FormInput } from 'elemental'
+import { Button, Card, Form, FormField, FormInput } from 'elemental'
 import { Firebase, FirebaseWrite, styles } from 'refire-app'
+import PlusIcon from 'react-icons/lib/fa/plus'
 import url from '../../url'
 import { replaceEmojis, quote } from '../../utils'
+import { replyToThread } from '../../updates'
 
 import PreviewButton from '../PreviewButton'
 import PreviewFields from './PreviewFields'
 import TextFields from './TextFields'
 
-class ReplyToTopic extends Component {
+class ReplyToThread extends Component {
 
   constructor(props, context) {
     super(props, context)
@@ -38,27 +40,14 @@ class ReplyToTopic extends Component {
   submit(event) {
     event.preventDefault()
     const { user, threadKey, selectLastPage, submit, postKey: replyToId } = this.props
-    const ref = new Firebase(url)
-    const postKey = ref.child("posts").push().key()
 
-    const update = {
-      [`threads/${threadKey}/posts/${postKey}`]: true,
-      [`threads/${threadKey}/lastPostAt`]: Firebase.ServerValue.TIMESTAMP,
-      [`posts/${postKey}`]: {
-        body: this.state.text,
-        createdAt: Firebase.ServerValue.TIMESTAMP,
-        threadId: threadKey,
-        replyTo: replyToId,
-        user: {
-          displayName: user.displayName,
-          image: user.profileImageURL,
-          id: user.uid
-        }
-      },
-      [`users/${user.uid}/posts/${postKey}`]: true
-    }
+    const update = replyToThread({
+      threadKey,
+      text: this.state.text,
+      replyToId,
+      user
+    })
 
-    console.log( "SUBMITTING", update )
     submit(update)
     selectLastPage()
     this.setState({ text: "" })
@@ -80,9 +69,9 @@ class ReplyToTopic extends Component {
   }
 
   render() {
-    const { user, styles } = this.props
+    const { user, locked, styles } = this.props
     const submitEnabled = !!this.state.text
-    if (!user) return <div />
+    if (!user || locked) return <div />
     return (
       <Card>
         <div className={styles.userProfile}>
@@ -99,7 +88,7 @@ class ReplyToTopic extends Component {
             preview={this.state.previewEnabled}
             text={this.state.text} />
           <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
-            <Glyph icon="plus" /> Reply to topic
+            <PlusIcon className={styles.plusIcon} /> Reply to thread
           </Button>
           <PreviewButton
             enabled={this.state.previewEnabled}
@@ -119,5 +108,8 @@ export default styles({
     height: "40px",
     width: "40px",
     margin: "0 10px 0 0"
+  },
+  plusIcon: {
+    marginRight: "10px"
   }
-}, FirebaseWrite({ method: "update" })(ReplyToTopic))
+}, FirebaseWrite({ method: "update" })(ReplyToThread))

@@ -1,1 +1,2 @@
-export default "https://refire-discussion.firebaseio.com/"
+import { firebase } from '../firebase.json'
+export default `https://${firebase}.firebaseio.com/`

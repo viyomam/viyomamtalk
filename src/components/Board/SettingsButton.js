@@ -2,11 +2,11 @@ import React from 'react'
 import { Button } from 'elemental'
 import { styles } from 'refire-app'
 
-const NewTopicButton = ({ user, newTopic, styles }) => {
-  if (user) {
+const SettingsButton = ({ visible, toggleVisible, styles }) => {
+  if (visible) {
     return (
-      <Button className={styles.button} onClick={() => newTopic()}>
-        New topic
+      <Button className={styles.button} onClick={() => toggleVisible()}>
+        Settings
       </Button>
     )
   } else {
@@ -19,8 +19,7 @@ export default styles({
     width: "100%",
     "@media (min-width: 480px)": {
       width: "auto",
-      position: "absolute",
-      right: "0px"
+      marginRight: "10px"
     }
   }
-}, NewTopicButton)
+}, SettingsButton)

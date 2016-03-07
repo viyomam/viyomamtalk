@@ -6,15 +6,15 @@ import sortBy from 'lodash/collection/sortBy'
 import drop from 'lodash/array/drop'
 import take from 'lodash/array/take'
 import find from 'lodash/collection/find'
+import { isUserAdmin } from '../utils'
 
 import NewThreadsAvailable from './Board/NewThreadsAvailable'
-import NewTopicButton from './Board/NewTopicButton'
-import PostNewTopic from './Board/PostNewTopic'
+import NewThreadButton from './Board/NewThreadButton'
+import PostNewThread from './Board/PostNewThread'
 import Threads from './Board/Threads'
 import ShowPagination from './Board/ShowPagination'
-
-// TODO: load from firebase settings collection
-const PAGE_SIZE = 5
+import SettingsButton from './Board/SettingsButton'
+import BoardSettings from './Board/Settings'
 
 class Board extends Component {
 
@@ -22,11 +22,13 @@ class Board extends Component {
     super(props, context)
     this.state = {
       currentPage: 1,
-      threads: null
+      threads: null,
+      settingsVisible: false
     }
     this.handlePageSelect = this.handlePageSelect.bind(this)
-    this.focusNewTopic = this.focusNewTopic.bind(this)
+    this.focusNewThread = this.focusNewThread.bind(this)
     this.showNewThreads = this.showNewThreads.bind(this)
+    this.toggleSettings = this.toggleSettings.bind(this)
   }
 
   componentWillMount() {
@@ -70,7 +72,7 @@ class Board extends Component {
     this.setState({ currentPage: page })
   }
 
-  focusNewTopic() {
+  focusNewThread() {
     if (this.titleInput) {
       this.titleInput.focus()
     }
@@ -80,31 +82,44 @@ class Board extends Component {
     this.setState({ threads: this.props.boardThreads.value, currentPage: 1 })
   }
 
+  toggleSettings() {
+    this.setState({ settingsVisible: !this.state.settingsVisible })
+  }
+
   render() {
-    const {key: boardId, value: board = []} = this.props.board || {}
-    const {value: boardThreads } = this.props.boardThreads || {}
+    const { key: boardId, value: board = [] } = this.props.board || {}
+    const { value: boardThreads } = this.props.boardThreads || {}
+    const { value: settings = {} } = this.props.settings || {}
     const { authenticatedUser: user, styles } = this.props
+    const { BOARD_PAGE_SIZE } = settings
     const threads = this.state.threads || []
+    const isAdmin = isUserAdmin(this.props.adminUsers, this.props.authenticatedUser)
 
     const pagedThreads = take(
       drop(
         sortBy(
           threads,
-          (thread) => thread.value.lastPostAt
+          (thread) => (thread.value || {}).lastPostAt
         ).reverse(),
-        (this.state.currentPage - 1) * PAGE_SIZE
+        (this.state.currentPage - 1) * BOARD_PAGE_SIZE
       ),
-      PAGE_SIZE
+      BOARD_PAGE_SIZE
     )
 
     return (
       <div>
+        <BoardSettings
+          visible={this.state.settingsVisible}
+          toggleVisible={this.toggleSettings} />
         <Card>
           <div className={styles.headerContainer}>
             <h2 className={styles.header}>
               {board.title}
             </h2>
-            <NewTopicButton user={user} newTopic={this.focusNewTopic} />
+            <div className={styles.buttonsContainer}>
+              <SettingsButton visible={isAdmin} toggleVisible={this.toggleSettings} />
+              <NewThreadButton user={user} newThread={this.focusNewThread} />
+            </div>
           </div>
           <NewThreadsAvailable
             threads={threads}
@@ -117,9 +132,10 @@ class Board extends Component {
           <ShowPagination
             currentPage={this.state.currentPage}
             handlePageSelect={this.handlePageSelect}
-            threads={threads} />
+            threads={threads}
+            pageSize={BOARD_PAGE_SIZE} />
         </Card>
-        <PostNewTopic
+        <PostNewThread
           boardId={boardId}
           user={user}
           inputRef={(input) => { this.titleInput = input}}
@@ -130,6 +146,13 @@ class Board extends Component {
 }
 
 export default styles({
+  buttonsContainer: {
+    "@media (min-width: 480px)": {
+      position: "absolute",
+      right: "0px",
+      top: "0px"
+    }
+  },
   headerContainer: {
     position: "relative"
   },
@@ -139,4 +162,4 @@ export default styles({
       display: "inline-block"
     }
   }
-}, bindings(["board", "boardThreads"], ["authenticatedUser"])(Board))
+}, bindings(["board", "boardThreads", "adminUsers", "settings"], ["authenticatedUser"])(Board))
