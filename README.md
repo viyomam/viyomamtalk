@@ -1,12 +1,26 @@
 # refire-forum
 
-Serverless discussion forum built with React, Redux and Firebase using [refire](https://github.com/hoppula/refire) and [refire-app](https://github.com/hoppula/refire-app)
+Serverless discussion forum built with React, Redux and Firebase using [refire](https://github.com/hoppula/refire) and [refire-app](https://github.com/hoppula/refire-app).
 
-UI components use [Elemental UI](http://elemental-ui.com/)
+I challenged myself to build as good forum as possible in 37.5 hours (normal work week hours, but split over multiple weekends and nights in this case), version 1.0 is the result.
+
+Base UI components are from excellent [Elemental UI](http://elemental-ui.com/).
 
 ## Live demo
 
 [https://refire.firebaseio.com](https://refire.firebaseio.com)
+
+## Features
+
+* Categories, boards and threads
+* Paging for boards and threads
+* Quoting when replying to posts
+* Thread and Post previews
+* Markdown support :thumbsup:
+* Emoji support :fire:
+* User profile pages
+* Login with Google account
+* Admin tools (delete threads & single posts, lock/unlock threads)
 
 ## Deploying your own instance
 
