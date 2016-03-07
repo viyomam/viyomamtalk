@@ -1,7 +1,7 @@
 {
   "name": "refire-forum",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple discussion forum implemented with refire-app",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
   },
   "author": "Lari Hoppula",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "elemental": "^0.5.11",
     "emojilib": "^2.0.2",
@@ -29,7 +30,6 @@
     "react-pure-render": "^1.0.2"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.1",
     "babel-core": "^6.4.5",
     "babel-eslint": "^5.0.0-beta4",
     "babel-loader": "^6.2.0",
@@ -51,10 +51,8 @@
     "less-loader": "^2.2.2",
     "react-icons": "^1.0.3",
     "react-tap-event-plugin": "^0.2.1",
-    "redux-immutable-state-invariant": "^1.2.0",
     "rimraf": "^2.5.2",
     "style-loader": "^0.13.0",
-    "svg-inline-loader": "^0.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
     "webpack-dev-middleware": "^1.5.1",
