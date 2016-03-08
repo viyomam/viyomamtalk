@@ -71,7 +71,7 @@ const Post = ({
       <Col xs="100%" sm="7/8" lg="11/12">
         <Card>
           <div className={styles.bodyContainer}>
-            <ReactMarkdown escapeHtml={true} source={post.body} />
+            <ReactMarkdown className={styles.markdown} escapeHtml={true} source={post.body} />
           </div>
           <div className={styles.bottomToolbar}>
             <div className={styles.mobileProfileContainer}>
@@ -134,9 +134,6 @@ export default styles({
   },
   bodyContainer: {
     margin: "0 0 10px 0",
-    "& p": {
-      margin: "10px 0 0 0"
-    }
   },
   bottomToolbar: {
     position: "relative"
@@ -183,5 +180,10 @@ export default styles({
     display: "inline-block",
     verticalAlign: "top",
     paddingRight: "20px"
+  },
+  markdown: {
+    "& > p": {
+      margin: "10px 0 20px 0"
+    }
   }
 }, Post)
