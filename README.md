@@ -8,7 +8,7 @@ Base UI components are from excellent [Elemental UI](http://elemental-ui.com/).
 
 ## Live demo
 
-[https://refire.firebaseio.com](https://refire.firebaseio.com)
+[https://refire.firebaseapp.com](https://refire.firebaseapp.com)
 
 ## Features
 
