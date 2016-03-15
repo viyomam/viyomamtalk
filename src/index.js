@@ -6,6 +6,8 @@ momentLocaleSetup()
 
 // import elemental css
 import '../node_modules/elemental/less/elemental.less'
+// highlight.js
+import '../node_modules/highlight.js/styles/default.css'
 import './global.css'
 
 import { userReducer } from './reducers'

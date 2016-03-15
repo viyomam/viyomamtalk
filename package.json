@@ -1,6 +1,6 @@
 {
   "name": "refire-forum",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple discussion forum implemented with refire-app",
   "main": "index.js",
   "private": true,
@@ -16,16 +16,16 @@
   },
   "author": "Lari Hoppula",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "elemental": "^0.5.11",
     "emojilib": "^2.0.2",
+    "highlight.js": "^9.2.0",
     "lodash": "^3.10.1",
     "moment": "^2.11.1",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-markdown": "^1.2.4",
+    "react-markdown": "^2.1.0",
     "react-pure-render": "^1.0.2",
     "refire-app": "^1.0.0"
   },

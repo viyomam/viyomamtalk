@@ -3,6 +3,7 @@ import { Link, styles } from 'refire-app'
 import { Row, Col, Card } from 'elemental'
 import moment from 'moment'
 import ReactMarkdown from 'react-markdown'
+import CodeBlock from '../App/CodeBlock'
 import QuoteIcon from 'react-icons/lib/fa/quote-left'
 import TrashIcon from 'react-icons/lib/fa/trash'
 import ReplyIcon from 'react-icons/lib/fa/reply'
@@ -71,7 +72,11 @@ const Post = ({
       <Col xs="100%" sm="7/8" lg="11/12">
         <Card>
           <div className={styles.bodyContainer}>
-            <ReactMarkdown className={styles.markdown} escapeHtml={true} source={post.body} />
+            <ReactMarkdown
+              className={styles.markdown}
+              escapeHtml={true}
+              source={post.body}
+              renderers={{...ReactMarkdown.renderers, ...{ CodeBlock }}} />
           </div>
           <div className={styles.bottomToolbar}>
             <div className={styles.mobileProfileContainer}>

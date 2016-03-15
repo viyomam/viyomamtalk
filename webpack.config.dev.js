@@ -17,6 +17,8 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    // need for highlight.js, see https://github.com/isagalaev/highlight.js/issues/895
+    noParse: [/autoit.js/],
     loaders: [
       {
         test: /\.js$/,
