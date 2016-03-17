@@ -44,7 +44,7 @@ class Board extends Component {
         this.setState({
           threads: this.state.threads.reduce((result, thread) => {
             const nextThread = find(nextThreads, (next) => thread.key === next.key)
-            if (nextThread) {
+            if (nextThread && nextThread.value) {
                 // update only posts count
                 // TODO: update timestamp, but how to keep the sorting?
                 return [
