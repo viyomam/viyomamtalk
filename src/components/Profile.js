@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { styles, bindings, Link } from 'refire-app'
+import React, { Component } from 'react'
+import { styles, bindings } from 'refire-app'
 import { Card } from 'elemental'
 import moment from 'moment'
 
@@ -37,9 +37,10 @@ class Profile extends Component {
       </div>
     )
   }
+
 }
 
-export default styles({
+const css = {
   profileImage: {
     width: "80px",
     height: "80px",
@@ -51,4 +52,11 @@ export default styles({
   profileContainer: {
     display: "inline-block"
   }
-}, bindings(["profile", "profileThreadsStarted", "settings"])(Profile))
+}
+
+export default styles(
+  css,
+  bindings(
+    ["profile", "profileThreadsStarted", "settings"]
+  )(Profile)
+)

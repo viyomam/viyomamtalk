@@ -23,7 +23,7 @@ const PreviewFields = ({ preview, topic, text, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   topicPreview: {
     padding: "10px 0 0 0"
   },
@@ -32,4 +32,6 @@ export default styles({
       margin: "0 0 20px 0"
     }
   }
-}, PreviewFields)
+}
+
+export default styles(css, PreviewFields)

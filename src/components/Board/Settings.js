@@ -1,9 +1,7 @@
 import React from 'react'
-import { Button } from 'elemental'
-import { styles } from 'refire-app'
 import SettingsModal from '../Admin/SettingsModal'
 
-const Settings = ({ visible, toggleVisible, styles }) => {
+const Settings = ({ visible, toggleVisible }) => {
   return (
     <SettingsModal
       title="Board settings"
@@ -15,5 +13,4 @@ const Settings = ({ visible, toggleVisible, styles }) => {
   )
 }
 
-export default styles({
-}, Settings)
+export default Settings

@@ -1,9 +1,7 @@
 import React from 'react'
-import { Button } from 'elemental'
-import { styles } from 'refire-app'
 import SettingsModal from '../Admin/SettingsModal'
 
-const LockDialog = ({ visible, save, hide, locked, title="", styles }) => {
+const LockDialog = ({ visible, save, hide, locked, title="" }) => {
   const text = locked ? "Unlock" : "Lock"
   const confirmText = locked ? "unlock" : "lock"
   return (
@@ -19,5 +17,4 @@ const LockDialog = ({ visible, save, hide, locked, title="", styles }) => {
   )
 }
 
-export default styles({
-}, LockDialog)
+export default LockDialog

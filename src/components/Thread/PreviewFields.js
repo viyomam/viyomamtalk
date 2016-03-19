@@ -20,10 +20,12 @@ const PreviewFields = ({ preview, text, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   textPreview: {
     "& p": {
       margin: "0 0 20px 0"
     }
   }
-}, PreviewFields)
+}
+
+export default styles(css, PreviewFields)

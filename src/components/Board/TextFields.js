@@ -8,10 +8,18 @@ const TextFields = ({ preview, inputRef, topic, text, updateTopic, updateText })
     return (
       <div>
         <FormField>
-          <FormInput ref={inputRef} placeholder="New topic" value={topic} onChange={updateTopic} />
+          <FormInput
+            ref={inputRef}
+            placeholder="New topic"
+            value={topic}
+            onChange={updateTopic} />
         </FormField>
         <FormField>
-          <FormInput placeholder="Text (markdown enabled)" value={text} multiline onChange={updateText} />
+          <FormInput
+            placeholder="Text (markdown enabled)"
+            value={text}
+            multiline
+            onChange={updateText} />
         </FormField>
       </div>
     )

@@ -14,7 +14,7 @@ const SettingsButton = ({ visible, toggleVisible, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   button: {
     width: "100%",
     "@media (min-width: 480px)": {
@@ -22,4 +22,6 @@ export default styles({
       marginRight: "10px"
     }
   }
-}, SettingsButton)
+}
+
+export default styles(css, SettingsButton)

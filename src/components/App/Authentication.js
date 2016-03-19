@@ -1,7 +1,6 @@
 import React from 'react'
-import { Firebase, FirebaseOAuth, FirebaseLogout, styles } from 'refire-app'
+import { FirebaseOAuth, FirebaseLogout, styles } from 'refire-app'
 import { Button } from 'elemental'
-import url from '../../url'
 
 const Authentication = ({ user, styles }) => {
   if (user) {
@@ -19,9 +18,11 @@ const Authentication = ({ user, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   button: {
     position: "absolute",
     right: "20px"
   }
-}, Authentication)
+}
+
+export default styles(css, Authentication)

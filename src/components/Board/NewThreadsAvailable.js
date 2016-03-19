@@ -16,11 +16,13 @@ const NewThreadsAvailable = ({ threads, nextThreads = [], showNewThreads, styles
   }
 }
 
-export default styles({
+const css = {
   container: {
     padding: "10px",
     background: Color("#27ae60").lighten(0.7).hexString(),
     cursor: "pointer",
     marginBottom: "20px"
   }
-}, NewThreadsAvailable)
+}
+
+export default styles(css, NewThreadsAvailable)

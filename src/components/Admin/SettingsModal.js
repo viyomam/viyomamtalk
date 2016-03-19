@@ -1,5 +1,4 @@
 import React from 'react'
-import { styles } from 'refire-app'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'elemental'
 
 const SettingsModal = ({
@@ -37,4 +36,4 @@ const SettingsModal = ({
   )
 }
 
-export default styles({}, SettingsModal)
+export default SettingsModal

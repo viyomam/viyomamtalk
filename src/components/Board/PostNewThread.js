@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { Button, Card, Form, FormField, FormInput } from 'elemental'
+import React, { Component } from 'react'
+import { Button, Card, Form } from 'elemental'
 import { FirebaseWrite, styles } from 'refire-app'
 import PlusIcon from 'react-icons/lib/fa/plus'
 
@@ -74,7 +74,10 @@ class PostNewThread extends Component {
             preview={this.state.previewEnabled}
             topic={this.state.topic}
             text={this.state.text} />
-          <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
+          <Button
+            disabled={!submitEnabled}
+            type="success"
+            onClick={this.submit}>
             <PlusIcon className={styles.plusIcon} /> Post new thread
           </Button>
           <PreviewButton enabled={this.state.previewEnabled} togglePreview={this.togglePreview} />
@@ -84,7 +87,7 @@ class PostNewThread extends Component {
   }
 }
 
-export default styles({
+const css = {
   userProfile: {
     margin: "0 0 10px 0"
   },
@@ -97,4 +100,9 @@ export default styles({
   plusIcon: {
     marginRight: "10px"
   }
-}, FirebaseWrite({ method: "update" })(PostNewThread))
+}
+
+export default styles(
+  css,
+  FirebaseWrite({ method: "update" })(PostNewThread)
+)

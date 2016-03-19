@@ -1,9 +1,7 @@
 import React from 'react'
-import { Button } from 'elemental'
-import { styles } from 'refire-app'
 import SettingsModal from '../Admin/SettingsModal'
 
-const DeleteDialog = ({ visible, save, hide, title="", styles }) => {
+const DeleteDialog = ({ visible, save, hide, title="" }) => {
   return (
     <SettingsModal
       title="Delete thread?"
@@ -17,5 +15,4 @@ const DeleteDialog = ({ visible, save, hide, title="", styles }) => {
   )
 }
 
-export default styles({
-}, DeleteDialog)
+export default DeleteDialog

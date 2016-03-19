@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spinner } from 'elemental'
-import { Link, styles } from 'refire-app'
-import moment from 'moment'
+import { styles } from 'refire-app'
 
 import Thread from './Thread'
 
@@ -39,8 +38,10 @@ const Threads = ({ boardId, threads, loaded, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   spinnerContainer: {
     padding: "30px 0",
   }
-}, Threads)
+}
+
+export default styles(css, Threads)

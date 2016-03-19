@@ -24,10 +24,12 @@ const PreviewButton = ({ enabled, togglePreview, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   iconContainer: {
     verticalAlign: "top",
     display: "inline-block",
     margin: "-1px 1px 0 0"
   }
-}, PreviewButton)
+}
+
+export default styles(css, PreviewButton)

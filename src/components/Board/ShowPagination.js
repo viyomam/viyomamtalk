@@ -17,9 +17,11 @@ const ShowPagination = ({ pageSize, currentPage, handlePageSelect, threads, styl
   }
 }
 
-export default styles({
+const css = {
   pagination: {
     display: "block",
     margin: "10px 0 0 0"
   }
-}, ShowPagination)
+}
+
+export default styles(css, ShowPagination)

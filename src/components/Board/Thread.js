@@ -38,7 +38,7 @@ const Thread = ({ threadKey, thread, boardId, styles }) => {
   )
 }
 
-export default styles({
+const css = {
   threadContainer: {
     position: "relative",
     padding: "15px 0",
@@ -94,4 +94,6 @@ export default styles({
     textAlign: "right",
     verticalAlign: "middle"
   }
-}, Thread)
+}
+
+export default styles(css, Thread)

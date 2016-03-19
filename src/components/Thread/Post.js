@@ -62,14 +62,20 @@ const Post = ({
 }) => {
   return (
     <Row>
-      <Col xs="0%" sm="1/8" lg="1/12">
+      <Col
+        xs="0%"
+        sm="1/8"
+        lg="1/12">
         <div className={styles.profileContainer}>
           <Link to={`/profile/${post.user.id}`}>
             <img src={post.user.image} className={styles.image} />
           </Link>
         </div>
       </Col>
-      <Col xs="100%" sm="7/8" lg="11/12">
+      <Col
+        xs="100%"
+        sm="7/8"
+        lg="11/12">
         <Card>
           <div className={styles.bodyContainer}>
             <ReactMarkdown
@@ -92,9 +98,21 @@ const Post = ({
               <div className={styles.postDate}>
                 {moment(post.createdAt, "x").fromNow()} ago
               </div>
-              <DeleteButton user={user} isAdmin={isAdmin} onClick={() => deletePost(postKey, post)} styles={styles} />
-              <QuoteButton user={user} locked={locked} onClick={() => updateQuote(post.body, postKey)} styles={styles} />
-              <ReplyButton user={user} locked={locked} onClick={() => updateQuote("", postKey)} styles={styles} />
+              <DeleteButton
+                user={user}
+                isAdmin={isAdmin}
+                onClick={() => deletePost(postKey, post)}
+                styles={styles} />
+              <QuoteButton
+                user={user}
+                locked={locked}
+                onClick={() => updateQuote(post.body, postKey)}
+                styles={styles} />
+              <ReplyButton
+                user={user}
+                locked={locked}
+                onClick={() => updateQuote("", postKey)}
+                styles={styles} />
             </div>
           </div>
         </Card>
@@ -103,7 +121,7 @@ const Post = ({
   )
 }
 
-export default styles({
+const css = {
   image: {
     display: "none",
     "@media (min-width: 480px)": {
@@ -191,4 +209,6 @@ export default styles({
       margin: "10px 0 20px 0"
     }
   }
-}, Post)
+}
+
+export default styles(css, Post)

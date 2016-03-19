@@ -10,7 +10,10 @@ const TopBar = (props) => {
       <div className={styles.topbar}>
         <h1 className={styles.header}>
           <Link to="/">refire</Link>
-          <BoardLink board={board} boardKey={boardKey} threadKey={threadKey} />
+          <BoardLink
+            board={board}
+            boardKey={boardKey}
+            threadKey={threadKey} />
         </h1>
         <Authentication user={authenticatedUser} />
       </div>
@@ -18,7 +21,7 @@ const TopBar = (props) => {
   )
 }
 
-export default styles({
+const css = {
   topBarContainer: {
     position: "fixed",
     left: 0,
@@ -44,4 +47,6 @@ export default styles({
       fontSize: "20px",
     }
   }
-}, TopBar)
+}
+
+export default styles(css, TopBar)

@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bindings, Link } from 'refire-app'
-import { Card } from 'elemental'
+import React, { Component } from 'react'
+import { bindings } from 'refire-app'
 
 import Categories from './Categories'
 

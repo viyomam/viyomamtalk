@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import { bindings, routeActions, FirebaseOAuth, Link, styles } from 'refire-app'
-import { Button, Spinner } from 'elemental'
-import url from '../url'
+import React, { Component } from 'react'
+import { bindings, styles } from 'refire-app'
+import { Spinner } from 'elemental'
 import TopBar from './App/TopBar'
 
 class App extends Component {
@@ -45,7 +44,7 @@ class App extends Component {
   }
 }
 
-export default styles({
+const css = {
   app: {
     maxWidth: "980px",
     margin: "0 auto",
@@ -64,4 +63,12 @@ export default styles({
     verticalAlign: "middle",
     textAlign: "center",
   }
-} , bindings(["_status", "board", "thread", "settings"], ["authenticatedUser"])(App))
+}
+
+export default styles(
+  css,
+  bindings(
+    ["_status", "board", "thread", "settings"],
+    ["authenticatedUser"]
+  )(App)
+)

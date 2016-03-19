@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react'
-import { Button, Card, Form, FormField, FormInput } from 'elemental'
-import { Firebase, FirebaseWrite, styles } from 'refire-app'
+import React, { Component } from 'react'
+import { Button, Card, Form } from 'elemental'
+import { FirebaseWrite, styles } from 'refire-app'
 import PlusIcon from 'react-icons/lib/fa/plus'
-import url from '../../url'
 import { replaceEmojis, quote } from '../../utils'
 import { replyToThread } from '../../updates'
 
@@ -87,7 +86,10 @@ class ReplyToThread extends Component {
           <PreviewFields
             preview={this.state.previewEnabled}
             text={this.state.text} />
-          <Button disabled={!submitEnabled} type="success" onClick={this.submit}>
+          <Button
+            disabled={!submitEnabled}
+            type="success"
+            onClick={this.submit}>
             <PlusIcon className={styles.plusIcon} /> Reply to thread
           </Button>
           <PreviewButton
@@ -99,7 +101,7 @@ class ReplyToThread extends Component {
   }
 }
 
-export default styles({
+const css = {
   userProfile: {
     margin: "0 0 10px 0"
   },
@@ -112,4 +114,9 @@ export default styles({
   plusIcon: {
     marginRight: "10px"
   }
-}, FirebaseWrite({ method: "update" })(ReplyToThread))
+}
+
+export default styles(
+  css,
+  FirebaseWrite({ method: "update" })(ReplyToThread)
+)

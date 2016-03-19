@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import { findDOMNode } from 'react-dom'
-import { bindings, Link, FirebaseWrite, styles } from 'refire-app'
-import { Button, Card, Spinner, Pagination } from 'elemental'
+import React, { Component } from 'react'
+import { bindings, styles } from 'refire-app'
+import { Card } from 'elemental'
 import sortBy from 'lodash/collection/sortBy'
 import drop from 'lodash/array/drop'
 import take from 'lodash/array/take'
@@ -145,7 +144,7 @@ class Board extends Component {
   }
 }
 
-export default styles({
+const css = {
   buttonsContainer: {
     "@media (min-width: 480px)": {
       position: "absolute",
@@ -162,4 +161,12 @@ export default styles({
       display: "inline-block"
     }
   }
-}, bindings(["board", "boardThreads", "adminUsers", "settings"], ["authenticatedUser"])(Board))
+}
+
+export default styles(
+  css,
+  bindings(
+    ["board", "boardThreads", "adminUsers", "settings"],
+    ["authenticatedUser"]
+  )(Board)
+)

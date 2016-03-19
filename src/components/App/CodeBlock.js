@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import hljs from 'highlight.js'
 
-class CodeBlock extends React.Component {
+class CodeBlock extends Component {
   componentDidMount() {
     this.highlightCode()
   }

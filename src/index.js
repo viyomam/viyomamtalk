@@ -23,14 +23,14 @@ const ref = new Firebase(url)
 ref.onAuth((authData) => {
   if (authData && authData.uid) {
     const { uid, provider, [provider]: { displayName, profileImageURL } } = authData
-    ref.child(`users/${authData.uid}`).update({
+    ref.child(`users/${uid}`).update({
       provider,
       displayName,
       profileImageURL,
       lastLoginAt: Firebase.ServerValue.TIMESTAMP
     })
     // set registeredAt to current timestamp if this is the first login
-    ref.child(`users/${authData.uid}/registeredAt`).transaction((registeredAt) => {
+    ref.child(`users/${uid}/registeredAt`).transaction((registeredAt) => {
       if (!registeredAt) {
         return Firebase.ServerValue.TIMESTAMP
       }

@@ -25,8 +25,10 @@ const ShowPagination = ({
   }
 }
 
-export default styles({
+const css = {
   pagination: {
     display: "inline-block"
   }
-}, ShowPagination)
+}
+
+export default styles(css, ShowPagination)

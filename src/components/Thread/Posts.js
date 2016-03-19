@@ -41,8 +41,10 @@ const Posts = ({
   }
 }
 
-export default styles({
+const css = {
   spinnerContainer: {
     padding: "30px 0",
   }
-}, Posts)
+}
+
+export default styles(css, Posts)

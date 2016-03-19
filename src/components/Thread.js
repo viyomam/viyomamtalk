@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { FirebaseWrite, bindings, Link, styles, routeActions } from 'refire-app'
+import React, { Component } from 'react'
+import { FirebaseWrite, bindings, styles, routeActions } from 'refire-app'
 import { Card } from 'elemental'
 import LockIcon from 'react-icons/lib/fa/lock'
 
@@ -11,7 +11,6 @@ import { isUserAdmin } from '../utils'
 import { deleteThread, toggleThreadLocked, deletePost } from '../updates'
 
 import ReplyToThread from './Thread/ReplyToThread'
-import Post from './Thread/Post'
 import Posts from './Thread/Posts'
 import ShowPagination from './Thread/ShowPagination'
 import DeleteDialog from './Thread/DeleteDialog'
@@ -214,28 +213,33 @@ class Thread extends Component {
   }
 }
 
-export default styles(
-  {
-    header: {
-      minHeight: "28px",
-      margin: "0em 0 1em 0",
-      display: "inline-block"
-    },
-    lockContainer: {
-      display: "inline-block",
-      verticalAlign: "top",
-      paddingTop: "4px",
-      paddingRight: "5px"
-    },
-    paginationContainer: {
-      position: "relative",
-      minHeight: "32px"
-    },
-    buttonsContainer: {
-      display: "inline-block"
-    }
+const css = {
+  header: {
+    minHeight: "28px",
+    margin: "0em 0 1em 0",
+    display: "inline-block"
   },
+  lockContainer: {
+    display: "inline-block",
+    verticalAlign: "top",
+    paddingTop: "4px",
+    paddingRight: "5px"
+  },
+  paginationContainer: {
+    position: "relative",
+    minHeight: "32px"
+  },
+  buttonsContainer: {
+    display: "inline-block"
+  }
+}
+
+export default styles(
+  css,
   FirebaseWrite({ method: "update" })(
-    bindings(["thread", "threadPosts", "adminUsers", "settings"], ["authenticatedUser"])(Thread)
+    bindings(
+      ["thread", "threadPosts", "adminUsers", "settings"],
+      ["authenticatedUser"]
+    )(Thread)
   )
 )

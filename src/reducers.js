@@ -1,6 +1,4 @@
 import { USER_AUTHENTICATED, USER_UNAUTHENTICATED } from 'refire-app'
-import find from 'lodash/collection/find'
-import include from 'lodash/collection/include'
 
 export const userReducer = (state = null, action) => {
   const { payload } = action

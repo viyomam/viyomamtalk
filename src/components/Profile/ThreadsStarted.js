@@ -8,7 +8,10 @@ const ThreadsStarted = ({ threads, styles }) => {
         {
           threads.concat([]).reverse().sort((a, b) => a.key < b.key).map(({ key, value: thread}) => {
             return (
-              <Link to={`/board/${thread.boardId}/${key}`} key={key} className={styles.threadLink}>
+              <Link
+                to={`/board/${thread.boardId}/${key}`}
+                key={key}
+                className={styles.threadLink}>
                 {thread.title}
               </Link>
             )
@@ -25,8 +28,10 @@ const ThreadsStarted = ({ threads, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   threadLink: {
     display: "block"
   }
-}, ThreadsStarted)
+}
+
+export default styles(css, ThreadsStarted)

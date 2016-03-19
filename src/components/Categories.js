@@ -1,42 +1,8 @@
 import React from 'react'
-import { Link, styles } from 'refire-app'
-import { Card, Spinner } from 'elemental'
-import find from 'lodash/collection/find'
+import { Card } from 'elemental'
 
-function findBoard(boards, boardId) {
-  return find(boards, (board) => {
-    return board.key === boardId
-  }) || { value: {} }
-}
-
-const LoadingSpinner = ({ styles }) => {
-  return (
-    <Card>
-      <div className={styles.spinnerContainer}>
-        <Spinner />
-      </div>
-    </Card>
-  )
-}
-
-const Boards = ({ boards, category }) => {
-  return (
-    <div>
-      {
-        Object.keys(category.boards).map((boardId) => {
-          const board = findBoard(boards, boardId)
-          return (
-            <h3 key={boardId}>
-              <Link to={`board/${board.key}`}>
-                {board.value.title}
-              </Link>
-            </h3>
-          )
-        })
-      }
-    </div>
-  )
-}
+import LoadingSpinner from './Categories/LoadingSpinner'
+import Boards from './Categories/Boards'
 
 const Categories = ({ categories, boards, styles }) => {
 
@@ -60,8 +26,4 @@ const Categories = ({ categories, boards, styles }) => {
   )
 }
 
-export default styles({
-  spinnerContainer: {
-    padding: "30px 0",
-  }
-}, Categories)
+export default Categories

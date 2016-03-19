@@ -13,7 +13,7 @@ const TopToolbar = ({ children, isAdmin, posts, pageSize, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   container: {
     margin: "0 0 20px 0",
     "@media (min-width: 760px)": {
@@ -23,4 +23,6 @@ export default styles({
       top: "0px",
     }
   }
-}, TopToolbar)
+}
+
+export default styles(css, TopToolbar)

@@ -14,11 +14,13 @@ const NewThreadButton = ({ user, newThread, styles }) => {
   }
 }
 
-export default styles({
+const css = {
   button: {
     width: "100%",
     "@media (min-width: 480px)": {
       width: "auto",
     }
   }
-}, NewThreadButton)
+}
+
+export default styles(css, NewThreadButton)
