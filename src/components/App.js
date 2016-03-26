@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import { bindings, styles } from 'refire-app'
 import TopBar from './App/TopBar'
 import LoadingSpinner from './App/LoadingSpinner'
+import UserSettings from './App/UserSettings'
 
 class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      settingsVisible: false
+    }
+    this.toggleSettings = this.toggleSettings.bind(this)
+  }
+
+  toggleSettings() {
+    this.setState({ settingsVisible: !this.state.settingsVisible })
   }
 
   render() {
@@ -15,6 +23,7 @@ class App extends Component {
     const { key: boardKey, value: board = {} } = this.props.board || {}
     const { key: threadKey } = this.props.thread || {}
     const { value: settings } = this.props.settings || {}
+    const { value: user } = this.props.user || {}
     const loading = !connected || !initialFetchDone || !settings
 
     if (loading) {
@@ -23,13 +32,20 @@ class App extends Component {
 
     return (
       <div className={styles.app}>
-        <TopBar
-          authenticatedUser={authenticatedUser}
-          board={board}
-          boardKey={boardKey}
-          threadKey={threadKey} />
-        <div className={styles.body}>
-          {this.props.children}
+        <UserSettings
+          visible={this.state.settingsVisible}
+          toggleVisible={this.toggleSettings} />
+        <div>
+          <TopBar
+            authenticatedUser={authenticatedUser}
+            user={user}
+            board={board}
+            boardKey={boardKey}
+            threadKey={threadKey}
+            toggleSettings={this.toggleSettings} />
+          <div className={styles.body}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     )
@@ -50,7 +66,7 @@ const css = {
 export default styles(
   css,
   bindings(
-    ["_status", "board", "thread", "settings"],
+    ["_status", "board", "thread", "settings", "user"],
     ["authenticatedUser"]
   )(App)
 )

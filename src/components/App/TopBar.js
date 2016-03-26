@@ -1,10 +1,18 @@
 import React from 'react'
 import { Link, styles } from 'refire-app'
-import Authentication from './Authentication'
+import AuthenticationButton from './AuthenticationButton'
 import BoardLink from './BoardLink'
+import SettingsButton from './SettingsButton'
 
-const TopBar = (props) => {
-  const { authenticatedUser, board, boardKey, threadKey, styles } = props
+const TopBar = ({
+  authenticatedUser,
+  board,
+  boardKey,
+  threadKey,
+  toggleSettings,
+  user,
+  styles
+}) => {
   return (
     <div className={styles.topBarContainer}>
       <div className={styles.topbar}>
@@ -15,7 +23,10 @@ const TopBar = (props) => {
             boardKey={boardKey}
             threadKey={threadKey} />
         </h1>
-        <Authentication user={authenticatedUser} />
+        <div className={styles.buttonsContainer}>
+          <SettingsButton user={user} toggleVisible={toggleSettings} />
+          <AuthenticationButton user={authenticatedUser} />
+        </div>
       </div>
     </div>
   )
@@ -46,6 +57,11 @@ const css = {
       paddingTop: "5px",
       fontSize: "20px",
     }
+  },
+  buttonsContainer: {
+    position: "absolute",
+    right: "20px",
+    top: "8px"
   }
 }
 
