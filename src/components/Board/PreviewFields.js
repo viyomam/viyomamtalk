@@ -3,8 +3,23 @@ import { styles } from 'refire-app'
 import ReactMarkdown from 'react-markdown'
 import CodeBlock from '../App/CodeBlock'
 
-const PreviewFields = ({ preview, topic, text, styles }) => {
+const PreviewFields = ({
+  preview,
+  topic,
+  text,
+  styles
+}) => {
   if (preview) {
+    if (!topic.length && !text.length) {
+      return (
+        <div>
+          <h3 className={styles.topicPreview}>
+            Nothing to preview yet
+          </h3>
+        </div>
+      )
+    }
+
     return (
       <div>
         <h3 className={styles.topicPreview}>
@@ -25,11 +40,11 @@ const PreviewFields = ({ preview, topic, text, styles }) => {
 
 const css = {
   topicPreview: {
-    padding: "10px 0 0 0"
+    padding: "10px 0 10px 0"
   },
   textPreview: {
     "& p": {
-      margin: "0 0 20px 0"
+      margin: "0 0 30px 0"
     }
   }
 }
