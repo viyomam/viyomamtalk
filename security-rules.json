@@ -57,7 +57,7 @@
     "threads": {
       ".read": true,
       "$threadId": {
-        ".write": "auth !== null",
+        ".write": "(auth !== null && auth.uid === newData.child('user/id').val() && newData.exists()) || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())",
         ".validate": "newData.hasChildren(['boardId', 'createdAt', 'lastPostAt', 'posts', 'title', 'user'])",
         "boardId": {
           ".validate": "newData.isString() && !data.exists()"
@@ -66,14 +66,17 @@
           ".validate": "newData.isNumber() && !data.exists()"
         },
         "lastPostAt": {
-          ".validate": "newData.isNumber()"
+          ".validate": "newData.isNumber()",
+          ".write": "auth !== null"
         },
         "locked": {
-          ".validate": "newData.isBoolean()"
+          ".validate": "newData.isBoolean()",
+          ".write": "root.child('adminUsers/' + auth.uid).exists()"
         },
         "posts": {
           "$postId": {
-            ".validate": "newData.isBoolean() && !data.exists()"
+            ".validate": "newData.isBoolean() && !data.exists()",
+            ".write": "auth !== null"
           }
         },
         "title": {
@@ -97,32 +100,30 @@
     },
     "users": {
       "$uid": {
-        ".write": "auth !== null",
+        ".write": "(auth !== null && auth.uid === $uid) || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())",
         ".read": true,
         "displayName": {
-          ".write": "auth.uid === $uid"
+          ".validate": "newData.isString()"
         },
         "lastLoginAt": {
-          ".write": "auth.uid === $uid"
+          ".validate": "newData.isNumber()"
         },
         "profileImageUrl": {
-          ".write": "auth.uid === $uid"
+          ".validate": "newData.isString()"
         },
         "provider": {
-          ".write": "auth.uid === $uid"
+          ".validate": "newData.isString()"
         },
         "registeredAt": {
-          ".write": "auth.uid === $uid"
+          ".validate": "newData.isNumber()"
         },
         "posts": {
           "$postId": {
-            ".write": "auth.uid === $uid || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())",
             ".validate": "newData.isBoolean()"
           }
         },
         "threadsStarted": {
           "$threadId": {
-            ".write": "auth.uid === $uid || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())",
             ".validate": "newData.isBoolean()"
           }
         }
