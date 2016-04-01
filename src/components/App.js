@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindings, styles } from 'refire-app'
-import { Spinner } from 'elemental'
 import TopBar from './App/TopBar'
+import LoadingSpinner from './App/LoadingSpinner'
 
 class App extends Component {
 
@@ -18,26 +18,18 @@ class App extends Component {
     const loading = !connected || !initialFetchDone || !settings
 
     if (loading) {
-      return (
-        <div className={styles.spinnerContainer}>
-          <div className={styles.verticalAlign}>
-            <Spinner size="lg" />
-          </div>
-        </div>
-      )
+      return <LoadingSpinner />
     }
 
     return (
-      <div className="App">
-        <div className={styles.app}>
-          <TopBar
-            authenticatedUser={authenticatedUser}
-            board={board}
-            boardKey={boardKey}
-            threadKey={threadKey} />
-          <div className={styles.body}>
-            {this.props.children}
-          </div>
+      <div className={styles.app}>
+        <TopBar
+          authenticatedUser={authenticatedUser}
+          board={board}
+          boardKey={boardKey}
+          threadKey={threadKey} />
+        <div className={styles.body}>
+          {this.props.children}
         </div>
       </div>
     )
@@ -52,16 +44,6 @@ const css = {
   },
   body: {
     paddingTop: "60px"
-  },
-  spinnerContainer: {
-    width: "100%",
-    height: "100%",
-    display: "table"
-  },
-  verticalAlign: {
-    display: "table-cell",
-    verticalAlign: "middle",
-    textAlign: "center",
   }
 }
 
