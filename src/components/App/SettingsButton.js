@@ -3,9 +3,6 @@ import { styles } from 'refire-app'
 import { Button } from 'elemental'
 
 const SettingsButton = ({ user, toggleVisible, styles }) => {
-
-  console.log( "USER", user )
-
   if (user) {
     return (
       <Button className={styles.button} onClick={() => toggleVisible()}>

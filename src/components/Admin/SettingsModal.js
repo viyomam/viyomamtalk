@@ -1,6 +1,17 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'elemental'
 
+const DefaultFooter = ({save, saveText, hide, cancelText}) => (
+  <ModalFooter>
+    <Button type="primary" onClick={save}>
+      {saveText}
+    </Button>
+    <Button type="link-cancel" onClick={hide}>
+      {cancelText}
+    </Button>
+  </ModalFooter>
+)
+
 const SettingsModal = ({
   cancelText = "Cancel",
   children,
@@ -9,7 +20,8 @@ const SettingsModal = ({
   title,
   hide,
   visible,
-  width="medium"
+  width="medium",
+  Footer=DefaultFooter
 }) => {
   return (
     <Modal
@@ -24,14 +36,11 @@ const SettingsModal = ({
     	<ModalBody>
         {children}
       </ModalBody>
-    	<ModalFooter>
-    		<Button type="primary" onClick={save}>
-          {saveText}
-        </Button>
-    		<Button type="link-cancel" onClick={hide}>
-          {cancelText}
-        </Button>
-    	</ModalFooter>
+      <Footer
+        save={save}
+        saveText={saveText}
+        hide={hide}
+        cancelText={cancelText} />
     </Modal>
   )
 }

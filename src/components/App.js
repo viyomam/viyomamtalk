@@ -34,7 +34,8 @@ class App extends Component {
       <div className={styles.app}>
         <UserSettings
           visible={this.state.settingsVisible}
-          toggleVisible={this.toggleSettings} />
+          toggleVisible={this.toggleSettings}
+          user={user} />
         <div>
           <TopBar
             authenticatedUser={authenticatedUser}
