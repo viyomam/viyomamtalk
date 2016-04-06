@@ -7,8 +7,8 @@ import drop from 'lodash/array/drop'
 import take from 'lodash/array/take'
 import find from 'lodash/collection/find'
 
-import { isUserAdmin } from '../../utils'
-import { deleteThread, toggleThreadLocked, deletePost } from '../../updates'
+import { isUserAdmin } from '../utils'
+import { deleteThread, toggleThreadLocked, deletePost } from '../updates'
 
 import ReplyToThread from './ReplyToThread'
 import Posts from './Posts'

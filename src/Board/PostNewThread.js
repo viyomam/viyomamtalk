@@ -3,8 +3,8 @@ import { Button, Card, Form } from 'elemental'
 import { FirebaseWrite, styles } from 'refire-app'
 import PlusIcon from 'react-icons/lib/fa/plus'
 
-import { replaceEmojis } from '../../utils'
-import { newThread } from '../../updates'
+import { replaceEmojis } from '../utils'
+import { newThread } from '../updates'
 
 import PreviewButton from '../App/PreviewButton'
 import PreviewFields from './PreviewFields'

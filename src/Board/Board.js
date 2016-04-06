@@ -5,7 +5,7 @@ import sortBy from 'lodash/collection/sortBy'
 import drop from 'lodash/array/drop'
 import take from 'lodash/array/take'
 import find from 'lodash/collection/find'
-import { isUserAdmin } from '../../utils'
+import { isUserAdmin } from '../utils'
 
 import NewThreadsAvailable from './NewThreadsAvailable'
 import NewThreadButton from './NewThreadButton'
