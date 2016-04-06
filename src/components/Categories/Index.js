@@ -9,7 +9,7 @@ class Index extends Component {
     const {value: boards = []} = this.props.boards || {}
 
     return (
-      <div className="Index">
+      <div>
         <Categories categories={categories} boards={boards} />
       </div>
     )

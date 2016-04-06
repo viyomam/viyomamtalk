@@ -1,12 +1,12 @@
 import React from 'react'
 import { IndexRoute, Route } from 'refire-app'
 
-import App from './components/App'
-import Index from './components/Index'
-import Board from './components/Board'
-import Thread from './components/Thread'
-import Profile from './components/Profile'
-import NativeLogin from './components/NativeLogin'
+import App from './components/App/App'
+import Index from './components/Categories/Index'
+import Board from './components/Board/Board'
+import Thread from './components/Thread/Thread'
+import Profile from './components/Profile/Profile'
+import NativeLogin from './components/NativeLogin/NativeLogin'
 
 export default (
   <Route>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { bindings, styles } from 'refire-app'
-import TopBar from './App/TopBar'
-import LoadingSpinner from './App/LoadingSpinner'
-import UserSettings from './App/UserSettings'
+import TopBar from './TopBar'
+import LoadingSpinner from './LoadingSpinner'
+import UserSettings from './UserSettings'
 
 class App extends Component {
 

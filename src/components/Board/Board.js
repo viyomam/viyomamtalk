@@ -5,15 +5,15 @@ import sortBy from 'lodash/collection/sortBy'
 import drop from 'lodash/array/drop'
 import take from 'lodash/array/take'
 import find from 'lodash/collection/find'
-import { isUserAdmin } from '../utils'
+import { isUserAdmin } from '../../utils'
 
-import NewThreadsAvailable from './Board/NewThreadsAvailable'
-import NewThreadButton from './Board/NewThreadButton'
-import PostNewThread from './Board/PostNewThread'
-import Threads from './Board/Threads'
-import ShowPagination from './Board/ShowPagination'
-import SettingsButton from './Board/SettingsButton'
-import BoardSettings from './Board/Settings'
+import NewThreadsAvailable from './NewThreadsAvailable'
+import NewThreadButton from './NewThreadButton'
+import PostNewThread from './PostNewThread'
+import Threads from './Threads'
+import ShowPagination from './ShowPagination'
+import SettingsButton from './SettingsButton'
+import BoardSettings from './Settings'
 
 class Board extends Component {
 

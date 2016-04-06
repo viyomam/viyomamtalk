@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card } from 'elemental'
 
-import LoadingSpinner from './Categories/LoadingSpinner'
-import Boards from './Categories/Boards'
+import LoadingSpinner from './LoadingSpinner'
+import Boards from './Boards'
 
 const Categories = ({ categories, boards, styles }) => {
 

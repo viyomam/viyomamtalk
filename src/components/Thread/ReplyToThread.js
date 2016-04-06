@@ -5,7 +5,7 @@ import PlusIcon from 'react-icons/lib/fa/plus'
 import { replaceEmojis, quote } from '../../utils'
 import { replyToThread } from '../../updates'
 
-import PreviewButton from '../PreviewButton'
+import PreviewButton from '../App/PreviewButton'
 import PreviewFields from './PreviewFields'
 import TextFields from './TextFields'
 

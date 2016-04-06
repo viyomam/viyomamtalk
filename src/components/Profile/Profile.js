@@ -3,7 +3,7 @@ import { styles, bindings } from 'refire-app'
 import { Card } from 'elemental'
 import moment from 'moment'
 
-import ThreadsStarted from './Profile/ThreadsStarted'
+import ThreadsStarted from './ThreadsStarted'
 
 class Profile extends Component {
 
