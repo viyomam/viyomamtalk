@@ -7,7 +7,7 @@ const PreviewFields = ({
   preview,
   topic,
   text,
-  styles
+  styles,
 }) => {
   if (preview) {
     if (!topic.length && !text.length) {
@@ -29,7 +29,13 @@ const PreviewFields = ({
           <ReactMarkdown
             escapeHtml={true}
             source={text}
-            renderers={{...ReactMarkdown.renderers, ...{ CodeBlock }}} />
+            renderers={
+              {
+                ...ReactMarkdown.renderers,
+                ...{ CodeBlock },
+              }
+            }
+          />
         </div>
       </div>
     )
@@ -40,13 +46,13 @@ const PreviewFields = ({
 
 const css = {
   topicPreview: {
-    padding: "10px 0 10px 0"
+    padding: "10px 0 10px 0",
   },
   textPreview: {
     "& p": {
-      margin: "0 0 30px 0"
-    }
-  }
+      margin: "0 0 30px 0",
+    },
+  },
 }
 
 export default styles(css, PreviewFields)

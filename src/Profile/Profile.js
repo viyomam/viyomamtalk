@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { styles, bindings } from 'refire-app'
+import { styles } from 'refire-app'
 import { Card } from 'elemental'
 import moment from 'moment'
 
@@ -8,17 +8,20 @@ import ThreadsStarted from './ThreadsStarted'
 class Profile extends Component {
 
   render() {
-    const {value: profile = {}} = this.props.profile || {}
-    const {value: startedThreads = []} = this.props.profileThreadsStarted || {}
-    const { value: settings = {} } = this.props.settings || {}
+    const { profile, startedThreads, settings, styles, theme } = this.props
     const { DATE_FORMAT } = settings
-    const styles = this.props.styles
+
     return (
-      <div className="Profile">
-        <Card>
-          <img className={styles.profileImage} src={profile.profileImageURL} />
+      <div>
+        <Card className={styles.container}>
+          <img
+            className={styles.profileImage}
+            src={profile.profileImageURL}
+          />
           <div className={styles.profileContainer}>
-            <h2>{profile.displayName}</h2>
+            <h2 className={styles.header}>
+              {profile.displayName}
+            </h2>
             <div>
               <strong>Member since</strong> {moment(profile.registeredAt || moment(), "x").format(DATE_FORMAT)}
             </div>
@@ -30,9 +33,12 @@ class Profile extends Component {
             </div>
           </div>
         </Card>
-        <Card>
-          <h3>Latest threads started</h3>
-          <ThreadsStarted threads={startedThreads} />
+        <Card className={styles.container}>
+          <h3 className={styles.header}>Latest threads started</h3>
+          <ThreadsStarted
+            threads={startedThreads}
+            styles={theme.ThreadsStarted}
+          />
         </Card>
       </div>
     )
@@ -41,22 +47,19 @@ class Profile extends Component {
 }
 
 const css = {
+  container: {},
+  header: {},
   profileImage: {
     width: "80px",
     height: "80px",
     borderRadius: "40px",
     display: "inline-block",
     verticalAlign: "top",
-    marginRight: "20px"
+    marginRight: "20px",
   },
   profileContainer: {
-    display: "inline-block"
-  }
+    display: "inline-block",
+  },
 }
 
-export default styles(
-  css,
-  bindings(
-    ["profile", "profileThreadsStarted", "settings"]
-  )(Profile)
-)
+export default styles(css, Profile)

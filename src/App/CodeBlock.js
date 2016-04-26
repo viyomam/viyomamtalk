@@ -27,7 +27,7 @@ class CodeBlock extends Component {
 
 CodeBlock.propTypes = {
   literal: PropTypes.string,
-  language: PropTypes.string
+  language: PropTypes.string,
 }
 
 export default CodeBlock

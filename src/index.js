@@ -1,6 +1,7 @@
 import refireApp, { Firebase } from 'refire-app'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { momentLocaleSetup } from './utils'
+import 'native-promise-only'
 injectTapEventPlugin()
 momentLocaleSetup()
 
@@ -8,7 +9,6 @@ momentLocaleSetup()
 import '../node_modules/elemental/less/elemental.less'
 // highlight.js
 import '../node_modules/highlight.js/styles/default.css'
-import './global.css'
 
 import { userReducer } from './reducers'
 
@@ -20,7 +20,9 @@ refireApp({
   url,
   bindings,
   routes,
-  reducers: { authenticatedUser: userReducer },
+  reducers: {
+    authenticatedUser: userReducer,
+  },
   pathParams: (state) => state.routing.params,
   onAuth: (authData, ref) => {
     // update users/:uid with latest user data after successful authentication
@@ -30,7 +32,7 @@ refireApp({
         provider,
         displayName,
         profileImageURL,
-        lastLoginAt: Firebase.ServerValue.TIMESTAMP
+        lastLoginAt: Firebase.ServerValue.TIMESTAMP,
       })
       // set registeredAt to current timestamp if this is the first login
       ref.child(`users/${uid}/registeredAt`).transaction((registeredAt) => {
@@ -39,5 +41,5 @@ refireApp({
         }
       })
     }
-  }
+  },
 })

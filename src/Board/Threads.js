@@ -4,7 +4,7 @@ import { styles } from 'refire-app'
 
 import Thread from './Thread'
 
-const Threads = ({ boardId, threads, loaded, styles }) => {
+const Threads = ({ boardId, threads, loaded, styles, theme }) => {
   if (!threads.length) {
     if (!loaded) {
       return (
@@ -29,7 +29,8 @@ const Threads = ({ boardId, threads, loaded, styles }) => {
                 key={key}
                 threadKey={key}
                 thread={thread}
-                boardId={boardId} />
+                boardId={boardId}
+                styles={theme.Thread} />
             )
           })
         }
@@ -41,7 +42,7 @@ const Threads = ({ boardId, threads, loaded, styles }) => {
 const css = {
   spinnerContainer: {
     padding: "30px 0",
-  }
+  },
 }
 
 export default styles(css, Threads)

@@ -11,21 +11,33 @@ const TopBar = ({
   threadKey,
   toggleSettings,
   user,
-  styles
+  styles,
+  theme,
 }) => {
   return (
     <div className={styles.topBarContainer}>
       <div className={styles.topbar}>
         <h1 className={styles.header}>
-          <Link to="/">refire</Link>
+          <Link to="/" className={styles.link}>
+            refire
+          </Link>
           <BoardLink
             board={board}
             boardKey={boardKey}
-            threadKey={threadKey} />
+            threadKey={threadKey}
+            style={styles.link}
+          />
         </h1>
         <div className={styles.buttonsContainer}>
-          <SettingsButton user={user} toggleVisible={toggleSettings} />
-          <AuthenticationButton user={authenticatedUser} />
+          <SettingsButton
+            user={user}
+            toggleVisible={toggleSettings}
+            styles={theme.SettingsButton}
+          />
+          <AuthenticationButton
+            user={authenticatedUser}
+            styles={theme.AuthenticationButton}
+          />
         </div>
       </div>
     </div>
@@ -46,7 +58,7 @@ const css = {
     maxWidth: "940px",
     margin: "0 auto",
     height: "50px",
-    padding: "7px 20px"
+    padding: "7px 20px",
   },
   header: {
     display: "inline-block",
@@ -56,13 +68,16 @@ const css = {
     "@media (min-width: 480px)": {
       paddingTop: "5px",
       fontSize: "20px",
-    }
+    },
   },
   buttonsContainer: {
     position: "absolute",
     right: "20px",
-    top: "8px"
-  }
+    top: "8px",
+  },
+  link: {
+    color: "#3c9def",
+  },
 }
 
 export default styles(css, TopBar)

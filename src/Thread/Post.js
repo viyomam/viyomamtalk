@@ -4,51 +4,10 @@ import { Row, Col, Card } from 'elemental'
 import moment from 'moment'
 import ReactMarkdown from 'react-markdown'
 import CodeBlock from '../App/CodeBlock'
-import QuoteIcon from 'react-icons/lib/fa/quote-left'
-import TrashIcon from 'react-icons/lib/fa/trash'
-import ReplyIcon from 'react-icons/lib/fa/reply'
 
-const DeleteButton = ({ user, isAdmin, onClick, styles }) => {
-  if (user && isAdmin) {
-    return (
-      <span onClick={onClick} title="Delete">
-        <span className={styles.trashButton}>
-          <TrashIcon size="16px" />
-        </span>
-      </span>
-    )
-  } else {
-    return <span />
-  }
-}
-
-const QuoteButton = ({ user, locked, onClick, styles }) => {
-  if (user && !locked) {
-    return (
-      <span onClick={onClick} title="Quote">
-        <span className={styles.quoteButton}>
-          <QuoteIcon size="16px" />
-        </span>
-      </span>
-    )
-  } else {
-    return <span />
-  }
-}
-
-const ReplyButton = ({ user, locked, onClick, styles }) => {
-  if (user && !locked) {
-    return (
-      <span onClick={onClick} title="Reply">
-        <span className={styles.replyButton}>
-          <ReplyIcon size="20px" />
-        </span>
-      </span>
-    )
-  } else {
-    return <span />
-  }
-}
+import DeletePostButton from './DeletePostButton'
+import QuoteButton from './QuoteButton'
+import ReplyButton from './ReplyButton'
 
 const Post = ({
   postKey,
@@ -58,14 +17,16 @@ const Post = ({
   isAdmin,
   deletePost,
   updateQuote,
-  styles
+  styles,
+  theme,
 }) => {
   return (
     <Row>
       <Col
         xs="0%"
         sm="1/8"
-        lg="1/12">
+        lg="1/12"
+      >
         <div className={styles.profileContainer}>
           <Link to={`/profile/${post.user.id}`}>
             <img src={post.user.image} className={styles.image} />
@@ -75,19 +36,29 @@ const Post = ({
       <Col
         xs="100%"
         sm="7/8"
-        lg="11/12">
-        <Card>
+        lg="11/12"
+      >
+        <Card className={styles.container}>
           <div className={styles.bodyContainer}>
             <ReactMarkdown
               className={styles.markdown}
               escapeHtml={true}
               source={post.body}
-              renderers={{...ReactMarkdown.renderers, ...{ CodeBlock }}} />
+              renderers={
+                {
+                  ...ReactMarkdown.renderers,
+                  ...{ CodeBlock },
+                }
+              }
+            />
           </div>
           <div className={styles.bottomToolbar}>
             <div className={styles.mobileProfileContainer}>
               <Link to={`/profile/${post.user.id}`}>
-                <img src={post.user.image} className={styles.mobileImage} />
+                <img
+                  src={post.user.image}
+                  className={styles.mobileImage}
+                />
               </Link>
             </div>
             <strong className={styles.nameContainer}>
@@ -98,21 +69,24 @@ const Post = ({
               <div className={styles.postDate}>
                 {moment(post.createdAt, "x").fromNow()} ago
               </div>
-              <DeleteButton
+              <DeletePostButton
                 user={user}
                 isAdmin={isAdmin}
                 onClick={() => deletePost(postKey, post)}
-                styles={styles} />
+                styles={theme.DeletePostButton}
+              />
               <QuoteButton
                 user={user}
                 locked={locked}
                 onClick={() => updateQuote(post.body, postKey)}
-                styles={styles} />
+                styles={theme.QuoteButton}
+              />
               <ReplyButton
                 user={user}
                 locked={locked}
                 onClick={() => updateQuote("", postKey)}
-                styles={styles} />
+                styles={theme.ReplyButton}
+              />
             </div>
           </div>
         </Card>
@@ -122,6 +96,7 @@ const Post = ({
 }
 
 const css = {
+  container: {},
   image: {
     display: "none",
     "@media (min-width: 480px)": {
@@ -130,7 +105,7 @@ const css = {
       height: "40px",
       borderRadius: "20px",
       marginTop: "10px",
-    }
+    },
   },
   mobileImage: {
     display: "inline-block",
@@ -139,12 +114,12 @@ const css = {
     borderRadius: "15px",
     marginRight: "10px",
     "@media (min-width: 480px)": {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   profileContainer: {
     position: "relative",
-    textAlign: "center"
+    textAlign: "center",
   },
   mobileProfileContainer: {
     position: "relative",
@@ -152,21 +127,21 @@ const css = {
     display: "inline-block",
     marginTop: "10px",
     "@media (min-width: 480px)": {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   bodyContainer: {
     margin: "0 0 10px 0",
   },
   bottomToolbar: {
-    position: "relative"
+    position: "relative",
   },
   nameContainer: {
     display: "inline-block",
     verticalAlign: "middle",
     "@media (min-width: 480px)": {
-      display: "block"
-    }
+      display: "block",
+    },
   },
   actionsContainer: {
     display: "block",
@@ -175,40 +150,19 @@ const css = {
       paddingTop: 0,
       position: "absolute",
       right: 0,
-      top: 0
-    }
-  },
-  trashButton: {
-    cursor: "pointer",
-    verticalAlign: "top",
-    display: "inline-block",
-    paddingRight: "20px",
-    verticalAlign: "top",
-    color: "#555",
-  },
-  quoteButton: {
-    cursor: "pointer",
-    display: "inline-block",
-    verticalAlign: "top",
-    paddingRight: "20px",
-    color: "#555",
-  },
-  replyButton: {
-    cursor: "pointer",
-    color: "#555",
-    display: "inline-block",
-    verticalAlign: "top"
+      top: 0,
+    },
   },
   postDate: {
     display: "inline-block",
     verticalAlign: "top",
-    paddingRight: "20px"
+    paddingRight: "20px",
   },
   markdown: {
     "& > p": {
-      margin: "10px 0 20px 0"
-    }
-  }
+      margin: "10px 0 20px 0",
+    },
+  },
 }
 
 export default styles(css, Post)

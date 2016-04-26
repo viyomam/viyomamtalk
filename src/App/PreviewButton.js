@@ -28,8 +28,8 @@ const css = {
   iconContainer: {
     verticalAlign: "top",
     display: "inline-block",
-    margin: "-1px 1px 0 0"
-  }
+    margin: "-1px 1px 0 0",
+  },
 }
 
 export default styles(css, PreviewButton)

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'elemental'
 
-const DefaultFooter = ({save, saveText, hide, cancelText}) => (
-  <ModalFooter>
+const DefaultFooter = ({ save, saveText, hide, cancelText, styles }) => (
+  <ModalFooter className={styles.modal}>
     <Button type="primary" onClick={save}>
       {saveText}
     </Button>
@@ -21,26 +21,33 @@ const SettingsModal = ({
   hide,
   visible,
   width="medium",
-  Footer=DefaultFooter
+  Footer=DefaultFooter,
+  styles = {},
 }) => {
   return (
     <Modal
       isOpen={visible}
       onCancel={hide}
       width={width}
-      backdropClosesModal>
+      backdropClosesModal
+      className={styles.container}
+    >
     	<ModalHeader
         text={title}
         showCloseButton
-        onClose={hide} />
-    	<ModalBody>
+        onClose={hide}
+        className={styles.modal}
+      />
+    	<ModalBody className={styles.modal}>
         {children}
       </ModalBody>
       <Footer
         save={save}
         saveText={saveText}
         hide={hide}
-        cancelText={cancelText} />
+        cancelText={cancelText}
+        styles={styles}
+      />
     </Modal>
   )
 }

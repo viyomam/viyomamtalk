@@ -1,21 +1,34 @@
 import React from 'react'
+import { styles } from 'refire-app'
 import { FormField, FormInput } from 'elemental'
 
-const TextFields = ({ preview, text, updateText, inputRef }) => {
+const TextFields = ({
+  preview,
+  text,
+  updateText,
+  inputRef,
+  styles,
+ }) => {
   if (preview) {
     return <div />
   } else {
     return (
       <FormField>
         <FormInput
+          className={styles.text}
           placeholder="Text (markdown enabled)"
           value={text}
           multiline
           onChange={updateText}
-          ref={(input) => inputRef(input)} />
+          ref={(input) => inputRef(input)}
+        />
       </FormField>
     )
   }
 }
 
-export default TextFields
+const css = {
+  text: {},
+}
+
+export default styles(css, TextFields)

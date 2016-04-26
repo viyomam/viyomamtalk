@@ -21,7 +21,7 @@ const AuthenticationButton = ({ user, styles }) => {
 const css = {
   button: {
 
-  }
+  },
 }
 
 export default styles(css, AuthenticationButton)

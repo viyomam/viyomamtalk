@@ -19,9 +19,9 @@ const css = {
     width: "100%",
     "@media (min-width: 480px)": {
       width: "auto",
-      marginRight: "10px"
-    }
-  }
+      marginRight: "10px",
+    },
+  },
 }
 
 export default styles(css, SettingsButton)

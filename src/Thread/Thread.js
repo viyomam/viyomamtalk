@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
-import { FirebaseWrite, bindings, styles, routeActions } from 'refire-app'
+import { styles } from 'refire-app'
 import { Card } from 'elemental'
 import LockIcon from 'react-icons/lib/fa/lock'
-
-import drop from 'lodash/array/drop'
-import take from 'lodash/array/take'
-import find from 'lodash/collection/find'
-
-import { isUserAdmin } from '../utils'
-import { deleteThread, toggleThreadLocked, deletePost } from '../updates'
 
 import ReplyToThread from './ReplyToThread'
 import Posts from './Posts'
@@ -22,116 +15,41 @@ import LockButton from './LockButton'
 
 class Thread extends Component {
 
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      currentPage: 1,
-      quote: null,
-      postKey: null,
-      deleteDialogVisible: false,
-      lockDialogVisible: false,
-      deletePostDialogVisible: false,
-      deletePostKey: null
-    }
-    // TODO: use some autobind plugin
-    this.handlePageSelect = this.handlePageSelect.bind(this)
-    this.updateQuote = this.updateQuote.bind(this)
-    this.selectLastPage = this.selectLastPage.bind(this)
-    this.deleteThread = this.deleteThread.bind(this)
-    this.deletePost = this.deletePost.bind(this)
-    this.toggleLocked = this.toggleLocked.bind(this)
-    this.showDeleteDialog = this.showDeleteDialog.bind(this)
-    this.hideDeleteDialog = this.hideDeleteDialog.bind(this)
-    this.showLockDialog = this.showLockDialog.bind(this)
-    this.hideLockDialog = this.hideLockDialog.bind(this)
-    this.showDeletePostDialog = this.showDeletePostDialog.bind(this)
-    this.hideDeletePostDialog = this.hideDeletePostDialog.bind(this)
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
-
-  handlePageSelect(page) {
-    window.scrollTo(0, 0)
-    this.setState({ currentPage: page })
-  }
-
-  selectLastPage() {
-    const { value: posts = [] } = this.props.threadPosts || {}
-    const { value: settings = {} } = this.props.settings || {}
-    const { THREAD_PAGE_SIZE } = settings
-    const remainder = (posts.length + 1) % THREAD_PAGE_SIZE
-    const pages = Math.floor((posts.length + 1) / THREAD_PAGE_SIZE)
-    const lastPage = remainder === 0 ? pages : pages + 1
-    this.handlePageSelect(lastPage)
-  }
-
-  updateQuote(quote, postKey) {
-    this.setState({ quote, postKey })
-  }
-
-  hideDeleteDialog() {
-    this.setState({ deleteDialogVisible: false })
-  }
-
-  showDeleteDialog() {
-    this.setState({ deleteDialogVisible: true })
-  }
-
-  hideLockDialog() {
-    this.setState({ lockDialogVisible: false })
-  }
-
-  showLockDialog() {
-    this.setState({ lockDialogVisible: true })
-  }
-
-  showDeletePostDialog(postKey) {
-    this.setState({
-      deletePostDialogVisible: true,
-      deletePostKey: postKey
-    })
-  }
-
-  hideDeletePostDialog() {
-    this.setState({
-      deletePostDialogVisible: false,
-      deletePostKey: null
-    })
-  }
-
-  deleteThread() {
-    const { submit, dispatch } = this.props
-    const { key: threadKey, value: thread } = this.props.thread || {}
-    submit(deleteThread({ threadKey, thread }))
-    dispatch(routeActions.push(`/board/${thread.boardId}`))
-  }
-
-  deletePost() {
-    const { value: posts = [] } = this.props.threadPosts || {}
-    const post = find(posts, (threadPost) => {
-      return threadPost.key === this.state.deletePostKey
-    })
-    this.props.submit(deletePost({ postKey: this.state.deletePostKey, post: post.value }))
-    this.hideDeletePostDialog()
-  }
-
-  toggleLocked() {
-    const { submit } = this.props
-    const { key: threadKey, value: thread = {} } = this.props.thread || {}
-    submit(toggleThreadLocked({ threadKey, thread }))
-    this.hideLockDialog()
-  }
-
   render() {
-    const { key: threadKey, value: thread = {} } = this.props.thread || {}
-    const { value: posts = [] } = this.props.threadPosts || {}
-    const { value: settings = {} } = this.props.settings || {}
-    const { authenticatedUser: user, styles } = this.props
+    const {
+      threadKey,
+      thread,
+      posts,
+      settings,
+      pagedPosts,
+      user,
+      isAdmin,
+      styles,
+      theme,
+      state: {
+        currentPage,
+        deleteDialogVisible,
+        deletePostDialogVisible,
+        lockDialogVisible,
+        postKey,
+        quote,
+      },
+      stateSetters: {
+        deletePost,
+        deleteThread,
+        handlePageSelect,
+        hideDeleteDialog,
+        hideDeletePostDialog,
+        hideLockDialog,
+        selectLastPage,
+        showDeleteDialog,
+        showDeletePostDialog,
+        showLockDialog,
+        toggleLocked,
+        updateQuote,
+      },
+    } = this.props
     const { THREAD_PAGE_SIZE, THREAD_PAGE_LIMIT } = settings
-    const isAdmin = isUserAdmin(this.props.adminUsers, this.props.authenticatedUser)
-    const pagedPosts = take(drop(posts, (this.state.currentPage - 1) * THREAD_PAGE_SIZE), THREAD_PAGE_SIZE)
     const locked = thread.locked
       ? <LockIcon size="22px" />
       : <span />
@@ -139,21 +57,27 @@ class Thread extends Component {
     return (
       <div>
         <DeleteDialog
-          visible={this.state.deleteDialogVisible}
-          hide={this.hideDeleteDialog}
-          save={this.deleteThread}
-          title={thread.title} />
-        <LockDialog
-          visible={this.state.lockDialogVisible}
-          hide={this.hideLockDialog}
-          save={this.toggleLocked}
+          visible={deleteDialogVisible}
+          hide={hideDeleteDialog}
+          save={deleteThread}
           title={thread.title}
-          locked={thread.locked} />
+          styles={theme.DeleteDialog}
+        />
+        <LockDialog
+          visible={lockDialogVisible}
+          hide={hideLockDialog}
+          save={toggleLocked}
+          title={thread.title}
+          locked={thread.locked}
+          styles={theme.LockDialog}
+        />
         <DeletePostDialog
-          visible={this.state.deletePostDialogVisible}
-          hide={this.hideDeletePostDialog}
-          save={this.deletePost} />
-        <Card>
+          visible={deletePostDialogVisible}
+          hide={hideDeletePostDialog}
+          save={deletePost}
+          styles={theme.DeletePostDialog}
+        />
+        <Card className={styles.container}>
           <div className={styles.paginationContainer}>
             <div className={styles.headerContainer}>
               <div className={styles.lockContainer}>
@@ -168,78 +92,80 @@ class Thread extends Component {
               posts={posts}
               pageSize={THREAD_PAGE_SIZE}>
               <ShowPagination
-                currentPage={this.state.currentPage}
-                handlePageSelect={this.handlePageSelect}
+                currentPage={currentPage}
+                handlePageSelect={handlePageSelect}
                 posts={posts}
                 pageSize={THREAD_PAGE_SIZE}
-                pageLimit={THREAD_PAGE_LIMIT} />
+                pageLimit={THREAD_PAGE_LIMIT}
+              />
               <div className={styles.buttonsContainer}>
                 <DeleteButton
                   visible={isAdmin}
-                  confirmDelete={this.showDeleteDialog} />
+                  confirmDelete={showDeleteDialog}
+                />
                 <LockButton
                   visible={isAdmin}
                   locked={thread.locked}
-                  confirmLockedChange={this.showLockDialog} />
+                  confirmLockedChange={showLockDialog}
+                />
               </div>
             </TopToolbar>
           </div>
           <Posts
             posts={pagedPosts}
-            deletePost={this.showDeletePostDialog}
-            updateQuote={this.updateQuote}
+            deletePost={showDeletePostDialog}
+            updateQuote={updateQuote}
             user={user}
             locked={thread.locked}
-            isAdmin={isAdmin} />
+            isAdmin={isAdmin}
+            theme={theme}
+          />
           <div className={styles.paginationContainer}>
             <ShowPagination
-              currentPage={this.state.currentPage}
-              handlePageSelect={this.handlePageSelect}
+              currentPage={currentPage}
+              handlePageSelect={handlePageSelect}
               posts={posts}
               pageSize={THREAD_PAGE_SIZE}
-              pageLimit={THREAD_PAGE_LIMIT} />
+              pageLimit={THREAD_PAGE_LIMIT}
+            />
           </div>
         </Card>
 
         <ReplyToThread
           user={user}
           threadKey={threadKey}
-          postKey={this.state.postKey}
-          quote={this.state.quote}
+          postKey={postKey}
+          quote={quote}
           locked={thread.locked}
-          selectLastPage={this.selectLastPage} />
+          selectLastPage={selectLastPage}
+          styles={theme.ReplyToThread}
+          theme={theme}
+        />
       </div>
     )
   }
 }
 
 const css = {
+  container: {},
   header: {
     minHeight: "28px",
     margin: "0em 0 1em 0",
-    display: "inline-block"
+    display: "inline-block",
   },
   lockContainer: {
     display: "inline-block",
     verticalAlign: "top",
     paddingTop: "4px",
-    paddingRight: "5px"
+    paddingRight: "5px",
   },
   paginationContainer: {
     position: "relative",
-    minHeight: "32px"
+    minHeight: "32px",
   },
   buttonsContainer: {
-    display: "inline-block"
-  }
+    display: "inline-block",
+  },
 }
 
-export default styles(
-  css,
-  FirebaseWrite({ method: "update" })(
-    bindings(
-      ["thread", "threadPosts", "adminUsers", "settings"],
-      ["authenticatedUser"]
-    )(Thread)
-  )
-)
+export default styles(css, Thread)

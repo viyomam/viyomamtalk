@@ -10,7 +10,8 @@ const ShowPagination = ({ pageSize, currentPage, handlePageSelect, threads, styl
         onPageSelect={handlePageSelect}
         pageSize={pageSize}
         total={threads.length}
-        className={styles.pagination} />
+        className={styles.pagination}
+      />
     )
   } else {
     return <div />
@@ -20,8 +21,8 @@ const ShowPagination = ({ pageSize, currentPage, handlePageSelect, threads, styl
 const css = {
   pagination: {
     display: "block",
-    margin: "10px 0 0 0"
-  }
+    margin: "10px 0 0 0",
+  },
 }
 
 export default styles(css, ShowPagination)

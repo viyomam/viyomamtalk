@@ -1,7 +1,16 @@
 import React from 'react'
+import { styles } from 'refire-app'
 import { FormField, FormInput } from 'elemental'
 
-const TextFields = ({ preview, inputRef, topic, text, updateTopic, updateText }) => {
+const TextFields = ({
+  preview,
+  inputRef,
+  topic,
+  text,
+  updateTopic,
+  updateText,
+  styles,
+}) => {
   if (preview) {
     return <div />
   } else {
@@ -12,18 +21,27 @@ const TextFields = ({ preview, inputRef, topic, text, updateTopic, updateText })
             ref={inputRef}
             placeholder="New topic"
             value={topic}
-            onChange={updateTopic} />
+            onChange={updateTopic}
+            className={styles.topic}
+          />
         </FormField>
         <FormField>
           <FormInput
             placeholder="Text (markdown enabled)"
             value={text}
             multiline
-            onChange={updateText} />
+            onChange={updateText}
+            className={styles.text}
+          />
         </FormField>
       </div>
     )
   }
 }
 
-export default TextFields
+const css = {
+  topic: {},
+  text: {},
+}
+
+export default styles(css, TextFields)

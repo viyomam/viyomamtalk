@@ -21,8 +21,8 @@ const css = {
       position: "absolute",
       right: "0px",
       top: "0px",
-    }
-  }
+    },
+  },
 }
 
 export default styles(css, TopToolbar)

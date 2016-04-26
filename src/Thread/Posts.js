@@ -10,7 +10,8 @@ const Posts = ({
   isAdmin,
   deletePost,
   updateQuote,
-  styles
+  styles,
+  theme,
 }) => {
   if (!posts.length) {
     return (
@@ -22,7 +23,7 @@ const Posts = ({
     return (
       <div>
         {
-          posts.map(({ key, value: post}) => {
+          posts.map(({ key, value: post }) => {
             return (
               <Post
                 key={key}
@@ -32,7 +33,10 @@ const Posts = ({
                 locked={locked}
                 isAdmin={isAdmin}
                 deletePost={deletePost}
-                updateQuote={updateQuote} />
+                updateQuote={updateQuote}
+                styles={theme.Post}
+                theme={theme}
+              />
             )
           })
         }
@@ -44,7 +48,7 @@ const Posts = ({
 const css = {
   spinnerContainer: {
     padding: "30px 0",
-  }
+  },
 }
 
 export default styles(css, Posts)

@@ -5,13 +5,30 @@ import CodeBlock from '../App/CodeBlock'
 
 const PreviewFields = ({ preview, text, styles }) => {
   if (preview) {
+
+    if (!text.length) {
+      return (
+        <div>
+          <div className={styles.textPreview}>
+            <p>Nothing to preview yet</p>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div>
         <div className={styles.textPreview}>
           <ReactMarkdown
             escapeHtml={true}
             source={text}
-            renderers={{...ReactMarkdown.renderers, ...{ CodeBlock }}} />
+            renderers={
+              {
+                ...ReactMarkdown.renderers,
+                ...{ CodeBlock },
+              }
+            }
+          />
         </div>
       </div>
     )
@@ -23,9 +40,9 @@ const PreviewFields = ({ preview, text, styles }) => {
 const css = {
   textPreview: {
     "& p": {
-      margin: "0 0 20px 0"
-    }
-  }
+      margin: "0 0 30px 0",
+    },
+  },
 }
 
 export default styles(css, PreviewFields)

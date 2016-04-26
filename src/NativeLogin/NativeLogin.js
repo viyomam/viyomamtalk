@@ -23,7 +23,7 @@ class NativeLogin extends Component {
 
     return (
       <div className={classnames("app-container", styles.container)}>
-        <FirebaseOAuth provider="google" flow="authWithOAuthRedirect" >
+        <FirebaseOAuth provider="google" flow="authWithOAuthRedirect">
           <Button>Login with Google</Button>
         </FirebaseOAuth>
       </div>
@@ -35,8 +35,8 @@ const css = {
   container: prefix({
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-  })
+    justifyContent: "center",
+  }),
 }
 
 export default styles(

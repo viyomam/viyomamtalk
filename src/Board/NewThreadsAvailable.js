@@ -21,8 +21,8 @@ const css = {
     padding: "10px",
     background: Color("#27ae60").lighten(0.7).hexString(),
     cursor: "pointer",
-    marginBottom: "20px"
-  }
+    marginBottom: "20px",
+  },
 }
 
 export default styles(css, NewThreadsAvailable)

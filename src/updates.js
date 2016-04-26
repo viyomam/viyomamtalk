@@ -16,11 +16,11 @@ export function newThread({ boardId, topic, text, user }) {
       user: {
         displayName: user.displayName,
         image: user.profileImageURL,
-        id: user.uid
+        id: user.uid,
       },
       posts: {
-        [postKey]: true
-      }
+        [postKey]: true,
+      },
     },
     [`posts/${postKey}`]: {
       body: text,
@@ -29,11 +29,11 @@ export function newThread({ boardId, topic, text, user }) {
       user: {
         displayName: user.displayName,
         image: user.profileImageURL,
-        id: user.uid
-      }
+        id: user.uid,
+      },
     },
     [`users/${user.uid}/threadsStarted/${threadKey}`]: true,
-    [`users/${user.uid}/posts/${postKey}`]: true
+    [`users/${user.uid}/posts/${postKey}`]: true,
   }
 }
 
@@ -42,7 +42,7 @@ export function deleteThread({ threadKey, thread }) {
     return {
       ...paths,
       [`posts/${postId}`]: null,
-      [`users/${thread.user.id}/posts/${postId}`]: null
+      [`users/${thread.user.id}/posts/${postId}`]: null,
     }
   }, {})
 
@@ -50,13 +50,13 @@ export function deleteThread({ threadKey, thread }) {
     ...posts,
     [`threads/${threadKey}`]: null,
     [`boards/${thread.boardId}/threads/${threadKey}`]: null,
-    [`users/${thread.user.id}/threadsStarted/${threadKey}`]: null
+    [`users/${thread.user.id}/threadsStarted/${threadKey}`]: null,
   }
 }
 
 export function toggleThreadLocked({ threadKey, thread }) {
   return {
-    [`threads/${threadKey}/locked`]: !thread.locked
+    [`threads/${threadKey}/locked`]: !thread.locked,
   }
 }
 
@@ -75,10 +75,10 @@ export function replyToThread({ threadKey, text, replyToId, user }) {
       user: {
         displayName: user.displayName,
         image: user.profileImageURL,
-        id: user.uid
-      }
+        id: user.uid,
+      },
     },
-    [`users/${user.uid}/posts/${postKey}`]: true
+    [`users/${user.uid}/posts/${postKey}`]: true,
   }
 }
 
@@ -86,6 +86,12 @@ export function deletePost({ postKey, post }) {
   return {
     [`threads/${post.threadId}/posts/${postKey}`]: null,
     [`posts/${postKey}`]: null,
-    [`users/${post.user.id}/posts/${postKey}`]: null
+    [`users/${post.user.id}/posts/${postKey}`]: null,
+  }
+}
+
+export function saveSetting({ userId, setting, value }) {
+  return {
+    [`users/${userId}/settings/${setting}`]: value,
   }
 }

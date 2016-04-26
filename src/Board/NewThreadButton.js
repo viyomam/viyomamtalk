@@ -19,8 +19,8 @@ const css = {
     width: "100%",
     "@media (min-width: 480px)": {
       width: "auto",
-    }
-  }
+    },
+  },
 }
 
 export default styles(css, NewThreadButton)

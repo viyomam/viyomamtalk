@@ -1,7 +1,8 @@
 import React from 'react'
+import { styles } from 'refire-app'
 import SettingsModal from '../Admin/SettingsModal'
 
-const LockDialog = ({ visible, save, hide, locked, title="" }) => {
+const LockDialog = ({ visible, save, hide, locked, title="", styles }) => {
   const text = locked ? "Unlock" : "Lock"
   const confirmText = locked ? "unlock" : "lock"
   return (
@@ -11,10 +12,17 @@ const LockDialog = ({ visible, save, hide, locked, title="" }) => {
       hide={hide}
       save={save}
       saveText={text}
-      width="small">
+      width="small"
+      styles={styles}
+    >
       Do you really want to {confirmText} thread <strong>{title}</strong>?
     </SettingsModal>
   )
 }
 
-export default LockDialog
+const css = {
+  container: {},
+  modal: {},
+}
+
+export default styles(css, LockDialog)

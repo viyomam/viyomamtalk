@@ -14,13 +14,13 @@ const css = {
   spinnerContainer: {
     width: "100%",
     height: "100%",
-    display: "table"
+    display: "table",
   },
   verticalAlign: {
     display: "table-cell",
     verticalAlign: "middle",
     textAlign: "center",
-  }
+  },
 }
 
 export default styles(css, LoadingSpinner)

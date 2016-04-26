@@ -15,7 +15,7 @@ const LoadingSpinner = ({ styles }) => {
 const css = {
   spinnerContainer: {
     padding: "30px 0",
-  }
+  },
 }
 
 export default styles(css, LoadingSpinner)

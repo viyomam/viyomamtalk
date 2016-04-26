@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'refire-app'
 
-const BoardLink = ({ board, boardKey, threadKey }) => {
+const BoardLink = ({ board, boardKey, threadKey, style }) => {
   if (board && boardKey && threadKey) {
     return (
       <span>
-        <strong> &gt; </strong>
-        <Link to={`/board/${boardKey}`}>{board.title}</Link>
+        <strong className={style}> &gt; </strong>
+        <Link to={`/board/${boardKey}`} className={style}>{board.title}</Link>
       </span>
     )
   } else {

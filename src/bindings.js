@@ -2,12 +2,12 @@ export default {
   "categories": {
     type: "Array",
     query: (ref) => ref.orderByChild("active").equalTo(true),
-    path: "categories"
+    path: "categories",
   },
   "boards": {
     type: "Array",
     query: (ref) => ref.orderByChild("active").equalTo(true),
-    path: "boards"
+    path: "boards",
   },
   "board": {
     type: "Object",
@@ -15,7 +15,7 @@ export default {
       params.boardId
         ? `boards/${params.boardId}`
         : null
-    )
+    ),
   },
   "boardThreads": {
     populate: (key) => `threads/${key}`,
@@ -23,7 +23,7 @@ export default {
       params.boardId
         ? `boards/${params.boardId}/threads`
         : null
-    )
+    ),
   },
   "thread": {
     type: "Object",
@@ -31,7 +31,7 @@ export default {
       params.threadId
         ? `threads/${params.threadId}`
         : null
-    )
+    ),
   },
   "threadPosts": {
     populate: (key) => `posts/${key}`,
@@ -39,7 +39,7 @@ export default {
       params.threadId
         ? `threads/${params.threadId}/posts`
         : null
-    )
+    ),
   },
   "user": {
     type: "Object",
@@ -47,7 +47,7 @@ export default {
       state.firebase.authenticatedUser
         ? `users/${state.firebase.authenticatedUser.uid}`
         : null
-    )
+    ),
   },
   "profile": {
     type: "Object",
@@ -55,7 +55,7 @@ export default {
       params.uid
         ? `users/${params.uid}`
         : null
-    )
+    ),
   },
   "profileThreadsStarted": {
     populate: (key) => `threads/${key}`,
@@ -64,7 +64,7 @@ export default {
       params.uid
         ? `users/${params.uid}/threadsStarted`
         : null
-    )
+    ),
   },
   "adminUsers": {
     type: "Array",
@@ -72,9 +72,9 @@ export default {
       state.firebase.authenticatedUser
         ? "adminUsers"
         : null
-    )
+    ),
   },
   "settings": {
-    path: "settings"
-  }
+    path: "settings",
+  },
 }

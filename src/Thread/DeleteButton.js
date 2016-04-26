@@ -23,13 +23,13 @@ const DeleteButton = ({ visible, confirmDelete, styles }) => {
 
 const css = {
   button: {
-    marginRight: "10px"
+    marginRight: "10px",
   },
   iconContainer: {
     verticalAlign: "top",
     display: "inline-block",
-    margin: "-1px 2px 0 0"
-  }
+    margin: "-1px 2px 0 0",
+  },
 }
 
 export default styles(css, DeleteButton)

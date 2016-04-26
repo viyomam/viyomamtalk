@@ -1,7 +1,8 @@
 import React from 'react'
+import { styles } from 'refire-app'
 import SettingsModal from '../Admin/SettingsModal'
 
-const DeleteDialog = ({ visible, save, hide, title="" }) => {
+const DeleteDialog = ({ visible, save, hide, title="", styles }) => {
   return (
     <SettingsModal
       title="Delete thread?"
@@ -9,10 +10,18 @@ const DeleteDialog = ({ visible, save, hide, title="" }) => {
       hide={hide}
       save={save}
       saveText="Delete"
-      width="small">
+      width="small"
+      styles={styles}
+    >
       Do you really want to delete thread <strong>{title}</strong>?
     </SettingsModal>
   )
 }
 
-export default DeleteDialog
+
+const css = {
+  container: {},
+  modal: {},
+}
+
+export default styles(css, DeleteDialog)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'refire-app'
+import { Link, styles } from 'refire-app'
 import find from 'lodash/collection/find'
 
 function findBoard(boards, boardId) {
@@ -8,15 +8,15 @@ function findBoard(boards, boardId) {
   }) || { value: {} }
 }
 
-const Boards = ({ boards, category }) => {
+const Boards = ({ boards, category, styles }) => {
   return (
     <div>
       {
         Object.keys(category.boards).map((boardId) => {
           const board = findBoard(boards, boardId)
           return (
-            <h3 key={boardId}>
-              <Link to={`board/${board.key}`}>
+            <h3 key={boardId} className={styles.header}>
+              <Link to={`board/${board.key}`} className={styles.link}>
                 {board.value.title}
               </Link>
             </h3>
@@ -27,4 +27,9 @@ const Boards = ({ boards, category }) => {
   )
 }
 
-export default Boards
+const css = {
+  header: {},
+  link: {},
+}
+
+export default styles(css, Boards)

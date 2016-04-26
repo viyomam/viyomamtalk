@@ -14,7 +14,8 @@ const LockButton = ({ visible, locked, confirmLockedChange, styles }) => {
         size="sm"
         type="success"
         className={styles.button}
-        onClick={() => confirmLockedChange()}>
+        onClick={() => confirmLockedChange()}
+      >
         <span className={styles.iconContainer}>
           <UnlockIcon size="16px" />
         </span> Unlock
@@ -26,7 +27,8 @@ const LockButton = ({ visible, locked, confirmLockedChange, styles }) => {
         size="sm"
         type="warning"
         className={styles.button}
-        onClick={() => confirmLockedChange()}>
+        onClick={() => confirmLockedChange()}
+      >
         <span className={styles.iconContainer}>
           <LockIcon size="16px" />
         </span> Lock
@@ -39,8 +41,8 @@ const css = {
   iconContainer: {
     verticalAlign: "top",
     display: "inline-block",
-    margin: "-1px 2px 0 0"
-  }
+    margin: "-1px 2px 0 0",
+  },
 }
 
 export default styles(css, LockButton)

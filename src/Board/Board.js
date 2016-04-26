@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bindings, styles } from 'refire-app'
+import { styles } from 'refire-app'
 import { Card } from 'elemental'
 import sortBy from 'lodash/collection/sortBy'
 import drop from 'lodash/array/drop'
@@ -22,7 +22,7 @@ class Board extends Component {
     this.state = {
       currentPage: 1,
       threads: null,
-      settingsVisible: false
+      settingsVisible: false,
     }
     this.handlePageSelect = this.handlePageSelect.bind(this)
     this.focusNewThread = this.focusNewThread.bind(this)
@@ -31,15 +31,15 @@ class Board extends Component {
   }
 
   componentWillMount() {
-    if (this.props.boardThreads && this.props.boardThreads.value) {
-      this.setState({ threads: this.props.boardThreads.value })
+    if (this.props.boardThreads) {
+      this.setState({ threads: this.props.boardThreads })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.boardThreads && nextProps.boardThreads.value) {
+    if (nextProps.boardThreads) {
       if (this.state.threads) {
-        const nextThreads = nextProps.boardThreads.value
+        const nextThreads = nextProps.boardThreads
         this.setState({
           threads: this.state.threads.reduce((result, thread) => {
             const nextThread = find(nextThreads, (next) => thread.key === next.key)
@@ -52,17 +52,19 @@ class Board extends Component {
                     ...thread,
                     value: {
                       ...thread.value,
-                      posts: nextThread.value.posts
-                    }
-                  }
+                      posts: nextThread.value.posts,
+                    },
+                  },
                 ]
             } else {
               return result
             }
-          }, [])
+          }, []),
         })
       } else {
-        this.setState({ threads: nextProps.boardThreads.value })
+        this.setState({
+          threads: nextProps.boardThreads,
+        })
       }
     }
   }
@@ -78,21 +80,32 @@ class Board extends Component {
   }
 
   showNewThreads() {
-    this.setState({ threads: this.props.boardThreads.value, currentPage: 1 })
+    this.setState({
+      threads: this.props.boardThreads,
+      currentPage: 1,
+    })
   }
 
   toggleSettings() {
-    this.setState({ settingsVisible: !this.state.settingsVisible })
+    this.setState({
+      settingsVisible: !this.state.settingsVisible,
+    })
   }
 
   render() {
-    const { key: boardId, value: board = [] } = this.props.board || {}
-    const { value: boardThreads } = this.props.boardThreads || {}
-    const { value: settings = {} } = this.props.settings || {}
-    const { authenticatedUser: user, styles } = this.props
+    const {
+      adminUsers,
+      boardId,
+      board,
+      boardThreads,
+      settings,
+      user,
+      styles,
+      theme,
+    } = this.props
     const { BOARD_PAGE_SIZE } = settings
     const threads = this.state.threads || []
-    const isAdmin = isUserAdmin(this.props.adminUsers, this.props.authenticatedUser)
+    const isAdmin = isUserAdmin(adminUsers, user)
 
     const pagedThreads = take(
       drop(
@@ -109,64 +122,76 @@ class Board extends Component {
       <div>
         <BoardSettings
           visible={this.state.settingsVisible}
-          toggleVisible={this.toggleSettings} />
-        <Card>
+          toggleVisible={this.toggleSettings}
+          styles={theme.BoardSettings}
+        />
+        <Card className={styles.container}>
           <div className={styles.headerContainer}>
             <h2 className={styles.header}>
               {board.title}
             </h2>
             <div className={styles.buttonsContainer}>
-              <SettingsButton visible={isAdmin} toggleVisible={this.toggleSettings} />
-              <NewThreadButton user={user} newThread={this.focusNewThread} />
+              <SettingsButton
+                visible={isAdmin}
+                toggleVisible={this.toggleSettings}
+                styles={theme.SettingsButton}
+              />
+              <NewThreadButton
+                user={user}
+                newThread={this.focusNewThread}
+                styles={theme.NewThreadButton}
+              />
             </div>
           </div>
           <NewThreadsAvailable
             threads={threads}
             nextThreads={boardThreads}
-            showNewThreads={this.showNewThreads} />
+            showNewThreads={this.showNewThreads}
+          />
           <Threads
             boardId={boardId}
             threads={pagedThreads}
-            loaded={!!boardThreads} />
+            loaded={!!boardThreads}
+            theme={theme}
+          />
           <ShowPagination
             currentPage={this.state.currentPage}
             handlePageSelect={this.handlePageSelect}
             threads={threads}
-            pageSize={BOARD_PAGE_SIZE} />
+            pageSize={BOARD_PAGE_SIZE}
+          />
         </Card>
         <PostNewThread
           boardId={boardId}
           user={user}
           inputRef={(input) => { this.titleInput = input}}
-          showNewThreads={this.showNewThreads} />
+          showNewThreads={this.showNewThreads}
+          styles={theme.PostNewThread}
+          theme={theme}
+        />
       </div>
     )
   }
 }
 
 const css = {
+  container: {},
   buttonsContainer: {
     "@media (min-width: 480px)": {
       position: "absolute",
       right: "0px",
-      top: "0px"
-    }
+      top: "0px",
+    },
   },
   headerContainer: {
-    position: "relative"
+    position: "relative",
   },
   header: {
     minHeight: "28px",
     "@media (min-width: 480px)": {
-      display: "inline-block"
-    }
-  }
+      display: "inline-block",
+    },
+  },
 }
 
-export default styles(
-  css,
-  bindings(
-    ["board", "boardThreads", "adminUsers", "settings"],
-    ["authenticatedUser"]
-  )(Board)
-)
+export default styles(css, Board)

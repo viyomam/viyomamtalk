@@ -15,7 +15,7 @@ class ReplyToThread extends Component {
     super(props, context)
     this.state = {
       text: "",
-      previewEnabled: false
+      previewEnabled: false,
     }
     this.submit = this.submit.bind(this)
     this.updateField = this.updateField.bind(this)
@@ -26,7 +26,7 @@ class ReplyToThread extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.quote !== this.props.quote) {
       this.setState({
-        text: quote(replaceEmojis(`${nextProps.quote}`))
+        text: quote(replaceEmojis(`${nextProps.quote}`)),
       }, () => {
         if (this.textInput) {
           this.textInput.scrollTop = this.textInput.scrollHeight
@@ -44,7 +44,7 @@ class ReplyToThread extends Component {
       threadKey,
       text: this.state.text,
       replyToId,
-      user
+      user,
     })
 
     submit(update)
@@ -68,33 +68,44 @@ class ReplyToThread extends Component {
   }
 
   render() {
-    const { user, locked, styles } = this.props
+    const { user, locked, styles, theme } = this.props
     const submitEnabled = !!this.state.text
     if (!user || locked) return <div />
     return (
-      <Card>
+      <Card className={styles.container}>
         <div className={styles.userProfile}>
-          <img className={styles.profileImage} src={user.profileImageURL} />
-          <strong>{user.displayName}</strong>
+          <img
+            className={styles.profileImage}
+            src={user.profileImageURL}
+          />
+          <strong className={styles.displayName}>
+            {user.displayName}
+          </strong>
         </div>
         <Form>
           <TextFields
             preview={this.state.previewEnabled}
             text={this.state.text}
             updateText={this.updateField("text")}
-            inputRef={this.textInputRef} />
+            inputRef={this.textInputRef}
+            styles={theme.TextFields}
+          />
           <PreviewFields
             preview={this.state.previewEnabled}
-            text={this.state.text} />
+            text={this.state.text}
+            styles={theme.PreviewFields}
+          />
           <Button
             disabled={!submitEnabled}
             type="success"
-            onClick={this.submit}>
+            onClick={this.submit}
+          >
             <PlusIcon className={styles.plusIcon} /> Reply to thread
           </Button>
           <PreviewButton
             enabled={this.state.previewEnabled}
-            togglePreview={this.togglePreview} />
+            togglePreview={this.togglePreview}
+          />
         </Form>
       </Card>
     )
@@ -102,18 +113,20 @@ class ReplyToThread extends Component {
 }
 
 const css = {
+  container: {},
+  displayName: {},
   userProfile: {
-    margin: "0 0 10px 0"
+    margin: "0 0 10px 0",
   },
   profileImage: {
     borderRadius: "20px",
     height: "40px",
     width: "40px",
-    margin: "0 10px 0 0"
+    margin: "0 10px 0 0",
   },
   plusIcon: {
-    marginRight: "10px"
-  }
+    marginRight: "10px",
+  },
 }
 
 export default styles(

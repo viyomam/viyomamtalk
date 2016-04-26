@@ -8,7 +8,7 @@ const ShowPagination = ({
   currentPage,
   handlePageSelect,
   posts,
-  styles
+  styles,
 }) => {
   if (posts.length > pageSize) {
     return (
@@ -18,7 +18,8 @@ const ShowPagination = ({
         pageSize={pageSize}
         total={posts.length}
         limit={pageLimit}
-        className={styles.pagination} />
+        className={styles.pagination}
+      />
     )
   } else {
     return <div />
@@ -27,8 +28,8 @@ const ShowPagination = ({
 
 const css = {
   pagination: {
-    display: "inline-block"
-  }
+    display: "inline-block",
+  },
 }
 
 export default styles(css, ShowPagination)

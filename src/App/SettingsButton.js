@@ -18,8 +18,8 @@ const SettingsButton = ({ user, toggleVisible, styles }) => {
 
 const css = {
   button: {
-    marginRight: "10px"
-  }
+    marginRight: "10px",
+  },
 }
 
 export default styles(css, SettingsButton)

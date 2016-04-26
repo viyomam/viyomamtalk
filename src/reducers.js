@@ -8,7 +8,7 @@ export const userReducer = (state = null, action) => {
       uid,
       provider,
       displayName,
-      profileImageURL
+      profileImageURL,
     }
   } else if (action.type === USER_UNAUTHENTICATED) {
     return null

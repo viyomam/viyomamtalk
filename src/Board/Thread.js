@@ -44,14 +44,14 @@ const css = {
     padding: "15px 0",
     borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
     "&:last-child": {
-      borderBottom: 0
-    }
+      borderBottom: 0,
+    },
   },
   title: {
     margin: "0",
     paddingRight: "100px",
     fontWeight: 500,
-    display: "block"
+    display: "block",
   },
   image: {
     display: "none",
@@ -59,18 +59,18 @@ const css = {
       display: "inline-block",
       width: "20px",
       height: "20px",
-      borderRadius: "10px"
-    }
+      borderRadius: "10px",
+    },
   },
   lockedContainer: {
     display: "inline-block",
     verticalAlign: "middle",
-    margin: "0 5px 0 0"
+    margin: "0 5px 0 0",
   },
   profileContainer: {
     display: "inline-block",
     position: "relative",
-    verticalAlign: "middle"
+    verticalAlign: "middle",
   },
   metaContainer: {
     position: "absolute",
@@ -82,18 +82,18 @@ const css = {
     display: "inline-block",
     minWidth: "40px",
     textAlign: "right",
-    verticalAlign: "middle"
+    verticalAlign: "middle",
   },
   commentsCount: {
     display: "inline-block",
-    margin: "0 5px 0 0"
+    margin: "0 5px 0 0",
   },
   lastPost: {
     display: "inline-block",
     minWidth: "40px",
     textAlign: "right",
-    verticalAlign: "middle"
-  }
+    verticalAlign: "middle",
+  },
 }
 
 export default styles(css, Thread)

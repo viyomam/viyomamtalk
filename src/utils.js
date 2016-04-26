@@ -29,7 +29,7 @@ export function quote(str) {
 
 export function isUserAdmin(adminUsers, user) {
   return includes(
-    (adminUsers || {value: []}).value.map((user) => user.key),
+    (adminUsers || { value: [] }).value.map((user) => user.key),
     (user || {}).uid
   )
 }
@@ -39,18 +39,18 @@ export function momentLocaleSetup() {
     relativeTime: {
       future: 'in %s',
       past: '%s',
-      s:  '<1m',
+      s: '<1m',
       ss: '%ss',
-      m:  '1m',
+      m: '1m',
       mm: '%dm',
-      h:  '1h',
+      h: '1h',
       hh: '%dh',
-      d:  '1d',
+      d: '1d',
       dd: '%dd',
-      M:  '1m',
+      M: '1m',
       MM: '%dM',
-      y:  '1y',
-      yy: '%dY'
-    }
+      y: '1y',
+      yy: '%dY',
+    },
   })
 }
