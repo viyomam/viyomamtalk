@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { styles } from 'refire-app'
+import Footer from './Footer'
 import TopBar from './TopBar'
 import LoadingSpinner from './LoadingSpinner'
 import UserSettings from './UserSettings'
@@ -59,6 +60,7 @@ class App extends Component {
           <div className={styles.body}>
             {children}
           </div>
+          <Footer styles={theme.Footer} />
         </div>
       </div>
     )

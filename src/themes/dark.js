@@ -38,6 +38,12 @@ export default {
         },
       },
     },
+    Footer: {
+      container: {
+        background: "#333",
+        color: "#999",
+      },
+    },
     TopBar: {
       topBarContainer: {
         background: "#000",
