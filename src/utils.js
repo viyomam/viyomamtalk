@@ -54,3 +54,14 @@ export function momentLocaleSetup() {
     },
   })
 }
+
+export function fromNow(timestamp) {
+  const momentTime = moment(timestamp, "x")
+  if (moment().diff(momentTime, 'years') >= 1) {
+    return momentTime.format('MMM \'YY')
+  } else if (moment().diff(momentTime, 'days') >= 14) {
+    return momentTime.format('MMM D')
+  } else {
+    return momentTime.fromNow()
+  }
+}

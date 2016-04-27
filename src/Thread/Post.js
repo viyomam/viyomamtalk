@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, styles } from 'refire-app'
 import { Row, Col, Card } from 'elemental'
-import moment from 'moment'
 import ReactMarkdown from 'react-markdown'
+import { fromNow } from '../utils'
 import CodeBlock from '../App/CodeBlock'
 
 import DeletePostButton from './DeletePostButton'
@@ -67,7 +67,7 @@ const Post = ({
 
             <div className={styles.actionsContainer}>
               <div className={styles.postDate}>
-                {moment(post.createdAt, "x").fromNow()} ago
+                {fromNow(post.createdAt)}
               </div>
               <DeletePostButton
                 user={user}

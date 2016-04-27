@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, styles } from 'refire-app'
 import LockIcon from 'react-icons/lib/fa/lock'
 import CommentsIcon from 'react-icons/lib/fa/comments'
-import moment from 'moment'
+import { fromNow } from '../utils'
 
 const Thread = ({ threadKey, thread, boardId, styles }) => {
   if (!thread) return <div />
@@ -31,7 +31,7 @@ const Thread = ({ threadKey, thread, boardId, styles }) => {
           <CommentsIcon />
         </Link>
         <div className={styles.lastPost}>
-          {moment(thread.lastPostAt, "x").fromNow()}
+          {fromNow(thread.lastPostAt)}
         </div>
       </div>
     </div>
@@ -90,8 +90,8 @@ const css = {
   },
   lastPost: {
     display: "inline-block",
-    minWidth: "40px",
-    textAlign: "right",
+    minWidth: "70px",
+    textAlign: "center",
     verticalAlign: "middle",
   },
 }
