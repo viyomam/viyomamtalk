@@ -11,19 +11,26 @@ class Index extends Component {
     this.state = {
       stylesLoaded: true,
     }
+    this.themeChanged = this.themeChanged.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     const { value: user } = this.props.user || {}
     const { value: nextUser } = nextProps.user || {}
     if (!user && nextUser) {
-      this.setState({ stylesLoaded: false })
-      // give react-free-style some time to process initial styles before
-      // loading user's theme on login
-      setTimeout(() => {
-        this.setState({ stylesLoaded: true })
-      }, 100)
+      this.themeChanged()
     }
+    if (user && nextUser && user.settings && nextUser.settings && user.settings.theme !== nextUser.settings.theme) {
+      this.themeChanged()
+    }
+  }
+
+  themeChanged() {
+    // delay rendering after theme change to avoid react-free-style errors
+    this.setState({ stylesLoaded: false })
+    setTimeout(() => {
+      this.setState({ stylesLoaded: true })
+    }, 0)
   }
 
   render() {
