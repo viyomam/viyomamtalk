@@ -12,7 +12,9 @@
     "html": "cp index.html dist/index.html",
     "login": "firebase login",
     "bootstrap": "firebase data:set / bootstrap.json",
-    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy:hosting",
+    "deploy:rules": "firebase deploy:rules",
+    "deploy": "npm run deploy:rules && npm run deploy:hosting",
     "lint": "eslint src"
   },
   "author": "Lari Hoppula",
@@ -50,6 +52,7 @@
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "firebase-tools": "^2.2.1",
     "json-loader": "^0.5.4",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
