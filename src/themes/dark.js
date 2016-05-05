@@ -32,7 +32,7 @@ const dialogStyles = {
 export default {
   App: {
     App: {
-      registerRule: {
+      ":global": {
         body: {
           background: "#000",
         },

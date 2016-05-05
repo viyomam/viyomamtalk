@@ -69,7 +69,7 @@ class App extends Component {
 
 const css = {
   // register global styles
-  registerRule: globalStyles,
+  ":global": globalStyles,
   app: {
     maxWidth: "980px",
     margin: "0 auto",

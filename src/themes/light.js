@@ -1,7 +1,7 @@
 export default {
   App: {
     App: {
-      registerRule: {
+      ":global": {
         body: {
           background: "#fdfdfd",
         },
