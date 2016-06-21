@@ -1,18 +1,17 @@
-import { Firebase } from 'refire-app'
-import url from './url'
+import { firebase } from 'refire-app'
 
 export function newThread({ boardId, topic, text, user }) {
-  const ref = new Firebase(url)
-  const threadKey = ref.child("threads").push().key()
-  const postKey = ref.child("posts").push().key()
+  const ref = firebase.database().ref()
+  const threadKey = ref.child("threads").push().key
+  const postKey = ref.child("posts").push().key
 
   return {
     [`boards/${boardId}/threads/${threadKey}`]: true,
     [`threads/${threadKey}`]: {
       title: topic,
       boardId: boardId,
-      createdAt: Firebase.ServerValue.TIMESTAMP,
-      lastPostAt: Firebase.ServerValue.TIMESTAMP,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      lastPostAt: firebase.database.ServerValue.TIMESTAMP,
       user: {
         displayName: user.displayName,
         image: user.profileImageURL,
@@ -24,7 +23,7 @@ export function newThread({ boardId, topic, text, user }) {
     },
     [`posts/${postKey}`]: {
       body: text,
-      createdAt: Firebase.ServerValue.TIMESTAMP,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
       threadId: threadKey,
       user: {
         displayName: user.displayName,
@@ -61,15 +60,15 @@ export function toggleThreadLocked({ threadKey, thread }) {
 }
 
 export function replyToThread({ threadKey, text, replyToId, user }) {
-  const ref = new Firebase(url)
-  const postKey = ref.child("posts").push().key()
+  const ref = firebase.database().ref()
+  const postKey = ref.child("posts").push().key
 
   return {
     [`threads/${threadKey}/posts/${postKey}`]: true,
-    [`threads/${threadKey}/lastPostAt`]: Firebase.ServerValue.TIMESTAMP,
+    [`threads/${threadKey}/lastPostAt`]: firebase.database.ServerValue.TIMESTAMP,
     [`posts/${postKey}`]: {
       body: text,
-      createdAt: Firebase.ServerValue.TIMESTAMP,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
       threadId: threadKey,
       replyTo: replyToId,
       user: {

@@ -3,12 +3,13 @@ import { USER_AUTHENTICATED, USER_UNAUTHENTICATED } from 'refire-app'
 export const userReducer = (state = null, action) => {
   const { payload } = action
   if (action.type === USER_AUTHENTICATED) {
-    const { uid, provider, [provider]: { displayName, profileImageURL } } = payload
+    const { uid, providerId, displayName, photoURL, email } = payload
     return {
       uid,
-      provider,
+      provider: providerId,
       displayName,
-      profileImageURL,
+      profileImageURL: photoURL,
+      email,
     }
   } else if (action.type === USER_UNAUTHENTICATED) {
     return null
