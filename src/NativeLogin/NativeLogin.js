@@ -23,7 +23,7 @@ class NativeLogin extends Component {
 
     return (
       <div className={classnames("app-container", styles.container)}>
-        <FirebaseOAuth provider="google" flow="authWithOAuthRedirect">
+        <FirebaseOAuth provider="google" flow="redirect">
           <Button>Login with Google</Button>
         </FirebaseOAuth>
       </div>

@@ -1,15 +1,20 @@
 {
-  "firebase": "refire",
-  "public": "dist",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ],
-  "cleanUrls": true,
-  "rules": "security-rules.json",
-  "rewrites": [{
-    "source": "**",
-    "destination": "/index.html"
-  }]
+  "database": {
+    "rules": "security-rules.json"
+  },
+  "hosting": {
+    "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true
+  }
 }

@@ -11,7 +11,7 @@ const AuthenticationButton = ({ user, styles }) => {
     )
   } else {
     return (
-      <FirebaseOAuth provider="google" flow="authWithOAuthPopup">
+      <FirebaseOAuth provider="google" flow="popup">
         <Button className={styles.button}>Login with Google</Button>
       </FirebaseOAuth>
     )
