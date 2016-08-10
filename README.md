@@ -24,19 +24,25 @@ Base UI components are from excellent [Elemental UI](http://elemental-ui.com/).
 
 ## Deploying your own instance
 
-1. Create your new app in [Firebase dashboard](https://www.firebase.com/account/)
+1. Create your new app in [Firebase dashboard](https://console.firebase.google.com/)
 
-2. Change `firebase` value to your app name in `firebase.json`
+2. Copy and paste `apiKey` from your Firebase app console's `Overview > Add Firebase to your web app` to `src/config.js`
 
-3. Run `npm install` and `npm run build`
+3. Enable `Google` Authentication in your Firebase app console's `Auth > Sign-in method` settings
 
-4. Run `npm run login` to login to Firebase
+4. Change `projects.default` value to your app name in `.firebaserc`
 
-5. Run `npm run bootstrap` to copy initial data structure to Firebase
+5. Run `npm install` and `npm run build`
 
-6. Run `npm run deploy` to deploy the app and security rules to Firebase
+6. Run `npm run login` to login to Firebase
 
-7. Enable Google Authentication in your Firebase instance's `Login & Auth` settings
+7. Run `npm run bootstrap` to copy the initial data structure to Firebase
+
+8. Run `npm run deploy` to deploy the app and security rules to Firebase
+
+## Running locally
+
+`npm start` will start the development server on `localhost:4000`
 
 ## Adding admin users
 
