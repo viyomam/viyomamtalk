@@ -11,9 +11,9 @@
     "build": "npm run clean && npm run build:webpack && npm run html",
     "html": "cp index.html dist/index.html",
     "login": "firebase login",
-    "bootstrap": "firebase data:set / bootstrap.json",
-    "deploy:hosting": "firebase deploy:hosting",
-    "deploy:rules": "firebase deploy:rules",
+    "bootstrap": "firebase database:set / bootstrap.json",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:rules": "firebase deploy --only database",
     "deploy": "npm run deploy:rules && npm run deploy:hosting",
     "lint": "eslint src"
   },
