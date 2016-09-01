@@ -76,7 +76,7 @@
         "posts": {
           "$postId": {
             ".validate": "newData.isBoolean() && !data.exists()",
-            ".write": "(auth !== null && auth.uid === newData.child('user/id').val() && newData.exists()) || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())"
+            ".write": "(auth !== null && !root.child('posts/' + $postId).exists() && newData.exists()) || (root.child('adminUsers/' + auth.uid).exists() && !newData.exists())"
           }
         },
         "title": {

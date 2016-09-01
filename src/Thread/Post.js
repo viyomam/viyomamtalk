@@ -20,6 +20,32 @@ const Post = ({
   styles,
   theme,
 }) => {
+
+  if (!post) {
+    return (
+      <Row>
+        <Col
+          xs="0%"
+          sm="1/8"
+          lg="1/12"
+        >
+          <div className={styles.profileContainer}></div>
+        </Col>
+        <Col
+          xs="100%"
+          sm="7/8"
+          lg="11/12"
+        >
+          <Card className={styles.container}>
+            <div className={styles.naContainer}>
+              Not available
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    )
+  }
+
   return (
     <Row>
       <Col
@@ -132,6 +158,9 @@ const css = {
   },
   bodyContainer: {
     margin: "0 0 10px 0",
+  },
+  naContainer: {
+    color: "#ddd",
   },
   bottomToolbar: {
     position: "relative",
