@@ -33,7 +33,7 @@
     "react-dom": "^0.14.7",
     "react-markdown": "^2.1.0",
     "react-pure-render": "^1.0.2",
-    "refire-app": "2.0.0-beta1"
+    "refire-app": "2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
