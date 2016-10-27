@@ -1,6 +1,6 @@
 import React from 'react'
 import { styles } from 'refire-app'
-import ReplyIcon from 'react-icons/lib/fa/reply'
+import ReplyIcon from 'react-icons/lib/fa/mail-reply'
 
 const ReplyButton = ({ user, locked, onClick, styles }) => {
   if (user && !locked) {
