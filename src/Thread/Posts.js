@@ -10,6 +10,7 @@ const Posts = ({
   isAdmin,
   deletePost,
   updateQuote,
+  toggleUpvote,
   styles,
   theme,
 }) => {
@@ -34,6 +35,7 @@ const Posts = ({
                 isAdmin={isAdmin}
                 deletePost={deletePost}
                 updateQuote={updateQuote}
+                toggleUpvote={toggleUpvote}
                 styles={theme.Post}
                 theme={theme}
               />

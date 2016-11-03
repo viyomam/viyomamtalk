@@ -8,6 +8,7 @@ import CodeBlock from '../App/CodeBlock'
 import DeletePostButton from './DeletePostButton'
 import QuoteButton from './QuoteButton'
 import ReplyButton from './ReplyButton'
+import UpvoteButton from './UpvoteButton'
 
 const Post = ({
   postKey,
@@ -17,6 +18,7 @@ const Post = ({
   isAdmin,
   deletePost,
   updateQuote,
+  toggleUpvote,
   styles,
   theme,
 }) => {
@@ -45,6 +47,8 @@ const Post = ({
       </Row>
     )
   }
+
+let uid = user ? user.uid : undefined
 
   return (
     <Row>
@@ -112,6 +116,13 @@ const Post = ({
                 locked={locked}
                 onClick={() => updateQuote("", postKey)}
                 styles={theme.ReplyButton}
+              />
+              <UpvoteButton
+                user={user}
+                upvotes={Object.keys(post.likes || {}).length || 0}
+                liked = {Object.keys(post.likes || {}).includes(uid || {}) && post.likes[uid] === true}
+                onClick={() => toggleUpvote(postKey)}
+                styles={theme.UpvoteButton}
               />
             </div>
           </div>

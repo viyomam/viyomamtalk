@@ -94,3 +94,11 @@ export function saveSetting({ userId, setting, value }) {
     [`users/${userId}/settings/${setting}`]: value,
   }
 }
+
+export function toggleUpvote({ postKey, post, user }) {
+  const value = Object.keys(post.value.likes || {}).includes(user.uid) ? null : true
+  return {
+    [`posts/${postKey}/likes/${user.uid}`]: value,
+    [`users/${user.uid}/likes/${postKey}`]: value,
+  }
+}

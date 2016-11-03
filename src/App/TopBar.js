@@ -5,6 +5,7 @@ import BoardLink from './BoardLink'
 import SettingsButton from './SettingsButton'
 
 const TopBar = ({
+  siteName,
   authenticatedUser,
   board,
   boardKey,
@@ -19,7 +20,7 @@ const TopBar = ({
       <div className={styles.topbar}>
         <h1 className={styles.header}>
           <Link to="/" className={styles.link}>
-            refire
+            { siteName }
           </Link>
           <BoardLink
             board={board}

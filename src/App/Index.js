@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindings } from 'refire-app'
 import themes from '../themes'
+import { siteName } from '../config'
 
 import App from './App'
 
@@ -45,6 +46,7 @@ class Index extends Component {
 
     return (
       <App
+        siteName={siteName}
         loading={loading}
         user={user}
         board={board}
