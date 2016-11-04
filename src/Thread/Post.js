@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, styles } from 'refire-app'
 import { Row, Col, Card } from 'elemental'
 import ReactMarkdown from 'react-markdown'
+import includes from 'lodash/collection/includes'
 import { fromNow } from '../utils'
 import CodeBlock from '../App/CodeBlock'
 
@@ -48,7 +49,7 @@ const Post = ({
     )
   }
 
-let uid = user ? user.uid : undefined
+  const uid = user ? user.uid : undefined
 
   return (
     <Row>
@@ -120,7 +121,7 @@ let uid = user ? user.uid : undefined
               <UpvoteButton
                 user={user}
                 upvotes={Object.keys(post.likes || {}).length || 0}
-                liked = {Object.keys(post.likes || {}).includes(uid || {}) && post.likes[uid] === true}
+                liked = {includes(Object.keys(post.likes || {}),(uid) || {}) && post.likes[uid] === true}
                 onClick={() => toggleUpvote(postKey)}
                 styles={theme.UpvoteButton}
               />
