@@ -108,7 +108,6 @@ class Index extends Component {
     const post = find(posts, (threadPost) => {
       return threadPost.key === postKey
     })
-
     submit(toggleUpvote({ postKey: postKey, post: post, user: user }))
   }
 
