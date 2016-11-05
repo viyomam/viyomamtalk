@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, styles } from 'refire-app'
 import { Row, Col, Card } from 'elemental'
 import ReactMarkdown from 'react-markdown'
-import includes from 'lodash/collection/includes'
+import includes from 'lodash/includes'
 import { fromNow } from '../utils'
 import CodeBlock from '../App/CodeBlock'
 
