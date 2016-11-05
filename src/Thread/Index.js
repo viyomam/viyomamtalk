@@ -6,7 +6,7 @@ import take from 'lodash/array/take'
 import find from 'lodash/collection/find'
 
 import { isUserAdmin } from '../utils'
-import { deleteThread, toggleThreadLocked, deletePost } from '../updates'
+import { deleteThread, toggleThreadLocked, deletePost, toggleUpvote } from '../updates'
 
 import Thread from './Thread'
 
@@ -36,6 +36,7 @@ class Index extends Component {
     this.hideLockDialog = this.hideLockDialog.bind(this)
     this.showDeletePostDialog = this.showDeletePostDialog.bind(this)
     this.hideDeletePostDialog = this.hideDeletePostDialog.bind(this)
+    this.toggleUpvote = this.toggleUpvote.bind(this)
   }
 
   componentDidMount() {
@@ -114,6 +115,16 @@ class Index extends Component {
     this.hideLockDialog()
   }
 
+  toggleUpvote(postKey) {
+    const { submit } = this.props
+    const { value: posts = [] } = this.props.threadPosts || {}
+    const user = this.props.authenticatedUser
+    const post = find(posts, (threadPost) => {
+      return threadPost.key === postKey
+    })
+    submit(toggleUpvote({ postKey: postKey, post: post, user: user }))
+  }
+
   render() {
     const { key: threadKey, value: thread = {} } = this.props.thread || {}
     const { value: posts = [] } = this.props.threadPosts || {}
@@ -135,6 +146,7 @@ class Index extends Component {
       showLockDialog: this.showLockDialog,
       showDeletePostDialog: this.showDeletePostDialog,
       updateQuote: this.updateQuote,
+      toggleUpvote: this.toggleUpvote,
       selectLastPage: this.selectLastPage,
     }
 

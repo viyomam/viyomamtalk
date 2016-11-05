@@ -1,4 +1,5 @@
 import { firebase } from 'refire-app'
+import includes from 'lodash/collection/includes'
 
 export function newThread({ boardId, topic, text, user }) {
   const ref = firebase.database().ref()
@@ -92,5 +93,13 @@ export function deletePost({ postKey, post }) {
 export function saveSetting({ userId, setting, value }) {
   return {
     [`users/${userId}/settings/${setting}`]: value,
+  }
+}
+
+export function toggleUpvote({ postKey, post, user }) {
+  const value = includes(Object.keys(post.value.likes || {}),user.uid) ? null : true
+  return {
+    [`posts/${postKey}/likes/${user.uid}`]: value,
+    [`users/${user.uid}/likes/${postKey}`]: value,
   }
 }

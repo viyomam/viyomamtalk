@@ -2,12 +2,14 @@ import React from 'react'
 import { Link, styles } from 'refire-app'
 import { Row, Col, Card } from 'elemental'
 import ReactMarkdown from 'react-markdown'
+import includes from 'lodash/collection/includes'
 import { fromNow } from '../utils'
 import CodeBlock from '../App/CodeBlock'
 
 import DeletePostButton from './DeletePostButton'
 import QuoteButton from './QuoteButton'
 import ReplyButton from './ReplyButton'
+import UpvoteButton from './UpvoteButton'
 
 const Post = ({
   postKey,
@@ -17,6 +19,7 @@ const Post = ({
   isAdmin,
   deletePost,
   updateQuote,
+  toggleUpvote,
   styles,
   theme,
 }) => {
@@ -45,6 +48,8 @@ const Post = ({
       </Row>
     )
   }
+
+  const uid = user ? user.uid : undefined
 
   return (
     <Row>
@@ -112,6 +117,13 @@ const Post = ({
                 locked={locked}
                 onClick={() => updateQuote("", postKey)}
                 styles={theme.ReplyButton}
+              />
+              <UpvoteButton
+                user={user}
+                upvotes={Object.keys(post.likes || {}).length || 0}
+                liked = {includes(Object.keys(post.likes || {}),(uid) || {}) && post.likes[uid] === true}
+                onClick={() => toggleUpvote(postKey)}
+                styles={theme.UpvoteButton}
               />
             </div>
           </div>

@@ -22,6 +22,7 @@ class App extends Component {
 
   render() {
     const {
+      siteName,
       children,
       loading,
       user,
@@ -49,6 +50,7 @@ class App extends Component {
         />
         <div>
           <TopBar
+            siteName = {siteName || "refire"}
             authenticatedUser={authenticatedUser}
             user={user}
             board={board}

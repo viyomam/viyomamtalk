@@ -38,6 +38,11 @@
         "replyTo": {
           ".validate": "!newData.exists() || newData.isString()"
         },
+        "likes": {
+          "$uid" : {
+          	".write": "auth !== null && (auth.uid === $uid)"
+          }
+        },
         "user": {
           "displayName": {
             ".validate": "newData.isString()"
@@ -127,7 +132,12 @@
           "$threadId": {
             ".validate": "newData.isBoolean()"
           }
-        }
+        },
+        "likes": {
+          "$postId" : {
+          	".write": "auth !== null && (auth.uid === $uid)"
+          }
+        },
       }
     },
     "settings": {

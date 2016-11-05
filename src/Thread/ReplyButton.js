@@ -22,6 +22,7 @@ const css = {
     color: "#555",
     display: "inline-block",
     verticalAlign: "top",
+    paddingRight: "20px",
   },
 }
 
