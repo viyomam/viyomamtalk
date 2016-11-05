@@ -23,32 +23,18 @@ class Index extends Component {
       deletePostDialogVisible: false,
       deletePostKey: null,
     }
-    // TODO: use some autobind plugin
-    this.handlePageSelect = this.handlePageSelect.bind(this)
-    this.updateQuote = this.updateQuote.bind(this)
-    this.selectLastPage = this.selectLastPage.bind(this)
-    this.deleteThread = this.deleteThread.bind(this)
-    this.deletePost = this.deletePost.bind(this)
-    this.toggleLocked = this.toggleLocked.bind(this)
-    this.showDeleteDialog = this.showDeleteDialog.bind(this)
-    this.hideDeleteDialog = this.hideDeleteDialog.bind(this)
-    this.showLockDialog = this.showLockDialog.bind(this)
-    this.hideLockDialog = this.hideLockDialog.bind(this)
-    this.showDeletePostDialog = this.showDeletePostDialog.bind(this)
-    this.hideDeletePostDialog = this.hideDeletePostDialog.bind(this)
-    this.toggleUpvote = this.toggleUpvote.bind(this)
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
   }
 
-  handlePageSelect(page) {
+  handlePageSelect = (page) => {
     window.scrollTo(0, 0)
     this.setState({ currentPage: page })
   }
 
-  selectLastPage() {
+  selectLastPage = () => {
     const { value: posts = [] } = this.props.threadPosts || {}
     const { value: settings = {} } = this.props.settings || {}
     const { THREAD_PAGE_SIZE } = settings
@@ -58,48 +44,48 @@ class Index extends Component {
     this.handlePageSelect(lastPage)
   }
 
-  updateQuote(quote, postKey) {
+  updateQuote = (quote, postKey) => {
     this.setState({ quote, postKey })
   }
 
-  hideDeleteDialog() {
+  hideDeleteDialog = () => {
     this.setState({ deleteDialogVisible: false })
   }
 
-  showDeleteDialog() {
+  showDeleteDialog = () => {
     this.setState({ deleteDialogVisible: true })
   }
 
-  hideLockDialog() {
+  hideLockDialog = () => {
     this.setState({ lockDialogVisible: false })
   }
 
-  showLockDialog() {
+  showLockDialog = () => {
     this.setState({ lockDialogVisible: true })
   }
 
-  showDeletePostDialog(postKey) {
+  showDeletePostDialog = (postKey) => {
     this.setState({
       deletePostDialogVisible: true,
       deletePostKey: postKey,
     })
   }
 
-  hideDeletePostDialog() {
+  hideDeletePostDialog = () => {
     this.setState({
       deletePostDialogVisible: false,
       deletePostKey: null,
     })
   }
 
-  deleteThread() {
+  deleteThread = () => {
     const { submit, dispatch } = this.props
     const { key: threadKey, value: thread } = this.props.thread || {}
     submit(deleteThread({ threadKey, thread }))
     dispatch(routeActions.push(`/board/${thread.boardId}`))
   }
 
-  deletePost() {
+  deletePost = () => {
     const { value: posts = [] } = this.props.threadPosts || {}
     const post = find(posts, (threadPost) => {
       return threadPost.key === this.state.deletePostKey
@@ -108,14 +94,14 @@ class Index extends Component {
     this.hideDeletePostDialog()
   }
 
-  toggleLocked() {
+  toggleLocked = () => {
     const { submit } = this.props
     const { key: threadKey, value: thread = {} } = this.props.thread || {}
     submit(toggleThreadLocked({ threadKey, thread }))
     this.hideLockDialog()
   }
 
-  toggleUpvote(postKey) {
+  toggleUpvote = (postKey) => {
     const { submit } = this.props
     const { value: posts = [] } = this.props.threadPosts || {}
     const user = this.props.authenticatedUser
