@@ -105,23 +105,9 @@ class Index extends Component {
     const { submit } = this.props
     const { value: posts = [] } = this.props.threadPosts || {}
     const user = this.props.authenticatedUser
-    const postIndex = posts.findIndex( (threadPost) => {
+    const post = find(posts, (threadPost) => {
       return threadPost.key === postKey
     })
-
-    const post = posts[postIndex]
-    //const uid = user.uid
-
-    // optimistic update?
-    //if (post && post.value.likes && Object.keys(post.value.likes).includes(user.uid)) {
-    //  let newProps = this.props.threadPosts.value.slice(0)
-    //  if (newProps && newProps[postIndex] && newProps[postIndex].value.likes) {
-    //    newProps[postIndex].value.likes = null
-    //  }
-    //  this.setState( {
-    //    threadPosts: newProps,
-    //  })
-    //}
 
     submit(toggleUpvote({ postKey: postKey, post: post, user: user }))
   }
