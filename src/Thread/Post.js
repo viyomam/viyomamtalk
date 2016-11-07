@@ -18,7 +18,6 @@ class Post extends Component {
     this.state = {
       showEdit: false,
     }
-
   }
 
   setShowEdit = (show) => {
