@@ -40,10 +40,15 @@
           ".validate": "newData.isNumber() && newData.val() <= now"
         },
         "threadId": {
-          ".validate": "newData.isString()"
+          ".validate": "newData.isString() && ((root.child('threads/' + newData.val() + '/locked').val() !== true)) "
         },
         "replyTo": {
           ".validate": "newData.isString()"
+        },
+        "edited": {
+          "$uid" : {
+          	".validate": "auth !== null && (auth.uid === $uid)"
+          }
         },
         "user": {
           ".validate": "newData.hasChildren(['displayName', 'id', 'image'])",
@@ -59,6 +64,12 @@
           "$other": {
             ".validate": "false"
           }
+        },
+        "editedBy": {
+          ".validate": true
+        },
+        "editedLast": {
+          ".validate": "newData.isNumber()"
         },
         "$other": {
           ".validate": "false"
