@@ -3,6 +3,7 @@ const textColor = "#999"
 const buttonBgColor = "#000"
 const buttonTextColor = "#fff"
 const linkColor = "#fff"
+const accentColor = "#d64242"
 
 const buttonStyles = {
   background: buttonBgColor,
@@ -207,6 +208,14 @@ export default {
     QuoteButton: {
       button: {
         color: linkColor,
+      },
+    },
+    UpvoteButton: {
+      button: {
+        color: buttonTextColor,
+      },
+      buttonActive: {
+        color: accentColor,
       },
     },
     DeletePostDialog: {

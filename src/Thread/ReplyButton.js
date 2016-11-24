@@ -7,7 +7,7 @@ const ReplyButton = ({ user, locked, onClick, styles }) => {
     return (
       <span onClick={onClick} title="Reply">
         <span className={styles.button}>
-          <ReplyIcon size="20px" />
+          <ReplyIcon size="18px" />
         </span>
       </span>
     )
