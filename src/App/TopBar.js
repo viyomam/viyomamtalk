@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, styles } from 'refire-app'
-import AuthenticationButton from './AuthenticationButton'
+import AuthenticationMenu from './AuthenticationMenu'
 import BoardLink from './BoardLink'
 import SettingsButton from './SettingsButton'
 
@@ -35,9 +35,9 @@ const TopBar = ({
             toggleVisible={toggleSettings}
             styles={theme.SettingsButton}
           />
-          <AuthenticationButton
+          <AuthenticationMenu
             user={authenticatedUser}
-            styles={theme.AuthenticationButton}
+            styles={theme.AuthenticationMenu}
           />
         </div>
       </div>

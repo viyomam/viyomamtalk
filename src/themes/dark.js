@@ -57,7 +57,7 @@ export default {
       },
       link: linkStyles,
     },
-    AuthenticationButton: {
+    AuthenticationMenu: {
       button: buttonStyles,
     },
     SettingsButton: {
