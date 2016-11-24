@@ -132,7 +132,7 @@
             ".write": "auth != null && auth.uid == $uid"
           }
         },
-        ".validate": "newData.hasChildren(['displayName', 'lastLoginAt', 'profileImageURL', 'provider', 'registeredAt'])",
+        ".validate": "newData.hasChildren(['displayName', 'lastLoginAt', 'profileImageURL', 'provider'])",
         "displayName": {
           ".validate": "newData.isString()"
         },

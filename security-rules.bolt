@@ -29,7 +29,7 @@ type User {
   lastLoginAt: Timestamp,
   profileImageURL: String,
   provider: String,
-  registeredAt: Number,
+  registeredAt: Number | Null,
   email: String | Null,
   settings: Settings | Null
 }
