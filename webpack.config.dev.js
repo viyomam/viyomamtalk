@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        loader: "style-loader?insertAt=top!css-loader"
       },
       {
         test: /\.json$/,
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: "style!css!less"
+        loader: "style?insertAt=top!css!less"
       },
       { test: /\.png$/, loader: "url-loader?limit=10000" },
       { test: /\.(jpg|svg)$/, loader: "file-loader" }
