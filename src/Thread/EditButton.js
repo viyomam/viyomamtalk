@@ -1,26 +1,17 @@
 import React from 'react'
 import { styles } from 'refire-app'
-import FaPencilSquare from 'react-icons/lib/fa/pencil-square'
+import EditIcon from 'react-icons/lib/fa/pencil'
 
-const EditButton = ({ user, isAdmin, mine, onClick, styles }) => {
-  if (user) {
-    if (mine) {
-      return (
-        <span onClick={onClick} title="Edit">
-          <span className={styles.button}>
-            <FaPencilSquare size="20px" />
-          </span>
+const EditButton = ({ user, locked, isAdmin, mine, onClick, styles }) => {
+  if ((user && !locked && mine) || isAdmin) {
+    const style = mine ? styles.button : styles.buttonAdminOwned
+    return (
+      <span onClick={onClick} title="Edit">
+        <span className={style}>
+          <EditIcon size="18px" />
         </span>
-      )
-    } else if (isAdmin) {
-      return (
-        <span onClick={onClick} title="Edit">
-          <span className={styles.buttonAdminOwned}>
-            <FaPencilSquare size="20px" />
-          </span>
-        </span>
-      )
-    }
+      </span>
+    )
   }
   return <span />
 }

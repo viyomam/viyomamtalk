@@ -82,7 +82,7 @@ class EditPost extends Component {
 
   textInputRef = (input) => {
     this.textInput = input
-    if (this.textInput && this.props.showEdit) {
+    if (this.textInput && this.props.showEdit && this.props.cancelable) {
       this.textInput.focus()
     }
   }

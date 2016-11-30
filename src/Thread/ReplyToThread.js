@@ -20,7 +20,7 @@ const ReplyToThread = ({
     return (
       <Card className={styles.container}>
         <EditPost
-          buttonCaption={'Post'}
+          buttonCaption={'Post reply'}
           showEdit={true}
           user={user}
           threadKey={threadKey}

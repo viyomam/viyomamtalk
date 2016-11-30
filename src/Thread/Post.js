@@ -125,6 +125,14 @@ class Post extends Component {
               <div className={styles.postDate}>
                 {fromNow(post.createdAt)}
               </div>
+              <EditButton
+                user={user}
+                locked={locked}
+                isAdmin={isAdmin}
+                mine={mine}
+                onClick={() => { this.setShowEdit(true)}}
+                styles={theme.EditButton}
+              />
               <DeletePostButton
                 user={user}
                 isAdmin={isAdmin}
@@ -142,13 +150,6 @@ class Post extends Component {
                 locked={locked}
                 onClick={() => updateQuote("", postKey)}
                 styles={theme.ReplyButton}
-              />
-              <EditButton
-                user={user}
-                isAdmin={isAdmin}
-                mine={mine}
-                onClick={() => { this.setShowEdit(true)}}
-                styles={theme.EditButton}
               />
               <UpvoteButton
                 user={user}
