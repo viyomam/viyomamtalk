@@ -68,6 +68,9 @@ class Post extends Component {
 
   const uid = user ? user.uid : undefined
   const mine = post.user.id === uid
+  const edited = post.edited
+    ? <div className={styles.edited}>Edited</div>
+    : null
 
   return (
     <Row>
@@ -122,6 +125,7 @@ class Post extends Component {
             </strong>
 
             <div className={styles.actionsContainer}>
+              {edited}
               <div className={styles.postDate}>
                 {fromNow(post.createdAt)}
               </div>
@@ -243,6 +247,13 @@ const css = {
     "& > p": {
       margin: "10px 0 20px 0",
     },
+  },
+  edited: {
+    display: "inline-block",
+    fontWeight: "bold",
+    verticalAlign: "top",
+    paddingRight: "20px",
+    marginTop: "-1px",
   },
 }
 
