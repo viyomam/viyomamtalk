@@ -194,6 +194,14 @@ export default {
       postDate: {
         color: linkColor,
       },
+      edited: {
+        color: textColor,
+      },
+    },
+    EditButton: {
+      button: {
+        color: linkColor,
+      },
     },
     DeletePostButton: {
       button: {

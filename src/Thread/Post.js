@@ -94,7 +94,7 @@ class Post extends Component {
           <PostBody
             post={post}
             hide={this.state.showEdit}
-            styles={theme.postBody}
+            styles={theme.Post}
           />
           <EditPost
             user={user}
