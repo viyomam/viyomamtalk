@@ -97,11 +97,10 @@ class Post extends Component {
             user={user}
             threadKey={threadKey}
             postKey={postKey}
-            post={post}
             cancel={this.cancelEditPost}
             showEdit={this.state.showEdit}
             setShowEdit={this.setShowEdit}
-            editText={post.body}
+            text={post.body}
             cancelable={true}
             editing={true}
             selectLastPage={selectLastPage}

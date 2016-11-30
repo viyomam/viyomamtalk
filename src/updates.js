@@ -105,17 +105,11 @@ export function toggleUpvote({ postKey, post, user }) {
   }
 }
 
-export function savePost({ postKey, post, text, user }) {
+export function savePost({ postKey, text, user }) {
   return {
-    [`posts/${postKey}`]: {
-      body: text,
-      createdAt: post.createdAt,
-      threadId: post.threadId,
-      replyTo: post.replyTo || null,
-      user: post.user,
-      edited: true,
-      editedLast: firebase.database.ServerValue.TIMESTAMP,
-      editedBy: user.uid,
-    },
+    [`posts/${postKey}/body`]: text,
+    [`posts/${postKey}/edited`]: true,
+    [`posts/${postKey}/editedLast`]: firebase.database.ServerValue.TIMESTAMP,
+    [`posts/${postKey}/editedBy`]: user.uid,
   }
 }

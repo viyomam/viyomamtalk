@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form } from 'elemental'
 import { FirebaseWrite, styles } from 'refire-app'
-//import PlusIcon from 'react-icons/lib/fa/plus'
+import PlusIcon from 'react-icons/lib/fa/plus'
 import { replaceEmojis, quote } from '../utils'
 import { replyToThread, savePost } from '../updates'
 import PreviewButton from '../App/PreviewButton'
@@ -13,9 +13,9 @@ class EditPost extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      text: "",
+      text: props.text,
       previewEnabled: false,
-      editText: props.editText,
+      initialText: props.text,
     }
   }
 
@@ -29,21 +29,22 @@ class EditPost extends Component {
           this.textInput.focus()
         }
       })
-    } else if (nextProps.showEdit === true) {
+    }
+    if (nextProps.text !== this.props.text) {
       this.setState({
-        text: nextProps.editText || "",
+        text: nextProps.text,
+        initialText: nextProps.text,
       })
     }
   }
 
   submit = (event) => {
     event.preventDefault()
-    const { user, threadKey, selectLastPage, submit, replyToKey, editing, postKey, post, setShowEdit } = this.props
+    const { user, threadKey, selectLastPage, submit, replyToKey, editing, postKey, setShowEdit } = this.props
 
     if (editing) {
       const update = savePost({
         postKey: postKey,
-        post: post,
         text: this.state.text,
         user: user,
       })
@@ -58,13 +59,14 @@ class EditPost extends Component {
       })
       submit(update)
       selectLastPage()
+      this.setState({ text: "" })
     }
-    this.setState({ text: "" })
   }
 
   cancel = (event) => {
     event.preventDefault()
     this.props.setShowEdit(false)
+    this.setState({ text: this.state.initialText })
   }
 
   updateField = (field) => {
@@ -80,12 +82,28 @@ class EditPost extends Component {
 
   textInputRef = (input) => {
     this.textInput = input
+    if (this.textInput && this.props.showEdit) {
+      this.textInput.focus()
+    }
   }
 
   render() {
-    const { user, locked, theme, buttonCaption, showEdit, cancelable } = this.props
+    const { user, locked, theme, buttonCaption, showEdit, cancelable, styles } = this.props
     const submitEnabled = !!this.state.text
-
+    const cancelButton = cancelable
+      ? (
+        <Button
+          onClick={this.cancel}
+          hidden={true}
+          className={styles.cancelButton}
+        >
+          Cancel
+        </Button>
+      )
+      : null
+    const saveIcon = cancelable
+      ? null
+      : <PlusIcon className={styles.plusIcon} />
     if (!user || locked || !showEdit) return <div />
     return (
       <div className='editPostContainer'>
@@ -107,15 +125,9 @@ class EditPost extends Component {
             type="success"
             onClick={this.submit}
           >
-            {buttonCaption}
+            {saveIcon} {buttonCaption}
           </Button>
-          {cancelable ?
-          <Button
-            onClick={this.cancel}
-            hidden={true}
-          >
-            Cancel
-          </Button> : null}
+          {cancelButton}
           <PreviewButton
             enabled={this.state.previewEnabled}
             togglePreview={this.togglePreview}
@@ -134,6 +146,9 @@ const css = {
   },
   plusIcon: {
     marginRight: "10px",
+  },
+  cancelButton: {
+    marginLeft: "5px",
   },
 }
 
