@@ -17,19 +17,19 @@ Base UI components are from excellent [Elemental UI](http://elemental-ui.com/).
 * Markdown support
 * Emoji support using `:emoji:` syntax :fire:
 * User profile pages
-* Login with Google account
+* Login with Google, Facebook, Github & Twitter accounts
 * Admin tools (delete threads & single posts, lock/unlock threads)
 * CSS-in-JS styled components, fully themeable
 * Dark & light color themes
 * Upvoting single posts
+* Users can edit their own posts
 
 ## Roadmap
 
 * Allowing boards and threads to be bookmarked properly
 * Search using redux-search
 * Image attachment upload to Firebase
-* More social logins (Facebook, Github & Twitter)
-* Allowing users to edit their own thread titles and posts
+* Allowing users to edit their own thread titles
 * Single post linking
 * Show list of available emojis
 * Sticky threads
@@ -46,7 +46,7 @@ Base UI components are from excellent [Elemental UI](http://elemental-ui.com/).
 
 2. Copy and paste `apiKey` from your Firebase app console's `Overview > Add Firebase to your web app` to `src/config.js`
 
-3. Enable `Google` Authentication in your Firebase app console's `Auth > Sign-in method` settings
+3. Enable `Sign-in providers` you want to use in your Firebase app console's `Authentication > Sign-in method` settings
 
 4. Change `projects.default` value to your app name in `.firebaserc`
 
