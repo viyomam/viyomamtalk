@@ -60,7 +60,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "react-icons": "^2.2.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
