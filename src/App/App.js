@@ -50,7 +50,7 @@ class App extends Component {
         />
         <div>
           <TopBar
-            siteName = {siteName || "refire"}
+            siteName = {siteName || "ViyomamTalk"}
             authenticatedUser={authenticatedUser}
             user={user}
             board={board}
