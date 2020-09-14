@@ -1,0 +1,54 @@
+[debug] [2020-09-14T08:09:46.610Z] ----------------------------------------------------------------------
+[debug] [2020-09-14T08:09:46.612Z] Command:       /home/guru/.nvm/versions/node/v10.10.0/bin/node /home/guru/refire-forum/node_modules/.bin/firebase deploy --only hosting
+[debug] [2020-09-14T08:09:46.612Z] CLI Version:   6.12.0
+[debug] [2020-09-14T08:09:46.612Z] Platform:      linux
+[debug] [2020-09-14T08:09:46.612Z] Node Version:  v10.10.0
+[debug] [2020-09-14T08:09:46.613Z] Time:          Mon Sep 14 2020 13:39:46 GMT+0530 (India Standard Time)
+[debug] [2020-09-14T08:09:46.613Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2020-09-14T08:09:46.619Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-14T08:09:46.619Z] > authorizing via signed-in user
+[debug] [2020-09-14T08:09:46.619Z] [iam] checking project viyomamtalk for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-14T08:09:46.621Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/viyomamtalk:testIamPermissions  
+
+[debug] [2020-09-14T08:09:48.052Z] <<< HTTP RESPONSE 200
+[debug] [2020-09-14T08:09:48.056Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/viyomamtalk  
+ 
+[debug] [2020-09-14T08:09:48.558Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'viyomamtalk'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-09-14T08:09:48.569Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/viyomamtalk/versions  
+
+[debug] [2020-09-14T08:09:50.401Z] <<< HTTP RESPONSE 200
+[info] i  hosting[viyomamtalk]: beginning deploy...
+[info] i  hosting[viyomamtalk]: found 5 files in dist
+[debug] [2020-09-14T08:09:50.421Z] [hosting] hash cache [ZGlzdA] load error: lines is not defined
+[debug] [2020-09-14T08:09:51.871Z] [hosting] hash cache [ZGlzdA] stored for 5 files
+[debug] [2020-09-14T08:09:51.872Z] [hosting][hash queue][FINAL]
+[debug] [2020-09-14T08:09:51.872Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/viyomamtalk/versions/3a608b449461a2b8:populateFiles  
+ <request body omitted>
+[debug] [2020-09-14T08:09:53.466Z] <<< HTTP RESPONSE 200
+[debug] [2020-09-14T08:09:53.472Z] [hosting][populate queue][FINAL]
+[debug] [2020-09-14T08:09:53.472Z] [hosting] uploads queued: 3
+[debug] [2020-09-14T08:10:23.891Z] [uploadQueue] Retrying task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5
+[debug] [2020-09-14T08:10:39.149Z] [uploadQueue] Retrying task e6ae8eb28c7416de8a7134d080c35db92d8dafa2c398ee3b284e356941d0bb33
+[debug] [2020-09-14T08:10:54.697Z] [uploadQueue] Retrying task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5
+[debug] [2020-09-14T08:11:25.221Z] [uploadQueue] Retrying task e6ae8eb28c7416de8a7134d080c35db92d8dafa2c398ee3b284e356941d0bb33
+[debug] [2020-09-14T08:11:26.304Z] [uploadQueue] Retrying task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5
+[debug] [2020-09-14T08:11:59.508Z] [uploadQueue] Retrying task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5
+[debug] [2020-09-14T08:12:03.296Z] [uploadQueue] Retrying task 3fc7746f12e71b93d889e1dce275b2abc371b248d9188648fad470f8d86296b5
+[debug] [2020-09-14T08:12:12.090Z] [uploadQueue] Retrying task e6ae8eb28c7416de8a7134d080c35db92d8dafa2c398ee3b284e356941d0bb33
+[debug] [2020-09-14T08:12:35.914Z] [uploadQueue] Retrying task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5
+[debug] [2020-09-14T08:13:00.561Z] [uploadQueue] Retrying task e6ae8eb28c7416de8a7134d080c35db92d8dafa2c398ee3b284e356941d0bb33
+[debug] [2020-09-14T08:13:05.917Z] [uploadQueue] Retries exhausted for task 9b23cf49d05ef844e72b60a64164abb9e4e91fcffb0756d702018f6e70161cd5:
+[debug] [2020-09-14T08:13:05.918Z] [hosting][upload queue][FINAL]
+[debug] [2020-09-14T08:13:06.170Z] Error: ETIMEDOUT
+    at Timeout.<anonymous> (/home/guru/refire-forum/node_modules/request/request.js:848:19)
+    at ontimeout (timers.js:425:11)
+    at tryOnTimeout (timers.js:289:5)
+    at listOnTimeout (timers.js:252:5)
+    at Timer.processTimers (timers.js:212:10)
+[error] 
+[error] Error: An unexpected error has occurred.
